@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rajeev SDK — Vanilla Web Demo</title>
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-hover: #4338ca;
+        --bg: #f9fafb;
+        --surface: #ffffff;
+        --border: #e5e7eb;
+        --text: #111827;
+        --text-secondary: #6b7280;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --error: #ef4444;
+        --log-bg: #1e1e2e;
+        --log-text: #a5f3fc;
+        --radius: 8px;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      /* ── Top Nav ── */
+      .topnav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 56px;
+        background: var(--primary);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        font-size: 18px;
+        font-weight: 600;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      /* ── Tab Bar ── */
+      .tab-bar {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        overflow-x: auto;
+        z-index: 99;
+        padding: 0 12px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .tab-bar::-webkit-scrollbar {
+        height: 3px;
+      }
+      .tab-bar::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 2px;
+      }
+      .tab-btn {
+        flex-shrink: 0;
+        padding: 10px 16px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        border-bottom: 3px solid transparent;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .tab-btn:hover {
+        color: var(--primary);
+      }
+      .tab-btn.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+      }
+
+      /* ── Content ── */
+      .content {
+        margin-top: 108px;
+        padding: 20px 24px 40px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .demo-section {
+        display: none;
+      }
+      .demo-section.active {
+        display: block;
+      }
+      .demo-section h2 {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+      .demo-section .desc {
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+
+      /* ── Buttons ── */
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: var(--radius);
+        background: var(--primary);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .btn:hover {
+        background: var(--primary-hover);
+      }
+
+      /* ── Log ── */
+      .log-box {
+        background: var(--log-bg);
+        color: var(--log-text);
+        font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+        font-size: 12.5px;
+        line-height: 1.6;
+        padding: 14px;
+        border-radius: var(--radius);
+        max-height: 300px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      /* ── Card ── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 20px;
+      }
+
+      @media (max-width: 600px) {
+        .content {
+          padding: 16px 12px 32px;
+        }
+        .tab-btn {
+          padding: 8px 12px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topnav">Rajeev SDK — Vanilla Web Demo</div>
+
+    <div class="tab-bar" id="tabBar"></div>
+
+    <div class="content" id="content"></div>
+
+    <script>
+      /* ──────────────────── Demo Definitions ──────────────────── */
+      const demos = [
+        {
+          id: "vault",
+          icon: "🔐",
+          name: "Vault",
+          desc: "Secure on-device storage powered by Rust (AES-256-GCM).",
+          actions: [
+            [
+              "Create Vault",
+              () =>
+                L(
+                  "vault",
+                  'vault.create({ namespace: "default", encryption: "aes-256-gcm" })\n✅ Vault created',
+                ),
+            ],
+            [
+              "Set Key",
+              () =>
+                L(
+                  "vault",
+                  'vault.set("auth_token", "eyJhbG...kpXV")\n✅ Stored securely',
+                ),
+            ],
+            [
+              "Get Key",
+              () => L("vault", 'vault.get("auth_token")\n→ "eyJhbG...kpXV"'),
+            ],
+            [
+              "Namespaces",
+              () =>
+                L(
+                  "vault",
+                  'vault.listNamespaces()\n→ ["default", "user_prefs", "session"]',
+                ),
+            ],
+            [
+              "Hash Data",
+              () =>
+                L(
+                  "vault",
+                  'vault.hash("password123", "argon2id")\n→ "$argon2id$v=19$m=65536,t=3,p=4$...abc"',
+                ),
+            ],
+            [
+              "Key Gen",
+              () =>
+                L(
+                  "vault",
+                  'vault.generateKey({ bits: 256, type: "symmetric" })\n→ "k_9f8e7d6c5b4a..."',
+                ),
+            ],
+            [
+              "Set Expiry",
+              () =>
+                L(
+                  "vault",
+                  'vault.setExpiry("auth_token", 3600)\n✅ Key expires in 1 hour',
+                ),
+            ],
+            [
+              "Wipe Vault",
+              () => L("vault", "vault.wipeAll()\n🗑️ All keys destroyed"),
+            ],
+          ],
+        },
+        {
+          id: "network",
+          icon: "🌐",
+          name: "Network",
+          desc: "Connectivity detection, priority queue & offline cache.",
+          actions: [
+            [
+              "Check Connectivity",
+              () =>
+                L(
+                  "network",
+                  'network.getStatus()\n→ { online: true, type: "4g", downlink: 8.5 }',
+                ),
+            ],
+            [
+              "Enqueue (high)",
+              () =>
+                L(
+                  "network",
+                  'network.enqueue({ url: "/api/sync", priority: "high", payload: {…} })\n✅ Queued at position #1',
+                ),
+            ],
+            [
+              "Enqueue (low)",
+              () =>
+                L(
+                  "network",
+                  'network.enqueue({ url: "/api/analytics", priority: "low" })\n✅ Queued at position #4',
+                ),
+            ],
+            [
+              "Flush Queue",
+              () =>
+                L("network", "network.flush()\n→ Sent 4 requests, 0 failed"),
+            ],
+            [
+              "Cache Response",
+              () =>
+                L(
+                  "network",
+                  'network.cache("/api/products", data, { ttl: 600 })\n✅ Cached for 10 min',
+                ),
+            ],
+            [
+              "Compression",
+              () =>
+                L(
+                  "network",
+                  "network.compress(payload)\n→ 2.4 KB → 0.8 KB (67% reduction)",
+                ),
+            ],
+          ],
+        },
+        {
+          id: "locale",
+          icon: "🌍",
+          name: "Locale",
+          desc: "Translations, currency formatting & script support.",
+          actions: [
+            [
+              "Translate → Hindi",
+              () => L("locale", 'locale.t("Good morning", "hi")\n→ "सुप्रभात"'),
+            ],
+            [
+              "Translate → Tamil",
+              () =>
+                L("locale", 'locale.t("Good morning", "ta")\n→ "காலை வணக்கம்"'),
+            ],
+            [
+              "Translate → Telugu",
+              () => L("locale", 'locale.t("Good morning", "te")\n→ "శుభోదయం"'),
+            ],
+            [
+              "Format INR",
+              () =>
+                L(
+                  "locale",
+                  'locale.formatCurrency(249999, "INR")\n→ "₹2,49,999.00"',
+                ),
+            ],
+            [
+              "Devanagari Digits",
+              () =>
+                L(
+                  "locale",
+                  'locale.toScript("12345", "Devanagari")\n→ "१२३४५"',
+                ),
+            ],
+            [
+              "Transliterate",
+              () =>
+                L(
+                  "locale",
+                  'locale.transliterate("namaste", "hi-Latn", "hi-Deva")\n→ "नमस्ते"',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "sync",
+          icon: "🔄",
+          name: "Sync",
+          desc: "Offline-first CRDT merge with Hybrid Logical Clocks.",
+          actions: [
+            [
+              "Create Doc",
+              () =>
+                L(
+                  "sync",
+                  'sync.createDoc("order-7291")\n✅ CRDT doc created (HLC: 2026-02-08T10:00:00.000Z-0001)',
+                ),
+            ],
+            [
+              "Set Fields",
+              () =>
+                L(
+                  "sync",
+                  'doc.set("status", "confirmed")\ndoc.set("items", ["Dosa", "Coffee"])\n✅ 2 fields updated',
+                ),
+            ],
+            [
+              "Merge Remote",
+              () =>
+                L(
+                  "sync",
+                  "sync.merge(localDoc, remoteDoc)\n→ Merged cleanly, 0 conflicts",
+                ),
+            ],
+            [
+              "Show HLC",
+              () => L("sync", "sync.hlcNow()\n→ 2026-02-08T10:05:23.417Z-0003"),
+            ],
+            [
+              "Diff",
+              () =>
+                L(
+                  "sync",
+                  'sync.diff(v1, v2)\n→ { changed: ["status"], added: ["items"], removed: [] }',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "notify",
+          icon: "🔔",
+          name: "Notify",
+          desc: "Local notifications, reminders & quiet hours.",
+          actions: [
+            [
+              "Schedule (5 min)",
+              () =>
+                L(
+                  "notify",
+                  'notify.schedule({ title: "Order Ready", body: "Pickup from counter 3", delay: 300 })\n✅ Scheduled for 10:35 AM',
+                ),
+            ],
+            [
+              "Schedule (1 hr)",
+              () =>
+                L(
+                  "notify",
+                  'notify.schedule({ title: "Medicine", body: "Take evening dose", delay: 3600 })\n✅ Scheduled for 11:30 AM',
+                ),
+            ],
+            [
+              "Quiet Hours",
+              () =>
+                L(
+                  "notify",
+                  'notify.setQuietHours({ start: "22:00", end: "07:00" })\n✅ Quiet 10 PM – 7 AM',
+                ),
+            ],
+            [
+              "Inbox",
+              () => L("notify", "notify.inbox()\n→ 3 notifications (1 unread)"),
+            ],
+            [
+              "Mark Read",
+              () =>
+                L("notify", 'notify.markRead("notif_abc")\n✅ Marked as read'),
+            ],
+          ],
+        },
+        {
+          id: "ui",
+          icon: "🎨",
+          name: "UI Tokens",
+          desc: "Design tokens: colors, spacing, typography & device info.",
+          actions: [
+            [
+              "Color Palette",
+              () =>
+                L(
+                  "ui",
+                  "ui.colors()\n→ primary: #4F46E5\n→ success: #10B981\n→ warning: #F59E0B\n→ error:   #EF4444\n→ surface: #F3F4F6\n→ text:    #111827",
+                ),
+            ],
+            [
+              "Spacing Scale",
+              () =>
+                L(
+                  "ui",
+                  "ui.spacing()\n→ xs: 4px | sm: 8px | md: 16px | lg: 24px | xl: 32px | 2xl: 48px",
+                ),
+            ],
+            [
+              "Typography",
+              () =>
+                L(
+                  "ui",
+                  "ui.typography()\n→ heading: 24px/700 | body: 16px/400 | caption: 12px/500",
+                ),
+            ],
+            [
+              "Device Detect",
+              () =>
+                L(
+                  "ui",
+                  'ui.device()\n→ { platform: "web", screen: "' +
+                    screen.width +
+                    "×" +
+                    screen.height +
+                    '", dpr: ' +
+                    devicePixelRatio +
+                    ", touch: " +
+                    ("ontouchstart" in window) +
+                    " }",
+                ),
+            ],
+          ],
+        },
+        {
+          id: "auth",
+          icon: "🛡️",
+          name: "Auth",
+          desc: "OTP login, session management & provider list.",
+          actions: [
+            [
+              "Send OTP",
+              () =>
+                L(
+                  "auth",
+                  'auth.sendOTP({ phone: "+91-98765-43210", channel: "sms" })\n✅ OTP sent (expires in 5 min)',
+                ),
+            ],
+            [
+              "Verify OTP",
+              () =>
+                L(
+                  "auth",
+                  'auth.verifyOTP({ phone: "+91-98765-43210", code: "4829" })\n✅ Verified — session created',
+                ),
+            ],
+            [
+              "Session Info",
+              () =>
+                L(
+                  "auth",
+                  'auth.session()\n→ { userId: "u_8x3k", name: "Rajeev", expiresIn: "23 hr 47 min" }',
+                ),
+            ],
+            [
+              "Providers",
+              () =>
+                L(
+                  "auth",
+                  'auth.listProviders()\n→ ["phone_otp", "google", "apple", "email_magic_link"]',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "payments",
+          icon: "💳",
+          name: "Payments",
+          desc: "UPI, card detection & wallet integration.",
+          actions: [
+            [
+              "Generate UPI URI",
+              () =>
+                L(
+                  "payments",
+                  'payments.upiURI({ vpa: "merchant@upi", amount: 499, note: "Order #102" })\n→ "upi://pay?pa=merchant@upi&am=499&tn=Order%20%23102"',
+                ),
+            ],
+            [
+              "Validate VPA",
+              () =>
+                L(
+                  "payments",
+                  'payments.validateVPA("rajeev@okicici")\n→ { valid: true, name: "Rajeev J" }',
+                ),
+            ],
+            [
+              "Detect Card",
+              () =>
+                L(
+                  "payments",
+                  'payments.detectCard("4111111111111111")\n→ { network: "Visa", type: "credit", bank: "HDFC" }',
+                ),
+            ],
+            [
+              "List Wallets",
+              () =>
+                L(
+                  "payments",
+                  'payments.wallets()\n→ ["Paytm", "PhonePe", "GPay", "Amazon Pay"]',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "camera",
+          icon: "📷",
+          name: "Camera",
+          desc: "Capture, filters & manual adjustments.",
+          actions: [
+            [
+              "Flip Camera",
+              () => L("camera", "camera.flip()\n→ Now using: front camera"),
+            ],
+            [
+              "Set Mode",
+              () =>
+                L(
+                  "camera",
+                  'camera.setMode("portrait")\n✅ Portrait mode enabled (f/1.8 simulated)',
+                ),
+            ],
+            ["Toggle HDR", () => L("camera", "camera.toggleHDR()\n→ HDR: ON")],
+            [
+              "Capture",
+              () =>
+                L(
+                  "camera",
+                  "camera.capture()\n✅ Photo saved: IMG_20260208_103045.heic (4.2 MB)",
+                ),
+            ],
+            [
+              "Apply Filter",
+              () =>
+                L(
+                  "camera",
+                  'camera.applyFilter("warm_tone")\n✅ Filter applied: Warm Tone',
+                ),
+            ],
+            [
+              "Adjust",
+              () =>
+                L(
+                  "camera",
+                  "camera.adjust({ brightness: 0.1, contrast: 0.05, saturation: -0.1 })\n✅ Adjustments applied",
+                ),
+            ],
+            [
+              "Undo",
+              () => L("camera", "camera.undo()\n↩️ Reverted last adjustment"),
+            ],
+          ],
+        },
+        {
+          id: "deeplink",
+          icon: "🔗",
+          name: "Deep Link",
+          desc: "Route handling, URL parsing & link generation.",
+          actions: [
+            [
+              "Init Router",
+              () =>
+                L(
+                  "deeplink",
+                  'deeplink.init({\n  routes: {\n    "/product/:id": "ProductScreen",\n    "/order/:id":   "OrderScreen",\n    "/refer":       "ReferralScreen"\n  }\n})\n✅ Router initialized with 3 routes',
+                ),
+            ],
+            [
+              "Handle URL",
+              () =>
+                L(
+                  "deeplink",
+                  'deeplink.handle("https://app.rajeev.dev/product/42?ref=home")\n→ { screen: "ProductScreen", params: { id: "42" }, query: { ref: "home" } }',
+                ),
+            ],
+            [
+              "Generate Link",
+              () =>
+                L(
+                  "deeplink",
+                  'deeplink.generate("ProductScreen", { id: "42" })\n→ "https://app.rajeev.dev/product/42"',
+                ),
+            ],
+            [
+              "Deferred Link",
+              () =>
+                L(
+                  "deeplink",
+                  'deeplink.deferred()\n→ { pending: true, url: "/refer?code=RAJEEV20", installedVia: "play_store" }',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "document",
+          icon: "📄",
+          name: "Document",
+          desc: "File picker, PDF annotation & stamping.",
+          actions: [
+            [
+              "Pick File",
+              () =>
+                L(
+                  "document",
+                  'document.pick({ types: ["pdf","docx","jpg"], maxSize: "10MB" })\n→ { name: "invoice.pdf", size: "1.2 MB", pages: 3 }',
+                ),
+            ],
+            [
+              "Highlight PDF",
+              () =>
+                L(
+                  "document",
+                  'document.highlight({ page: 1, rect: [100,200,400,220], color: "#FDE68A" })\n✅ Yellow highlight added on page 1',
+                ),
+            ],
+            [
+              "Add Stamp",
+              () =>
+                L(
+                  "document",
+                  'document.stamp({ text: "APPROVED", page: 1, position: "top-right", color: "#10B981" })\n✅ Stamp applied',
+                ),
+            ],
+            [
+              "Add Signature",
+              () =>
+                L(
+                  "document",
+                  'document.sign({ page: 3, position: "bottom-right", signer: "Rajeev J" })\n✅ Digital signature applied',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "edgeai",
+          icon: "🤖",
+          name: "Edge AI",
+          desc: "On-device ML: ID detection, text extraction & voice.",
+          actions: [
+            [
+              "Detect Aadhaar",
+              () =>
+                L(
+                  "edgeai",
+                  'edgeai.detect("aadhaar", imageBlob)\n→ { found: true, confidence: 0.97, bbox: [42,110,580,380] }',
+                ),
+            ],
+            [
+              "Extract PAN",
+              () =>
+                L(
+                  "edgeai",
+                  'edgeai.extractText("pan_card", imageBlob)\n→ { pan: "ABCDE1234F", name: "RAJEEV JOSHI", dob: "15/08/1995" }',
+                ),
+            ],
+            [
+              "Validate Doc",
+              () =>
+                L(
+                  "edgeai",
+                  'edgeai.validate("aadhaar", { number: "1234-5678-9012" })\n→ { valid: true, checksum: "pass" }',
+                ),
+            ],
+            [
+              "Voice Intent",
+              () =>
+                L(
+                  "edgeai",
+                  'edgeai.voiceIntent(audioBlob)\n→ { intent: "pay", entity: "₹500 to Amit", confidence: 0.92, lang: "hi-en" }',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "media",
+          icon: "🎬",
+          name: "Media",
+          desc: "Video playback, quality, PiP & offline downloads.",
+          actions: [
+            [
+              "Load Video",
+              () =>
+                L(
+                  "media",
+                  'media.load("https://cdn.example.com/video.m3u8")\n✅ HLS stream loaded (1080p available)',
+                ),
+            ],
+            [
+              "Play / Pause",
+              () => L("media", "media.togglePlay()\n→ Playing at 00:00:32"),
+            ],
+            ["Seek", () => L("media", "media.seek(120)\n→ Seeked to 00:02:00")],
+            [
+              "Quality",
+              () =>
+                L(
+                  "media",
+                  'media.setQuality("720p")\n✅ Switched to 720p (saving bandwidth)',
+                ),
+            ],
+            [
+              "PiP",
+              () =>
+                L("media", "media.pip(true)\n✅ Picture-in-Picture activated"),
+            ],
+            [
+              "Download",
+              () =>
+                L(
+                  "media",
+                  'media.download({ quality: "480p", title: "Lecture 5" })\n⬇️ Downloading… 0% → queued for offline',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "videoeditor",
+          icon: "🎞️",
+          name: "Video Editor",
+          desc: "Timeline editing, transitions, filters & export.",
+          actions: [
+            [
+              "Add Clip",
+              () =>
+                L(
+                  "videoeditor",
+                  'editor.addClip({ src: "clip1.mp4", start: 0, end: 15 })\n✅ Clip added to timeline (15s)',
+                ),
+            ],
+            [
+              "Split at 8s",
+              () =>
+                L(
+                  "videoeditor",
+                  "editor.split(8.0)\n✂️ Split into 2 segments: [0–8s] [8–15s]",
+                ),
+            ],
+            [
+              "Add Transition",
+              () =>
+                L(
+                  "videoeditor",
+                  'editor.transition("crossfade", { duration: 0.5 })\n✅ Crossfade (0.5s) between segments',
+                ),
+            ],
+            [
+              "Apply Filter",
+              () =>
+                L(
+                  "videoeditor",
+                  'editor.filter("cinematic_warm")\n✅ Filter "Cinematic Warm" applied to all clips',
+                ),
+            ],
+            [
+              "Export",
+              () =>
+                L(
+                  "videoeditor",
+                  'editor.export({ format: "mp4", quality: "1080p" })\n⏳ Exporting… 0%\n✅ Exported: output_final.mp4 (24 MB)',
+                ),
+            ],
+          ],
+        },
+        {
+          id: "appshell",
+          icon: "🏗️",
+          name: "App Shell",
+          desc: "API client, cart with GST, feature flags & ID validation.",
+          actions: [
+            [
+              "API Request",
+              () =>
+                L(
+                  "appshell",
+                  'appShell.api({ method: "GET", url: "/api/v1/products", headers: { "X-App": "rajeev" } })\n→ 200 OK — 42 products loaded (128ms)',
+                ),
+            ],
+            [
+              "Add to Cart",
+              () =>
+                L(
+                  "appshell",
+                  'appShell.cart.add({ name: "Wireless Earbuds", price: 1999, qty: 1 })\n🛒 Cart: 1 item | Subtotal: ₹1,999.00',
+                ),
+            ],
+            [
+              "Apply GST",
+              () =>
+                L(
+                  "appshell",
+                  "appShell.cart.applyGST(18)\n→ Subtotal: ₹1,999.00\n→ GST (18%): ₹359.82\n→ Total: ₹2,358.82",
+                ),
+            ],
+            [
+              "Feature Flag",
+              () =>
+                L(
+                  "appshell",
+                  'appShell.flag("new_checkout_flow")\n→ { enabled: true, variant: "B", rollout: 45 }',
+                ),
+            ],
+            [
+              "Validate Aadhaar",
+              () =>
+                L(
+                  "appshell",
+                  'appShell.validate.aadhaar("1234-5678-9012")\n→ { valid: true, formatted: "1234 5678 9012" }',
+                ),
+            ],
+            [
+              "Validate PAN",
+              () =>
+                L(
+                  "appshell",
+                  'appShell.validate.pan("ABCDE1234F")\n→ { valid: true, type: "Individual" }',
+                ),
+            ],
+          ],
+        },
+      ];
+
+      /* ──────────────────── Render ──────────────────── */
+      const tabBar = document.getElementById("tabBar");
+      const content = document.getElementById("content");
+      const logs = {};
+
+      demos.forEach((d, i) => {
+        /* Tab button */
+        const btn = document.createElement("button");
+        btn.className = "tab-btn" + (i === 0 ? " active" : "");
+        btn.textContent = d.icon + " " + d.name;
+        btn.onclick = () => switchTab(d.id);
+        btn.dataset.tab = d.id;
+        tabBar.appendChild(btn);
+
+        /* Section */
+        const sec = document.createElement("div");
+        sec.className = "demo-section card" + (i === 0 ? " active" : "");
+        sec.id = "demo-" + d.id;
+
+        const h2 = document.createElement("h2");
+        h2.textContent = d.icon + " " + d.name;
+        sec.appendChild(h2);
+
+        const desc = document.createElement("p");
+        desc.className = "desc";
+        desc.textContent = d.desc;
+        sec.appendChild(desc);
+
+        const actions = document.createElement("div");
+        actions.className = "actions";
+        d.actions.forEach(([label, fn]) => {
+          const b = document.createElement("button");
+          b.className = "btn";
+          b.textContent = label;
+          b.onclick = fn;
+          actions.appendChild(b);
+        });
+        sec.appendChild(actions);
+
+        const logBox = document.createElement("div");
+        logBox.className = "log-box";
+        logBox.id = "log-" + d.id;
+        logBox.textContent = "// Output will appear here…";
+        sec.appendChild(logBox);
+
+        content.appendChild(sec);
+        logs[d.id] = [];
+      });
+
+      /* ──────────────────── Logic ──────────────────── */
+      function switchTab(id) {
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.toggle("active", b.dataset.tab === id));
+        document
+          .querySelectorAll(".demo-section")
+          .forEach((s) => s.classList.toggle("active", s.id === "demo-" + id));
+      }
+
+      function L(id, msg) {
+        const ts = new Date().toLocaleTimeString("en-IN", { hour12: false });
+        logs[id].push("[" + ts + "] " + msg);
+        const box = document.getElementById("log-" + id);
+        box.textContent = logs[id].join("\n");
+        box.scrollTop = box.scrollHeight;
+      }
+    </script>
+  </body>
+</html>
