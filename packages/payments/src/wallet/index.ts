@@ -3,13 +3,19 @@
  * Abstraction over PhonePe, Paytm, Amazon Pay, Freecharge wallets
  */
 
-export type WalletProvider = 'paytm' | 'phonepe' | 'amazon_pay' | 'freecharge' | 'mobikwik' | 'jio_pay';
+export type WalletProvider =
+  | "paytm"
+  | "phonepe"
+  | "amazon_pay"
+  | "freecharge"
+  | "mobikwik"
+  | "jio_pay";
 
 export interface WalletConfig {
   provider: WalletProvider;
   merchantId: string;
   merchantKey?: string;
-  environment: 'sandbox' | 'production';
+  environment: "sandbox" | "production";
   callbackUrl: string;
 }
 
@@ -27,7 +33,7 @@ export interface WalletPaymentResult {
   provider: WalletProvider;
   txnId?: string;
   orderId: string;
-  status: 'success' | 'failed' | 'pending' | 'cancelled';
+  status: "success" | "failed" | "pending" | "cancelled";
   walletBalance?: number;
   error?: string;
 }
@@ -54,7 +60,10 @@ export class WalletManager {
   }
 
   /** Generate checkout URL/payload for a wallet */
-  generateCheckout(provider: WalletProvider, request: WalletPaymentRequest): Record<string, unknown> | null {
+  generateCheckout(
+    provider: WalletProvider,
+    request: WalletPaymentRequest,
+  ): Record<string, unknown> | null {
     const config = this.configs.get(provider);
     if (!config) return null;
 

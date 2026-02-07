@@ -3,7 +3,7 @@
  * Multi-track timeline with clips, trim, split, reorder, layers
  */
 
-export type TrackType = 'video' | 'audio' | 'overlay' | 'text' | 'sticker';
+export type TrackType = "video" | "audio" | "overlay" | "text" | "sticker";
 
 export interface VideoClip {
   id: string;
@@ -57,7 +57,17 @@ export interface TextClip {
   animation?: TextAnimation;
 }
 
-export type TextAnimation = 'none' | 'fade_in' | 'fade_out' | 'slide_in_left' | 'slide_in_right' | 'slide_in_bottom' | 'typewriter' | 'bounce' | 'zoom_in' | 'scale_up';
+export type TextAnimation =
+  | "none"
+  | "fade_in"
+  | "fade_out"
+  | "slide_in_left"
+  | "slide_in_right"
+  | "slide_in_bottom"
+  | "typewriter"
+  | "bounce"
+  | "zoom_in"
+  | "scale_up";
 
 export interface StickerClip {
   id: string;
@@ -67,10 +77,24 @@ export interface StickerClip {
   rotation: number;
   timelineStartMs: number;
   durationMs: number;
-  animation?: 'none' | 'bounce' | 'spin' | 'pulse' | 'shake';
+  animation?: "none" | "bounce" | "spin" | "pulse" | "shake";
 }
 
-export type TransitionType = 'none' | 'crossfade' | 'slide_left' | 'slide_right' | 'slide_up' | 'slide_down' | 'zoom_in' | 'zoom_out' | 'spin' | 'blur' | 'wipe_left' | 'wipe_right' | 'dissolve' | 'glitch';
+export type TransitionType =
+  | "none"
+  | "crossfade"
+  | "slide_left"
+  | "slide_right"
+  | "slide_up"
+  | "slide_down"
+  | "zoom_in"
+  | "zoom_out"
+  | "spin"
+  | "blur"
+  | "wipe_left"
+  | "wipe_right"
+  | "dissolve"
+  | "glitch";
 
 export interface Transition {
   id: string;
@@ -94,32 +118,44 @@ export class VideoTimeline {
   private listeners: Set<(event: TimelineEvent) => void> = new Set();
 
   /** Add a video clip */
-  addVideoClip(clip: Omit<VideoClip, 'id' | 'timelineStartMs'>): string {
+  addVideoClip(clip: Omit<VideoClip, "id" | "timelineStartMs">): string {
     const id = `vclip_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`;
     const timelineStartMs = this.getTotalDuration();
-    const fullClip: VideoClip = { ...clip, id, timelineStartMs, speed: clip.speed ?? 1, muted: clip.muted ?? false, volume: clip.volume ?? 1 };
+    const fullClip: VideoClip = {
+      ...clip,
+      id,
+      timelineStartMs,
+      speed: clip.speed ?? 1,
+      muted: clip.muted ?? false,
+      volume: clip.volume ?? 1,
+    };
     this.videoClips.push(fullClip);
-    this.emit({ type: 'clip_added', clipId: id, trackType: 'video' });
+    this.emit({ type: "clip_added", clipId: id, trackType: "video" });
     return id;
   }
 
   /** Add an audio track */
-  addAudioClip(clip: Omit<AudioClip, 'id'>): string {
+  addAudioClip(clip: Omit<AudioClip, "id">): string {
     const id = `aclip_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`;
-    this.audioClips.push({ ...clip, id, fadeInMs: clip.fadeInMs ?? 0, fadeOutMs: clip.fadeOutMs ?? 0 });
-    this.emit({ type: 'clip_added', clipId: id, trackType: 'audio' });
+    this.audioClips.push({
+      ...clip,
+      id,
+      fadeInMs: clip.fadeInMs ?? 0,
+      fadeOutMs: clip.fadeOutMs ?? 0,
+    });
+    this.emit({ type: "clip_added", clipId: id, trackType: "audio" });
     return id;
   }
 
   /** Add text overlay */
-  addTextClip(clip: Omit<TextClip, 'id'>): string {
+  addTextClip(clip: Omit<TextClip, "id">): string {
     const id = `tclip_${Date.now()}`;
     this.textClips.push({ ...clip, id });
     return id;
   }
 
   /** Add sticker overlay */
-  addStickerClip(clip: Omit<StickerClip, 'id'>): string {
+  addStickerClip(clip: Omit<StickerClip, "id">): string {
     const id = `sclip_${Date.now()}`;
     this.stickerClips.push({ ...clip, id });
     return id;
@@ -127,27 +163,30 @@ export class VideoTimeline {
 
   /** Trim a video clip */
   trimClip(clipId: string, newStartMs: number, newEndMs: number): boolean {
-    const clip = this.videoClips.find(c => c.id === clipId);
+    const clip = this.videoClips.find((c) => c.id === clipId);
     if (!clip) return false;
     clip.sourceStartMs = newStartMs;
     clip.sourceEndMs = newEndMs;
     clip.durationMs = (newEndMs - newStartMs) / clip.speed;
     this.recalculateTimeline();
-    this.emit({ type: 'clip_trimmed', clipId });
+    this.emit({ type: "clip_trimmed", clipId });
     return true;
   }
 
   /** Split a clip at a given time */
   splitClip(clipId: string, atTimeMs: number): string | null {
-    const idx = this.videoClips.findIndex(c => c.id === clipId);
+    const idx = this.videoClips.findIndex((c) => c.id === clipId);
     if (idx < 0) return null;
     const clip = this.videoClips[idx];
-    const splitPoint = clip.sourceStartMs + (atTimeMs - clip.timelineStartMs) * clip.speed;
-    if (splitPoint <= clip.sourceStartMs || splitPoint >= clip.sourceEndMs) return null;
+    const splitPoint =
+      clip.sourceStartMs + (atTimeMs - clip.timelineStartMs) * clip.speed;
+    if (splitPoint <= clip.sourceStartMs || splitPoint >= clip.sourceEndMs)
+      return null;
 
     const newClipId = `vclip_${Date.now()}`;
     const newClip: VideoClip = {
-      ...clip, id: newClipId,
+      ...clip,
+      id: newClipId,
       sourceStartMs: splitPoint,
       timelineStartMs: atTimeMs,
       durationMs: (clip.sourceEndMs - splitPoint) / clip.speed,
@@ -157,26 +196,30 @@ export class VideoTimeline {
 
     this.videoClips.splice(idx + 1, 0, newClip);
     this.recalculateTimeline();
-    this.emit({ type: 'clip_split', clipId, newClipId });
+    this.emit({ type: "clip_split", clipId, newClipId });
     return newClipId;
   }
 
   /** Remove a clip */
   removeClip(clipId: string): boolean {
     const before = this.videoClips.length + this.audioClips.length;
-    this.videoClips = this.videoClips.filter(c => c.id !== clipId);
-    this.audioClips = this.audioClips.filter(c => c.id !== clipId);
-    this.textClips = this.textClips.filter(c => c.id !== clipId);
-    this.stickerClips = this.stickerClips.filter(c => c.id !== clipId);
-    const removed = (this.videoClips.length + this.audioClips.length) < before;
-    if (removed) { this.recalculateTimeline(); this.emit({ type: 'clip_removed', clipId }); }
+    this.videoClips = this.videoClips.filter((c) => c.id !== clipId);
+    this.audioClips = this.audioClips.filter((c) => c.id !== clipId);
+    this.textClips = this.textClips.filter((c) => c.id !== clipId);
+    this.stickerClips = this.stickerClips.filter((c) => c.id !== clipId);
+    const removed = this.videoClips.length + this.audioClips.length < before;
+    if (removed) {
+      this.recalculateTimeline();
+      this.emit({ type: "clip_removed", clipId });
+    }
     return removed;
   }
 
   /** Reorder video clips */
   reorderClip(clipId: string, newIndex: number): boolean {
-    const idx = this.videoClips.findIndex(c => c.id === clipId);
-    if (idx < 0 || newIndex < 0 || newIndex >= this.videoClips.length) return false;
+    const idx = this.videoClips.findIndex((c) => c.id === clipId);
+    if (idx < 0 || newIndex < 0 || newIndex >= this.videoClips.length)
+      return false;
     const [clip] = this.videoClips.splice(idx, 1);
     this.videoClips.splice(newIndex, 0, clip);
     this.recalculateTimeline();
@@ -185,7 +228,7 @@ export class VideoTimeline {
 
   /** Set clip speed */
   setClipSpeed(clipId: string, speed: number): void {
-    const clip = this.videoClips.find(c => c.id === clipId);
+    const clip = this.videoClips.find((c) => c.id === clipId);
     if (clip) {
       clip.speed = Math.max(0.1, Math.min(8, speed));
       clip.durationMs = (clip.sourceEndMs - clip.sourceStartMs) / clip.speed;
@@ -194,7 +237,12 @@ export class VideoTimeline {
   }
 
   /** Add transition between clips */
-  addTransition(fromClipId: string, toClipId: string, type: TransitionType, durationMs: number = 500): string {
+  addTransition(
+    fromClipId: string,
+    toClipId: string,
+    type: TransitionType,
+    durationMs: number = 500,
+  ): string {
     const id = `trans_${Date.now()}`;
     this.transitions.push({ id, type, durationMs, fromClipId, toClipId });
     return id;
@@ -208,20 +256,36 @@ export class VideoTimeline {
   }
 
   /** Seek to position */
-  seek(timeMs: number): void { this.currentTimeMs = Math.max(0, Math.min(timeMs, this.getTotalDuration())); }
+  seek(timeMs: number): void {
+    this.currentTimeMs = Math.max(0, Math.min(timeMs, this.getTotalDuration()));
+  }
 
   /** Get current time */
-  getCurrentTime(): number { return this.currentTimeMs; }
+  getCurrentTime(): number {
+    return this.currentTimeMs;
+  }
 
   /** Get all clips */
-  getVideoClips(): VideoClip[] { return [...this.videoClips]; }
-  getAudioClips(): AudioClip[] { return [...this.audioClips]; }
-  getTextClips(): TextClip[] { return [...this.textClips]; }
-  getStickerClips(): StickerClip[] { return [...this.stickerClips]; }
-  getTransitions(): Transition[] { return [...this.transitions]; }
+  getVideoClips(): VideoClip[] {
+    return [...this.videoClips];
+  }
+  getAudioClips(): AudioClip[] {
+    return [...this.audioClips];
+  }
+  getTextClips(): TextClip[] {
+    return [...this.textClips];
+  }
+  getStickerClips(): StickerClip[] {
+    return [...this.stickerClips];
+  }
+  getTransitions(): Transition[] {
+    return [...this.transitions];
+  }
 
   /** Get clip count */
-  getClipCount(): number { return this.videoClips.length + this.audioClips.length; }
+  getClipCount(): number {
+    return this.videoClips.length + this.audioClips.length;
+  }
 
   /** Subscribe to events */
   on(listener: (event: TimelineEvent) => void): () => void {
@@ -238,12 +302,16 @@ export class VideoTimeline {
   }
 
   private emit(event: TimelineEvent): void {
-    for (const l of this.listeners) { try { l(event); } catch {} }
+    for (const l of this.listeners) {
+      try {
+        l(event);
+      } catch {}
+    }
   }
 }
 
 export type TimelineEvent =
-  | { type: 'clip_added'; clipId: string; trackType: TrackType }
-  | { type: 'clip_removed'; clipId: string }
-  | { type: 'clip_trimmed'; clipId: string }
-  | { type: 'clip_split'; clipId: string; newClipId: string };
+  | { type: "clip_added"; clipId: string; trackType: TrackType }
+  | { type: "clip_removed"; clipId: string }
+  | { type: "clip_trimmed"; clipId: string }
+  | { type: "clip_split"; clipId: string; newClipId: string };

@@ -33,7 +33,7 @@ export interface UpiPaymentResult {
   txnRef?: string;
   responseCode?: string;
   approvalRefNo?: string;
-  status: 'success' | 'failed' | 'pending' | 'cancelled';
+  status: "success" | "failed" | "pending" | "cancelled";
   error?: string;
 }
 
@@ -56,25 +56,32 @@ export interface UpiMandateRequest {
  * Generate UPI deep link URI for intent-based payment
  * Works with all UPI apps (GPay, PhonePe, Paytm, etc.)
  */
-export function generateUpiUri(config: UpiConfig, request: UpiPaymentRequest): string {
-  const txnRef = request.txnRef || `${config.txnRefPrefix || 'TXN'}${Date.now()}`;
+export function generateUpiUri(
+  config: UpiConfig,
+  request: UpiPaymentRequest,
+): string {
+  const txnRef =
+    request.txnRef || `${config.txnRefPrefix || "TXN"}${Date.now()}`;
   const params = new URLSearchParams({
     pa: config.merchantVpa,
     pn: config.merchantName,
     am: request.amount.toFixed(2),
-    cu: 'INR',
+    cu: "INR",
     tn: request.note,
     tr: txnRef,
   });
-  if (config.mcc) params.set('mc', config.mcc);
-  if (request.orderId) params.set('tid', request.orderId);
+  if (config.mcc) params.set("mc", config.mcc);
+  if (request.orderId) params.set("tid", request.orderId);
   return `upi://pay?${params.toString()}`;
 }
 
 /**
  * Generate UPI QR code data string
  */
-export function generateUpiQrData(config: UpiConfig, request: UpiPaymentRequest): string {
+export function generateUpiQrData(
+  config: UpiConfig,
+  request: UpiPaymentRequest,
+): string {
   return generateUpiUri(config, request);
 }
 
@@ -90,19 +97,19 @@ export function validateVpa(vpa: string): boolean {
  * Known UPI PSP handles
  */
 export const UPI_PSP_HANDLES: Record<string, string> = {
-  '@paytm': 'Paytm',
-  '@okicici': 'Google Pay (ICICI)',
-  '@okhdfcbank': 'Google Pay (HDFC)',
-  '@oksbi': 'Google Pay (SBI)',
-  '@ybl': 'PhonePe (YES Bank)',
-  '@ibl': 'PhonePe (ICICI)',
-  '@axl': 'PhonePe (Axis)',
-  '@apl': 'Amazon Pay',
-  '@freecharge': 'Freecharge',
-  '@upi': 'BHIM',
+  "@paytm": "Paytm",
+  "@okicici": "Google Pay (ICICI)",
+  "@okhdfcbank": "Google Pay (HDFC)",
+  "@oksbi": "Google Pay (SBI)",
+  "@ybl": "PhonePe (YES Bank)",
+  "@ibl": "PhonePe (ICICI)",
+  "@axl": "PhonePe (Axis)",
+  "@apl": "Amazon Pay",
+  "@freecharge": "Freecharge",
+  "@upi": "BHIM",
 };
 
 export function getPspName(vpa: string): string | null {
-  const handle = '@' + vpa.split('@')[1];
+  const handle = "@" + vpa.split("@")[1];
   return UPI_PSP_HANDLES[handle] ?? null;
 }
