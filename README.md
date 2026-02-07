@@ -143,10 +143,36 @@ rajeev-sdk/
 └── turbo.json              # Build orchestration
 ```
 
-## � Docs
+## 📚 Docs
 
+### Guides
+
+- [Usage Guide](docs/USAGE.md) — getting started on every platform (iOS, Android, Web, watchOS, Wear OS, Android Auto)
 - [Setup Guide](docs/SETUP.md) — step-by-step environment setup
 - [Architecture Update (Feb 2026)](docs/ARCHITECTURE-UPDATE-2026.md) — migration to ubrn + Turbo Modules
+
+### Library Reference
+
+| Package             | Docs                                | Highlights                                                                                  |
+| ------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------- |
+| `@rajeev02/vault`   | [VAULT.md](docs/usage/VAULT.md)     | API reference, React hooks, namespaces, expiry, hashing, WASM exports, crypto details       |
+| `@rajeev02/network` | [NETWORK.md](docs/usage/NETWORK.md) | Connectivity monitoring, adaptive quality, priority queue, HTTP cache, compression          |
+| `@rajeev02/locale`  | [LOCALE.md](docs/usage/LOCALE.md)   | Translation engine, INR / Lakh / Crore formatting, phone format, 10-script transliteration  |
+| `@rajeev02/sync`    | [SYNC.md](docs/usage/SYNC.md)       | CRDT documents, Hybrid Logical Clock, operation log, conflict resolution, multi-device sync |
+| `@rajeev02/notify`  | [NOTIFY.md](docs/usage/NOTIFY.md)   | Scheduling, quiet hours, groups / channels, platform overrides, in-app inbox                |
+| `@rajeev02/ui`      | [UI.md](docs/usage/UI.md)           | Design tokens, device detection, touch targets, theming (light / dark / high-contrast)      |
+
+### Demo App
+
+An Expo demo showcasing all 6 packages lives in [`examples/expo-demo/`](examples/expo-demo/):
+
+```bash
+cd examples/expo-demo
+npm install
+npx expo start --web        # Web
+npx expo start --ios        # iOS Simulator
+npx expo start --android    # Android Emulator
+```
 
 ## 📄 License
 
