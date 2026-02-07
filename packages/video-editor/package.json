@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/video-editor",
+  "version": "0.1.0",
+  "description": "Video editor — timeline, trim, merge, split, transitions, effects, music, text, stickers, speed, export",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}

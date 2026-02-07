@@ -12,6 +12,15 @@
     "packages/locale/ts-wrapper",
     "packages/notify",
     "packages/ui",
+    "packages/app-shell",
+    "packages/auth",
+    "packages/camera",
+    "packages/deeplink",
+    "packages/document",
+    "packages/edge-ai",
+    "packages/media",
+    "packages/payments",
+    "packages/video-editor",
     "examples/*"
   ],
   "scripts": {

@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/deeplink",
+  "version": "0.1.0",
+  "description": "Universal deep linking — app links, universal links, deferred deep links, route matching, attribution",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}

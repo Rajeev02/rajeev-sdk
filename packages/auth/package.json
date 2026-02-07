@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/auth",
+  "version": "0.1.0",
+  "description": "Universal Auth & Identity SDK — OTP, biometric, Aadhaar/DigiLocker, session management, social login",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}

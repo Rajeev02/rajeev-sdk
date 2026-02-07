@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/edge-ai",
+  "version": "0.1.0",
+  "description": "Edge AI / On-Device ML Toolkit — OCR, face detection, voice commands, document scanner, smart crop",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}

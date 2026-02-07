@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/app-shell",
+  "version": "0.1.0",
+  "description": "Feature-Slice app architecture — API client, navigation, onboarding, chat, video, forms, cart, state, analytics",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}

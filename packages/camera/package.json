@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/camera",
+  "version": "0.1.0",
+  "description": "Advanced camera capture & photo editing — filters, crop, adjust, stickers, text, drawing, beauty mode, HDR, panorama",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/media",
+  "version": "0.1.0",
+  "description": "Unified Media Player Engine — adaptive streaming, PiP, offline download, DRM, Hotstar/Netflix style",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}

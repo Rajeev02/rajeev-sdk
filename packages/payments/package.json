@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/payments",
+  "version": "0.1.0",
+  "description": "Payments Abstraction SDK — UPI, wallets, cards, subscriptions, split payments (India-focused)",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}
