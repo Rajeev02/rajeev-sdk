@@ -1,7 +1,7 @@
 /**
  * Rajeev SDK — Expo Demo App
  *
- * Simple state-based navigation between home screen and 6 demo screens.
+ * Simple state-based navigation between home screen and 15 demo screens.
  * No external navigation library needed.
  */
 import React, { useState, useCallback } from "react";
@@ -23,6 +23,15 @@ import LocaleDemo from "./app/locale";
 import SyncDemo from "./app/sync";
 import NotifyDemo from "./app/notify";
 import UITokensDemo from "./app/ui-tokens";
+import AuthDemo from "./app/auth";
+import PaymentsDemo from "./app/payments";
+import CameraDemo from "./app/camera";
+import DeepLinkDemo from "./app/deeplink";
+import DocumentDemo from "./app/document";
+import EdgeAIDemo from "./app/edge-ai";
+import MediaDemo from "./app/media";
+import VideoEditorDemo from "./app/video-editor";
+import AppShellDemo from "./app/app-shell";
 
 /* ── Screen id type ──────────────────────────────────────────── */
 type ScreenId =
@@ -32,7 +41,16 @@ type ScreenId =
   | "locale"
   | "sync"
   | "notify"
-  | "ui-tokens";
+  | "ui-tokens"
+  | "auth"
+  | "payments"
+  | "camera"
+  | "deeplink"
+  | "document"
+  | "edge-ai"
+  | "media"
+  | "video-editor"
+  | "app-shell";
 
 /* ── Card data ───────────────────────────────────────────────── */
 const cards: {
@@ -90,6 +108,78 @@ const cards: {
       "Design system: colors, spacing, typography, device detection, and theming",
     tech: "TypeScript",
   },
+  {
+    id: "auth",
+    icon: "🔑",
+    title: "Auth",
+    subtitle:
+      "Phone OTP, Google/Apple sign-in, Aadhaar eKYC, JWT session management",
+    tech: "TypeScript",
+  },
+  {
+    id: "payments",
+    icon: "💳",
+    title: "Payments",
+    subtitle:
+      "UPI deep links, card validation (Visa/MC/RuPay), wallets, subscriptions",
+    tech: "TypeScript",
+  },
+  {
+    id: "camera",
+    icon: "📷",
+    title: "Camera",
+    subtitle:
+      "Photo/video capture with HDR, 24 filters, full photo editor with undo/redo",
+    tech: "TypeScript",
+  },
+  {
+    id: "deeplink",
+    icon: "🔗",
+    title: "Deep Link",
+    subtitle:
+      "Universal deep linking with pattern matching, UTM attribution, deferred links",
+    tech: "TypeScript",
+  },
+  {
+    id: "document",
+    icon: "📄",
+    title: "Document",
+    subtitle:
+      "Document picker, PDF annotation/stamps, digital signatures, form filling",
+    tech: "TypeScript",
+  },
+  {
+    id: "edge-ai",
+    icon: "🤖",
+    title: "Edge AI",
+    subtitle:
+      "On-device OCR for Indian IDs, ML model pipeline, voice commands in 11 languages",
+    tech: "TypeScript",
+  },
+  {
+    id: "media",
+    icon: "▶️",
+    title: "Media",
+    subtitle:
+      "Adaptive streaming, PiP, DRM (Widevine/FairPlay), offline downloads",
+    tech: "TypeScript",
+  },
+  {
+    id: "video-editor",
+    icon: "🎬",
+    title: "Video Editor",
+    subtitle:
+      "Multi-track timeline, transitions, color grading, chroma key, export presets",
+    tech: "TypeScript",
+  },
+  {
+    id: "app-shell",
+    icon: "🏗️",
+    title: "App Shell",
+    subtitle:
+      "API client, onboarding, chat, cart, feature flags, forms, analytics",
+    tech: "TypeScript",
+  },
 ];
 
 /* ── Home Screen ─────────────────────────────────────────────── */
@@ -136,7 +226,7 @@ function HomeScreen({ onNavigate }: { onNavigate: (id: ScreenId) => void }) {
         {/* Footer */}
         <View style={s.footer}>
           <Text style={s.footerText}>
-            6 packages · Rust core · iOS · Android · Web · watchOS · Android
+            15 packages · Rust core · iOS · Android · Web · watchOS · Android
             Auto
           </Text>
           <Text style={s.footerVersion}>v0.1.0</Text>
@@ -164,6 +254,15 @@ export default function App() {
       {screen === "sync" && <SyncDemo onBack={goHome} />}
       {screen === "notify" && <NotifyDemo onBack={goHome} />}
       {screen === "ui-tokens" && <UITokensDemo onBack={goHome} />}
+      {screen === "auth" && <AuthDemo onBack={goHome} />}
+      {screen === "payments" && <PaymentsDemo onBack={goHome} />}
+      {screen === "camera" && <CameraDemo onBack={goHome} />}
+      {screen === "deeplink" && <DeepLinkDemo onBack={goHome} />}
+      {screen === "document" && <DocumentDemo onBack={goHome} />}
+      {screen === "edge-ai" && <EdgeAIDemo onBack={goHome} />}
+      {screen === "media" && <MediaDemo onBack={goHome} />}
+      {screen === "video-editor" && <VideoEditorDemo onBack={goHome} />}
+      {screen === "app-shell" && <AppShellDemo onBack={goHome} />}
     </View>
   );
 }

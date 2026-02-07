@@ -2,33 +2,44 @@
 
 **Cross-platform infrastructure SDK for React Native, Expo & Web — powered by Rust.**
 
-6 packages. One consistent API across iOS, Android, Web, watchOS, Wear OS, and Android Auto.
+15 packages. One consistent API across iOS, Android, Web, watchOS, Wear OS, and Android Auto.
 
 ---
 
 ## Packages
 
-| Package                                 | Description                                          | Engine     | Docs                           |
-| --------------------------------------- | ---------------------------------------------------- | ---------- | ------------------------------ |
-| [`@rajeev02/vault`](usage/VAULT.md)     | AES-256-GCM encrypted key-value storage              | Rust       | [VAULT.md](usage/VAULT.md)     |
-| [`@rajeev02/network`](usage/NETWORK.md) | Connectivity-aware networking with queue & cache     | Rust       | [NETWORK.md](usage/NETWORK.md) |
-| [`@rajeev02/locale`](usage/LOCALE.md)   | Indian localization, INR formatting, transliteration | Rust       | [LOCALE.md](usage/LOCALE.md)   |
-| [`@rajeev02/sync`](usage/SYNC.md)       | Offline-first CRDT sync engine                       | Rust       | [SYNC.md](usage/SYNC.md)       |
-| [`@rajeev02/notify`](usage/NOTIFY.md)   | Notification scheduling with inbox                   | TypeScript | [NOTIFY.md](usage/NOTIFY.md)   |
-| [`@rajeev02/ui`](usage/UI.md)           | Design tokens, device detection, theming             | TypeScript | [UI.md](usage/UI.md)           |
+| Package                                           | Description                                           | Engine     | Docs                                     |
+| ------------------------------------------------- | ----------------------------------------------------- | ---------- | ---------------------------------------- |
+| [`@rajeev02/vault`](usage/VAULT.md)               | AES-256-GCM encrypted key-value storage               | Rust       | [VAULT.md](usage/VAULT.md)               |
+| [`@rajeev02/network`](usage/NETWORK.md)           | Connectivity-aware networking with queue & cache      | Rust       | [NETWORK.md](usage/NETWORK.md)           |
+| [`@rajeev02/locale`](usage/LOCALE.md)             | Indian localization, INR formatting, transliteration  | Rust       | [LOCALE.md](usage/LOCALE.md)             |
+| [`@rajeev02/sync`](usage/SYNC.md)                 | Offline-first CRDT sync engine                        | Rust       | [SYNC.md](usage/SYNC.md)                 |
+| [`@rajeev02/notify`](usage/NOTIFY.md)             | Notification scheduling with inbox                    | TypeScript | [NOTIFY.md](usage/NOTIFY.md)             |
+| [`@rajeev02/ui`](usage/UI.md)                     | Design tokens, device detection, theming              | TypeScript | [UI.md](usage/UI.md)                     |
+| [`@rajeev02/auth`](usage/AUTH.md)                 | Phone OTP, social sign-in, Aadhaar eKYC, JWT sessions | TypeScript | [AUTH.md](usage/AUTH.md)                 |
+| [`@rajeev02/payments`](usage/PAYMENTS.md)         | UPI, card validation, wallets, subscriptions          | TypeScript | [PAYMENTS.md](usage/PAYMENTS.md)         |
+| [`@rajeev02/camera`](usage/CAMERA.md)             | Camera capture, 24 filters, photo editor              | TypeScript | [CAMERA.md](usage/CAMERA.md)             |
+| [`@rajeev02/deeplink`](usage/DEEPLINK.md)         | Universal deep linking & UTM attribution              | TypeScript | [DEEPLINK.md](usage/DEEPLINK.md)         |
+| [`@rajeev02/document`](usage/DOCUMENT.md)         | Document picker, PDF editor, signatures               | TypeScript | [DOCUMENT.md](usage/DOCUMENT.md)         |
+| [`@rajeev02/edge-ai`](usage/EDGE-AI.md)           | On-device OCR, ML pipeline, voice AI                  | TypeScript | [EDGE-AI.md](usage/EDGE-AI.md)           |
+| [`@rajeev02/media`](usage/MEDIA.md)               | Adaptive streaming, PiP, DRM, offline downloads       | TypeScript | [MEDIA.md](usage/MEDIA.md)               |
+| [`@rajeev02/video-editor`](usage/VIDEO-EDITOR.md) | Multi-track timeline, effects, export presets         | TypeScript | [VIDEO-EDITOR.md](usage/VIDEO-EDITOR.md) |
+| [`@rajeev02/app-shell`](usage/APP-SHELL.md)       | API client, chat, cart, forms, feature flags          | TypeScript | [APP-SHELL.md](usage/APP-SHELL.md)       |
 
 ---
 
 ## Platform Support Matrix
 
-| Platform                | Vault | Network | Sync | Locale | Notify | UI  |
-| ----------------------- | :---: | :-----: | :--: | :----: | :----: | :-: |
-| **iOS 16+**             |  ✅   |   ✅    |  ✅  |   ✅   |   ✅   | ✅  |
-| **Android 7+ (API 24)** |  ✅   |   ✅    |  ✅  |   ✅   |   ✅   | ✅  |
-| **Web**                 |  ✅   |   ✅    |  ✅  |   ✅   |   ✅   | ✅  |
-| **watchOS 9+**          |  ✅   |   ✅    |  ✅  |   ✅   |   ✅   | ✅  |
-| **Wear OS**             |  ✅   |   ✅    |  ✅  |   ✅   |   ✅   | ✅  |
-| **Android Auto**        |  ✅   |   ✅    |  ✅  |   ✅   |   ✅   | ✅  |
+All 15 packages support every platform:
+
+| Platform                | Rust Packages (4) | TypeScript Packages (11) |
+| ----------------------- | :---------------: | :----------------------: |
+| **iOS 16+**             |        ✅         |            ✅            |
+| **Android 7+ (API 24)** |        ✅         |            ✅            |
+| **Web**                 |        ✅         |            ✅            |
+| **watchOS 9+**          |        ✅         |            ✅            |
+| **Wear OS**             |        ✅         |            ✅            |
+| **Android Auto**        |        ✅         |            ✅            |
 
 ---
 

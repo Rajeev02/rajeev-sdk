@@ -106,7 +106,12 @@ export class ApiClient {
 
     // Run request interceptors
     for (const interceptor of this.requestInterceptors) {
-      request = await interceptor.onRequest(request);
+      const intercepted = await interceptor.onRequest(request);
+      request = {
+        ...intercepted,
+        retryCount: intercepted.retryCount ?? request.retryCount,
+        maxRetries: intercepted.maxRetries ?? request.maxRetries,
+      };
     }
 
     // Cache strategies

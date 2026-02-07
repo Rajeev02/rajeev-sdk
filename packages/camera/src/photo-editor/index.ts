@@ -207,7 +207,7 @@ export class PhotoEditorController {
   // ---- ADJUSTMENTS ----
 
   setAdjustment(key: keyof AdjustmentValues, value: number): void {
-    (this.adjustments as Record<string, number>)[key] = value;
+    (this.adjustments as unknown as Record<string, number>)[key] = value;
     this.addToHistory("adjust", { key, value });
   }
 
