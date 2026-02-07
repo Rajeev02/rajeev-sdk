@@ -1,0 +1,24 @@
+[package]
+name = "rajeev-sync-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Cross-platform offline-first sync engine with CRDT conflict resolution"
+
+[lib]
+crate-type = ["lib", "cdylib", "staticlib"]
+name = "rajeev_sync_core"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+rusqlite = { version = "0.38", features = ["bundled"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.0", features = ["v4"] }
+sha2 = "0.10"
+base64 = "0.22"
+
+[dev-dependencies]
+tempfile = "3.0"

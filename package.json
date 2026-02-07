@@ -1,0 +1,33 @@
+{
+  "name": "rajeev-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cross-platform infrastructure libraries by Rajeev Joshi",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT",
+  "workspaces": [
+    "packages/vault/ts-wrapper",
+    "packages/network/ts-wrapper",
+    "packages/sync/ts-wrapper",
+    "packages/locale/ts-wrapper",
+    "packages/notify",
+    "packages/ui",
+    "examples/*"
+  ],
+  "scripts": {
+    "build:rust": "bash tools/rust-build/build-all.sh",
+    "build:vault:android": "bash tools/rust-build/build-android.sh vault",
+    "build:vault:ios": "bash tools/rust-build/build-ios.sh vault",
+    "build:vault:wasm": "bash tools/rust-build/build-wasm.sh vault",
+    "test:rust": "cargo test --workspace",
+    "test:ts": "yarn workspaces foreach run test",
+    "clean": "cargo clean && yarn workspaces foreach run clean"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "turbo": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

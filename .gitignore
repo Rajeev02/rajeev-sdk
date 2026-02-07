@@ -1,0 +1,40 @@
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock
+
+# Node
+node_modules/
+yarn-error.log
+.turbo/
+
+# TypeScript build output
+lib/
+dist/
+
+# WASM build output
+packages/*/ts-wrapper/wasm/
+
+# Android
+packages/*/android/src/main/jniLibs/
+*.apk
+*.aab
+.gradle/
+local.properties
+
+# iOS
+*.xcworkspace
+*.xcuserdata
+Pods/
+DerivedData/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Environment
+.env
+.env.local

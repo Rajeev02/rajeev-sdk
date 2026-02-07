@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/ui",
+  "version": "0.1.0",
+  "description": "Adaptive UI component system — device-aware rendering for phone, tablet, watch, TV, auto",
+  "main": "src/index.ts",
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT"
+}

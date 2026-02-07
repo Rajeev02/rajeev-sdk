@@ -1,0 +1,53 @@
+{
+  "name": "@rajeev02/vault",
+  "version": "0.1.0",
+  "description": "Universal secure storage for React Native — AES-256-GCM encrypted, cross-platform",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf lib",
+    "test": "jest",
+    "prepublishOnly": "yarn build"
+  },
+  "keywords": [
+    "react-native",
+    "secure-storage",
+    "encryption",
+    "vault",
+    "keychain",
+    "keystore",
+    "cross-platform"
+  ],
+  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rajeev02/rajeev-sdk",
+    "directory": "packages/vault"
+  },
+  "peerDependencies": {
+    "react": ">=18.3.0",
+    "react-native": ">=0.84.0",
+    "expo": ">=54.0.0"
+  },
+  "peerDependenciesMeta": {
+    "expo": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.4.0",
+    "jest": "^29.0.0",
+    "@types/jest": "^29.0.0"
+  },
+  "files": [
+    "lib/",
+    "android/",
+    "ios/",
+    "rust-core/",
+    "rajeev-vault.podspec",
+    "README.md"
+  ]
+}

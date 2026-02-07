@@ -1,0 +1,20 @@
+[package]
+name = "rajeev-locale-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Smart localization engine with Indian language support, transliteration, and number formatting"
+
+[lib]
+crate-type = ["lib", "cdylib", "staticlib"]
+name = "rajeev_locale_core"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+tempfile = "3.0"
