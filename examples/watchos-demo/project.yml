@@ -1,0 +1,26 @@
+name: RajeevWatchDemo
+options:
+  bundleIdPrefix: com.rajeevsdk
+  deploymentTarget:
+    watchOS: "9.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+
+targets:
+  RajeevWatchDemo:
+    type: application
+    platform: watchOS
+    sources:
+      - RajeevWatchDemo
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.rajeevsdk.watchdemo
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_GENERATION_MODE: GeneratedFile
+        SWIFT_VERSION: "5.9"
+        GENERATE_INFOPLIST_FILE: YES
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
