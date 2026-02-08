@@ -53,11 +53,11 @@ const editor = new DocumentEditorController("file://contract.pdf", 10);
 editor.goToPage(3);
 editor.addHighlight(0.1, 0.2, 0.5, 0.03);
 editor.addStamp(0.7, 0.9, "approved");
-editor.setFormFieldValue("name", "Rajeev Joshi");
+editor.setFormFieldValue("name", "Rajeev Kumar Joshi");
 
 // Signatures
 const sigMgr = new SignatureManager();
-const sigId = sigMgr.saveTypedSignature("Rajeev Joshi", "Dancing Script");
+const sigId = sigMgr.saveTypedSignature("Rajeev Kumar Joshi", "Dancing Script");
 sigMgr.placeSignature({
   signatureId: sigId,
   pageNumber: 10,
@@ -66,7 +66,7 @@ sigMgr.placeSignature({
   rotation: 0,
 });
 const record = sigMgr.generateSigningRecord(
-  "Rajeev Joshi",
+  "Rajeev Kumar Joshi",
   "rajeev@example.com",
   "Contract acceptance",
   "sha256:abc...",

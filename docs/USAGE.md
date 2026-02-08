@@ -270,16 +270,47 @@ cargo test -p rajeev-locale-core
 
 ---
 
-## Demo App
+## Example Apps
 
-An Expo demo app is included in [`examples/expo-demo/`](../examples/expo-demo/) showcasing all 6 packages:
+Six example apps are included in [`examples/`](../examples/) showcasing all 15 packages:
 
+### Expo Demo (React Native — iOS / Android / Web)
 ```bash
 cd examples/expo-demo
 npm install
 npx expo start --web       # Web
 npx expo start --ios       # iOS Simulator
 npx expo start --android   # Android Emulator
+```
+
+### React Web Demo (Vite + React 19)
+```bash
+cd examples/react-web-demo
+npm install
+npm run dev                # http://localhost:5173
+```
+
+### Native iOS Demo (SwiftUI)
+```bash
+open examples/ios-native-demo/RajeevSDKDemo.xcodeproj
+# Select iOS 16+ simulator → Build & Run (⌘R)
+```
+
+### Native Android Demo (Jetpack Compose)
+```bash
+# Open in Android Studio: File → Open → examples/android-native-demo/
+# Let Gradle sync → Select emulator (API 24+) → Run ▶
+```
+
+### watchOS Demo (SwiftUI)
+```bash
+open examples/watchos-demo/RajeevWatchDemo.xcodeproj
+# Select Apple Watch simulator → Build & Run (⌘R)
+```
+
+### Vanilla Web Demo
+```bash
+open examples/vanilla-web-demo/index.html
 ```
 
 ---

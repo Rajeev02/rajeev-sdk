@@ -95,18 +95,18 @@ source ~/.zshrc
 # Navigate to your project
 cd rajeev-sdk
 
-# Test the Rust code (no phone needed!)
-cargo test --manifest-path packages/vault/rust-core/Cargo.toml
+# Test ALL Rust crates (no phone needed!)
+cargo test --workspace
 ```
 
 You should see output like:
 ```
-running 16 tests
-test crypto::tests::test_encrypt_decrypt_roundtrip ... ok
-test crypto::tests::test_wrong_key_fails ... ok
-test storage::tests::test_store_and_retrieve ... ok
+running 29 tests (vault)
+running 45 tests (network)
+running 14 tests (sync)
+running 27 tests (locale)
 ...
-test result: ok. 16 passed; 0 failed
+test result: ok. 115 passed; 0 failed
 ```
 
 If all tests pass, your Rust core is working!
@@ -175,42 +175,53 @@ descriptive and almost always tell you exactly what to fix.
 ```
 rajeev-sdk/
 |
-|- packages/vault/
-|  |- rust-core/              <- THE BRAIN: Encryption + Storage logic in Rust
-|  |  |- src/
-|  |  |  |- lib.rs            <- Main entry point, ties everything together
-|  |  |  |- vault.udl         <- Interface definition (generates Swift/Kotlin code)
-|  |  |  |- crypto/mod.rs     <- AES-256-GCM encrypt/decrypt, hashing
-|  |  |  |- storage/mod.rs    <- SQLite database, namespaces, expiry, CRUD
-|  |  |- Cargo.toml           <- Rust dependencies
+|- packages/
+|  |- vault/                  <- Secure storage (AES-256-GCM + SQLite)
+|  |  |- rust-core/           <- Encryption + Storage logic in Rust
+|  |  |  |- src/
+|  |  |  |  |- lib.rs          <- Entry point with #[uniffi::export] proc macros
+|  |  |  |  |- crypto/mod.rs  <- AES-256-GCM encrypt/decrypt, hashing
+|  |  |  |  |- storage/mod.rs <- SQLite database, namespaces, expiry, CRUD
+|  |  |  |- Cargo.toml        <- Rust dependencies
+|  |  |- ts-wrapper/           <- TypeScript API (React hooks, vault class)
+|  |  |- android/              <- Native module (Kotlin, UniFFI JNI)
+|  |  |- ios/                  <- Native module (Swift, UniFFI FFI)
 |  |
-|  |- ts-wrapper/             <- THE API: What you import in React Native
-|  |  |- src/
-|  |  |  |- index.ts          <- Main export file
-|  |  |  |- vault.ts          <- Vault class with all methods
-|  |  |  |- hooks.ts          <- React hooks (useVault, useVaultValue)
-|  |  |  |- types.ts          <- TypeScript type definitions
-|  |  |  |- native-bridge.ts  <- Connects TS to native Rust module
-|  |
-|  |- android/                <- Android bridge (Kotlin -> Rust via JNI)
-|  |- ios/                    <- iOS bridge (Swift -> Rust via C FFI)
+|  |- network/                <- Connectivity, caching, queue, optimization (Rust)
+|  |- sync/                   <- CRDT conflict resolution, offline storage (Rust)
+|  |- locale/                 <- Dictionary, formatting, transliteration (Rust)
+|  |- auth/                   <- OAuth, biometric, sessions (TS)
+|  |- payments/               <- UPI, cards, wallets (TS)
+|  |- camera/                 <- Capture, filters, AR (TS)
+|  |- deeplink/               <- Universal links, routing (TS)
+|  |- document/               <- Scanner, OCR, PDF, signatures (TS)
+|  |- edge-ai/                <- On-device ML inference (TS)
+|  |- media/                  <- Audio/video player, PiP (TS)
+|  |- video-editor/           <- Trim, transitions, export (TS)
+|  |- app-shell/              <- Feature flags, A/B, bootstrap (TS)
+|  |- notify/                 <- Notifications, inbox (TS)
+|  |- ui/                     <- Design tokens, hooks, device (TS)
 |
-|- tools/rust-build/          <- Build scripts for each platform
-|- docs/                      <- Documentation
+|- examples/
+|  |- expo-demo/              <- Expo SDK 54 demo (iOS/Android/Web)
+|  |- react-web-demo/         <- React 19 + Vite 6 demo
+|  |- ios-native-demo/        <- SwiftUI native demo (15 screens)
+|  |- android-native-demo/    <- Jetpack Compose demo (15 screens)
+|  |- watchos-demo/           <- watchOS SwiftUI demo (8 screens)
+|  |- vanilla-web-demo/       <- Single HTML, zero deps
+|
+|- tools/rust-build/          <- Cross-compilation scripts (iOS, Android, WASM)
+|- docs/                      <- Documentation + 15 per-library API docs
 ```
 
 ---
 
-## Next Steps After Setup
+## What's Already Built
 
-Once everything builds, we will:
+All 15 packages and 6 example apps are complete:
 
-1. Create a React Native demo app that uses the vault
-2. Build the Network library (same pattern)
-3. Build the Sync library
-4. Build the Locale library
-5. Build the Notify library
-6. Build the UI component library
+- **4 Rust core crates** — 115 tests passing (vault, network, sync, locale)
+- **11 TypeScript packages** — all compile under `--strict`
+- **6 example apps** — Expo, React Web, iOS native, Android native, watchOS, Vanilla HTML
 
-Each library follows the EXACT same pattern:
-  Rust core -> UniFFI bindings -> Native Module -> TypeScript API
+Each Rust library uses `#[uniffi::export]` proc macros. Running `ubrn build` auto-generates React Native Turbo Modules — no hand-written native bridge code needed.

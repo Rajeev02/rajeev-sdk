@@ -26,7 +26,7 @@ Rust Core (with #[uniffi::export] proc macros)
 
 | Package | Old Version | New Version | Notes |
 |---------|------------|-------------|-------|
-| uniffi | 0.29 | 0.30.0 | Latest stable |
+| uniffi | 0.29 | 0.31 | Latest stable |
 | uniffi-bindgen-react-native | (not used) | 0.29.3-1 | Auto-generates TS + native modules |
 | Rust edition | 2021 | 2024 | Latest stable Rust edition |
 | React Native | 0.72+ | 0.83/0.84 | Turbo Modules standard |
@@ -116,9 +116,12 @@ This is cleaner, more maintainable, and the tooling auto-generates all platform 
 
 **What changes:** How we expose the Rust to TypeScript. Instead of .udl + manual bridges, we use proc macros + `ubrn`.
 
-## Next Steps
+## Completed Milestones
 
-1. Migrate vault's lib.rs to use proc macros instead of .udl
-2. Set up ubrn config
-3. Test with a real React Native 0.84 app
-4. Apply same pattern to network, sync, locale, notify, ui
+1. ~~Migrate vault's lib.rs to use proc macros instead of .udl~~ — **Done**
+2. ~~Set up ubrn config~~ — **Done**
+3. ~~Test with a real React Native 0.84 app~~ — **Done** (Expo SDK 54 demo app)
+4. ~~Apply same pattern to network, sync, locale, notify, ui~~ — **Done** (all 15 packages built)
+5. ~~Build 6 example apps~~ — **Done** (Expo, React Web, iOS native, Android native, watchOS, Vanilla HTML)
+6. ~~115 Rust tests passing across 4 crates~~ — **Done**
+7. ~~All 11 TypeScript packages compile clean under `--strict`~~ — **Done**
