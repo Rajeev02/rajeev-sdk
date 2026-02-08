@@ -49,5 +49,12 @@
     "rust-core/",
     "rajeev-vault.podspec",
     "README.md"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/Rajeev02/rajeev-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/Rajeev02/rajeev-sdk/issues"
+  }
 }

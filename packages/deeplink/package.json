@@ -2,7 +2,49 @@
   "name": "@rajeev02/deeplink",
   "version": "0.1.0",
   "description": "Universal deep linking — app links, universal links, deferred deep links, route matching, attribution",
-  "main": "src/index.ts",
+  "main": "lib/index.js",
   "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",
-  "license": "MIT"
+  "license": "MIT",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf lib",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "react-native",
+    "deeplink",
+    "universal-links",
+    "routing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rajeev02/rajeev-sdk",
+    "directory": "packages/deeplink"
+  },
+  "homepage": "https://github.com/Rajeev02/rajeev-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/Rajeev02/rajeev-sdk/issues"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": ">=18.3.0",
+    "react-native": ">=0.84.0"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.4.0"
+  }
 }

@@ -25,17 +25,20 @@
     "examples/*"
   ],
   "scripts": {
+    "build": "npm run build:ts",
+    "build:ts": "node tools/build-all-ts.js",
     "build:rust": "bash tools/rust-build/build-all.sh",
     "build:vault:android": "bash tools/rust-build/build-android.sh vault",
     "build:vault:ios": "bash tools/rust-build/build-ios.sh vault",
     "build:vault:wasm": "bash tools/rust-build/build-wasm.sh vault",
     "test:rust": "cargo test --workspace",
     "test:ts": "yarn workspaces foreach run test",
-    "clean": "cargo clean && yarn workspaces foreach run clean"
+    "clean": "cargo clean && yarn workspaces foreach run clean",
+    "publish:all": "node tools/publish-all.js"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "turbo": "^2.0.0"
+    "turbo": "^2.0.0",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=18.0.0"
