@@ -5,14 +5,17 @@
 After research, we're upgrading the SDK architecture to use the latest tooling:
 
 ### Before (Old Approach — Manual Bridges)
+
 ```
 Rust Core → hand-written Kotlin (Android) → React Native
 Rust Core → hand-written Swift (iOS) → React Native
 Rust Core → wasm-pack → Web
 ```
+
 **Problem:** We had to write and maintain separate Kotlin + Swift + C++ bridge code manually for each library. That's 3x the work for every new feature.
 
 ### After (New Approach — Auto-Generated via uniffi-bindgen-react-native)
+
 ```
 Rust Core (with #[uniffi::export] proc macros)
     → `ubrn build android` → auto-generated Turbo Module (Kotlin + C++)
@@ -20,21 +23,23 @@ Rust Core (with #[uniffi::export] proc macros)
     → `ubrn build wasm` → auto-generated WASM bindings
     → TypeScript types auto-generated
 ```
+
 **Result:** Write Rust once, run `ubrn build`, get working React Native Turbo Modules for all platforms. Zero hand-written native code.
 
 ## Updated Dependencies (Feb 2026)
 
-| Package | Old Version | New Version | Notes |
-|---------|------------|-------------|-------|
-| uniffi | 0.29 | 0.31 | Latest stable |
-| uniffi-bindgen-react-native | (not used) | 0.29.3-1 | Auto-generates TS + native modules |
-| Rust edition | 2021 | 2024 | Latest stable Rust edition |
-| React Native | 0.72+ | 0.83/0.84 | Turbo Modules standard |
-| License year | 2024 | 2026 | Current year |
+| Package                     | Old Version | New Version | Notes                              |
+| --------------------------- | ----------- | ----------- | ---------------------------------- |
+| uniffi                      | 0.29        | 0.31        | Latest stable                      |
+| uniffi-bindgen-react-native | (not used)  | 0.29.3-1    | Auto-generates TS + native modules |
+| Rust edition                | 2021        | 2024        | Latest stable Rust edition         |
+| React Native                | 0.72+       | 0.83/0.84   | Turbo Modules standard             |
+| License year                | 2024        | 2026        | Current year                       |
 
 ## What This Means for Development
 
 ### Old Workflow (6 steps per library)
+
 1. Write Rust core
 2. Write .udl interface file
 3. Write Kotlin Android module (~200 lines)
@@ -43,11 +48,13 @@ Rust Core (with #[uniffi::export] proc macros)
 6. Write build scripts for each platform
 
 ### New Workflow (3 steps per library)
+
 1. Write Rust core with `#[uniffi::export]` proc macros
 2. Run `ubrn build` (auto-generates everything)
 3. Write thin TypeScript convenience layer (hooks, etc.)
 
 ### What Stays the Same
+
 - Rust core code (crypto, storage, queue, cache) — **unchanged, still excellent**
 - AES-256-GCM encryption — **gold standard in 2026**
 - SQLite for local storage — **still dominant**
@@ -55,6 +62,7 @@ Rust Core (with #[uniffi::export] proc macros)
 - Cross-platform architecture — **still the right pattern**
 
 ### What We Delete
+
 - `packages/vault/android/` (hand-written Kotlin) → replaced by auto-generated
 - `packages/vault/ios/` (hand-written Swift) → replaced by auto-generated
 - `packages/vault/rust-core/src/vault.udl` → replaced by proc macros

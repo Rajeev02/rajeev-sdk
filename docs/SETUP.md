@@ -17,11 +17,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 When prompted, press `1` for default installation.
 
 Then run:
+
 ```bash
 source $HOME/.cargo/env
 ```
 
 Verify it worked:
+
 ```bash
 rustc --version
 cargo --version
@@ -69,12 +71,15 @@ cargo install uniffi-bindgen-cli
 ## Step 4: Install Xcode + Android Studio (if not already)
 
 ### Xcode
+
 ```bash
 xcode-select --install
 ```
+
 Also open App Store and install Xcode if you haven't.
 
 ### Android Studio
+
 1. Download from https://developer.android.com/studio
 2. Install it
 3. Open Android Studio > SDK Manager > SDK Tools
@@ -100,6 +105,7 @@ cargo test --workspace
 ```
 
 You should see output like:
+
 ```
 running 29 tests (vault)
 running 45 tests (network)
@@ -148,23 +154,29 @@ cd ../../..
 ## Troubleshooting
 
 ### "cargo: command not found"
+
 ```bash
 source $HOME/.cargo/env
 ```
 
 ### "Android NDK not found"
+
 Make sure you installed NDK via Android Studio SDK Manager, then:
+
 ```bash
 ls $HOME/Library/Android/sdk/ndk/
 ```
+
 If you see a version folder, the NDK is installed.
 
 ### "xcrun: error: SDK not found"
+
 ```bash
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 ```
 
 ### Rust compilation errors
+
 Copy the FULL error message and share it with Claude. Rust errors are very
 descriptive and almost always tell you exactly what to fix.
 
