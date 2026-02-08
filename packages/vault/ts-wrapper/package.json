@@ -1,6 +1,6 @@
 {
   "name": "@rajeev02/vault",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Universal secure storage for React Native — AES-256-GCM encrypted, cross-platform",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

@@ -16,6 +16,26 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **Signing records** — Generate legally-valid signing records with timestamp, IP, reason, and document hash
 - **File utilities** — Categorize files by MIME type, format file sizes, get picker presets
 
+## ⚠️ Important: PDF Renderer & File Picker Required
+
+This library provides **document editing state management** — annotation tracking, signature placement, form field values, page navigation, and undo/redo history. It does **NOT** render PDFs or display a native file picker.
+
+You need to pair it with:
+
+| Feature | Recommended library |
+| ------- | ------------------- |
+| File picker (Expo) | [`expo-document-picker`](https://docs.expo.dev/versions/latest/sdk/document-picker/) |
+| File picker (bare RN) | [`react-native-document-picker`](https://github.com/rnmods/react-native-document-picker) |
+| PDF rendering (RN) | [`react-native-pdf`](https://github.com/wonday/react-native-pdf) |
+| PDF rendering (Web) | [`pdf.js`](https://mozilla.github.io/pdf.js/) |
+| Signature drawing | A canvas component — this library stores/places signatures, but doesn't capture the drawn strokes |
+
+**Permissions required:**
+- **iOS:** Add `NSPhotoLibraryUsageDescription` to `Info.plist` (for gallery access)
+- **Android:** Add `READ_EXTERNAL_STORAGE` / `READ_MEDIA_IMAGES` permissions
+
+**What this library provides:** Annotation data model, signature management with legal signing records, form field state, file categorization utilities, and picker configuration presets. Your rendering library displays the document — this library manages the editing state on top of it.
+
 ## Platform Support
 
 | Platform   | Engine     | Status |

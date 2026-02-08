@@ -13,6 +13,24 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This library does NOT process payments, charge cards, or communicate with payment gateways directly.** It provides client-side utilities for UPI intent generation, card validation, wallet checkout payloads, and subscription management.
+
+Before using `@rajeev02/payments`, you need:
+
+1. **A payment gateway account** — [Razorpay](https://razorpay.com), [Cashfree](https://cashfree.com), [Juspay](https://juspay.in), [PayU](https://payu.in), or [Stripe India](https://stripe.com/in)
+2. **A backend server** for:
+   - Creating payment orders and verifying payment signatures
+   - Handling wallet checkout callbacks (Paytm/PhonePe merchant integration)
+   - Processing refunds and managing subscriptions
+3. **Merchant credentials** — `merchantId`, `merchantKey`, `merchantVpa` from your payment provider
+4. **UPI apps** (for UPI payments) — GPay, PhonePe, Paytm, or BHIM must be installed on the user's device
+
+The library generates UPI intent URIs, validates card numbers, and creates checkout payloads — your backend and payment gateway handle the actual money movement.
+
+---
+
 ## Installation
 
 ```bash

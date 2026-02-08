@@ -16,6 +16,28 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **Channel management** — Grouped notification channels for Android (auto-created), categories for iOS
 - **Pure TypeScript** — No native dependencies. Drop in and use immediately.
 
+## ⚠️ Important: Local State Management Only
+
+This library manages **notification scheduling logic and an in-app inbox** entirely in TypeScript. It does **NOT**:
+
+- Send push notifications (FCM, APNs, Web Push)
+- Register push tokens with any service
+- Display OS-level notification banners or alerts
+- Access native notification APIs
+
+The `PlatformOverrides` (iOS sound/badge, Android channel/icon) are **configuration data structures** that you pass to your actual notification delivery layer.
+
+**You need a notification delivery library to actually show notifications:**
+
+| Use case | Recommended library |
+| -------- | ------------------- |
+| Expo apps | [`expo-notifications`](https://docs.expo.dev/versions/latest/sdk/notifications/) |
+| Bare React Native | [`@notifee/react-native`](https://notifee.app/) |
+| Push notifications | [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) |
+| Web | [Web Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) |
+
+**Think of this library as the scheduling brain + inbox state manager** — you pair it with a delivery layer that actually displays notifications on device.
+
 ## Platform Support
 
 | Platform | Engine     | Status |

@@ -13,6 +13,24 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This library provides camera state management, filter presets, and photo editing pipeline.** It does NOT directly access camera hardware or render a camera preview.
+
+Before using `@rajeev02/camera`, you need:
+
+1. **A native camera library:**
+   - Expo: [`expo-camera`](https://docs.expo.dev/versions/latest/sdk/camera/)
+   - Bare React Native: [`react-native-vision-camera`](https://github.com/mrousavy/react-native-vision-camera)
+   - Web: [MediaDevices API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)
+2. **Camera permissions:**
+   - iOS: Add `NSCameraUsageDescription` and `NSMicrophoneUsageDescription` to `Info.plist`
+   - Android: Add `CAMERA` and `RECORD_AUDIO` permissions to `AndroidManifest.xml`
+
+This library manages the camera settings state machine, 24 filter presets, photo editor (crop/adjust/text/stickers), and edit history. Your native camera library handles the actual hardware interaction.
+
+---
+
 ## Installation
 
 ```bash

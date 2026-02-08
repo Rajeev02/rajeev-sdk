@@ -17,6 +17,30 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **Export presets** — Instagram Reels (9:16), YouTube (16:9), WhatsApp Status, TikTok, Twitter — all pre-configured
 - **Text & stickers** — Animated text overlays, sticker tracks with timing
 
+## ⚠️ Important: Video Processing Engine Required
+
+This library provides the **timeline data model, editing state management, and export configuration**. It does **NOT** render video, apply GPU filters, or encode output files.
+
+You need a native video processing engine:
+
+| Platform | Recommended engine |
+| -------- | ------------------ |
+| iOS | AVFoundation / AVComposition |
+| Android | MediaCodec / ExoPlayer |
+| Cross-platform | [`ffmpeg-kit`](https://github.com/arthenica/ffmpeg-kit) (FFmpeg wrapper for RN) |
+| Web | [FFmpeg.wasm](https://ffmpegwasm.netlify.app/) |
+
+**How it works:** This library manages the editing state (timeline clips, transitions, effects, text overlays) as a data model. Your rendering engine reads this state to produce the actual video output.
+
+```
+┌────────────────────────────────────────────────────────────┐
+│  Your UI   →   @rajeev02/video-editor   →   FFmpeg/Native  │
+│  (timeline)    (state management)         (actual render) │
+└────────────────────────────────────────────────────────────┘
+```
+
+**What this library provides:** Multi-track timeline, clip trim/split, transition configuration, color grading presets, chroma key parameters, speed ramp keyframes, export presets (Instagram/YouTube/TikTok/WhatsApp), and undo/redo history.
+
 ## Platform Support
 
 | Platform   | Engine     | Status |

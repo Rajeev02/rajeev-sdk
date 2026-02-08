@@ -13,6 +13,28 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This library provides ML pipeline management, text parsing utilities, and voice intent matching.** It does NOT include ML models, OCR engines, or speech recognition.
+
+Before using `@rajeev02/edge-ai`, you need:
+
+1. **For OCR** (PAN/Aadhaar/DL extraction):
+   - An OCR engine to convert images → text FIRST, then pass text to this library's extraction functions
+   - iOS: [Apple Vision Framework](https://developer.apple.com/documentation/vision)
+   - Android: [Google ML Kit Text Recognition](https://developers.google.com/ml-kit/vision/text-recognition)
+   - Web: [Tesseract.js](https://tesseract.projectnaptha.com/)
+2. **For ML pipeline** (ModelManager):
+   - Model files (`.tflite`, `.coreml`, `.onnx`) bundled with your app or downloaded at runtime
+   - Native ML runtime for actual inference (TFLite, CoreML, ONNX Runtime)
+3. **For Voice AI** (intent parsing):
+   - A speech-to-text engine to convert audio → text FIRST, then pass text to `processCommand()`
+   - [Google Speech-to-Text](https://cloud.google.com/speech-to-text) or [Whisper](https://openai.com/research/whisper)
+
+The ID validation functions (`validateAadhaar`, `validatePan`) work standalone with no external dependencies.
+
+---
+
 ## Installation
 
 ```bash

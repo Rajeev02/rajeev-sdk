@@ -17,6 +17,29 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **Resume playback** — Automatic resume from last position across sessions
 - **Playback speed** — 0.5x to 3x speed with pitch correction
 
+## ⚠️ Important: Native Media Player Required
+
+This library provides the **playback state machine, download manager, and quality selection logic**. It does **NOT** render video/audio or decode media formats.
+
+You need a native media player to pair with:
+
+| Environment | Recommended library |
+| ----------- | ------------------- |
+| Expo | [`expo-av`](https://docs.expo.dev/versions/latest/sdk/av/) |
+| Bare React Native | [`react-native-video`](https://github.com/react-native-video/react-native-video) |
+| Web | HTML5 `<video>` with [`hls.js`](https://github.com/video-dev/hls.js) / [`dash.js`](https://github.com/Dash-Industry-Forum/dash.js) |
+
+**DRM:** If you use DRM-protected content, you must provide a license server URL:
+- **Android/Web:** Widevine license server
+- **iOS:** FairPlay license server
+- **Providers:** [PallyCon](https://pallycon.com), [BuyDRM](https://www.buydrm.com), [Axinom](https://www.axinom.com)
+
+**Casting:** Chromecast/AirPlay config types are provided, but actual casting requires native cast SDK setup in your app.
+
+**Streaming:** Your HLS/DASH streams need a media server or CDN (AWS CloudFront, Mux, Cloudflare Stream, etc.).
+
+**What this library provides:** Player state management (play/pause/seek/quality), download tracking with pause/resume, resume-from-last-position, and subtitle/audio track selection. Your native player handles the actual media rendering.
+
 ## Platform Support
 
 | Platform   | Engine     | Status |

@@ -1,6 +1,6 @@
 {
   "name": "@rajeev02/notify",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Unified notification & messaging layer for React Native — local, push, in-app inbox, cross-device sync",
   "main": "lib/index.js",
   "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",

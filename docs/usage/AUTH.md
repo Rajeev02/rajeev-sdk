@@ -13,6 +13,26 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This library does NOT send OTPs, generate tokens, or communicate with SMS providers directly.** It is a client-side orchestrator that manages auth flows (state machine, cooldowns, rate limiting, token refresh, session persistence).
+
+Before using `@rajeev02/auth`, you need:
+
+1. **A backend server** with endpoints for:
+   - Sending OTP (integrating with an SMS provider like [MSG91](https://msg91.com), [Twilio](https://twilio.com), or [Firebase Auth](https://firebase.google.com/docs/auth))
+   - Verifying OTP and issuing JWT tokens
+   - Refreshing expired tokens
+2. **OAuth credentials** (if using social sign-in):
+   - Google Client ID from [Google Cloud Console](https://console.cloud.google.com)
+   - Apple Sign-In configured in [Apple Developer Portal](https://developer.apple.com)
+3. **Aadhaar eKYC API access** (if using DigiLocker):
+   - `clientId`, `clientSecret`, `redirectUri` from [DigiLocker](https://digilocker.gov.in)
+
+The library manages the client-side flow — your backend handles the actual authentication logic.
+
+---
+
 ## Installation
 
 ```bash

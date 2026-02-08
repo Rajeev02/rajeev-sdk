@@ -13,6 +13,27 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This library provides the playback state machine, download manager, and quality selection logic.** It does NOT render video/audio or decode media formats.
+
+Before using `@rajeev02/media`, you need:
+
+1. **A native media player:**
+   - Expo: [`expo-av`](https://docs.expo.dev/versions/latest/sdk/av/)
+   - Bare RN: [`react-native-video`](https://github.com/react-native-video/react-native-video)
+   - Web: HTML5 `<video>` with [`hls.js`](https://github.com/video-dev/hls.js) for HLS or [`dash.js`](https://github.com/Dash-Industry-Forum/dash.js) for DASH
+2. **DRM (if using protected content):**
+   - A DRM license server URL (Widevine for Android/Web, FairPlay for iOS)
+   - Providers: [PallyCon](https://pallycon.com), [BuyDRM](https://www.buydrm.com), [Axinom](https://www.axinom.com)
+3. **Streaming infrastructure:**
+   - HLS/DASH streams hosted on a CDN (AWS CloudFront, Mux, Cloudflare Stream, etc.)
+4. **Casting (optional):**
+   - Chromecast: [Google Cast SDK](https://developers.google.com/cast) native setup
+   - AirPlay: Handled natively by iOS
+
+---
+
 ## Installation
 
 ```bash

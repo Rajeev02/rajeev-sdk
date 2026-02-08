@@ -16,6 +16,31 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **Universal + App links** — Generate both `myapp://` scheme links and `https://` universal links
 - **Pure TypeScript** — No native link handling dependency. Plug into React Navigation or any router.
 
+## ⚠️ Important: Native Deep Link Setup Required
+
+This library provides the **URL routing and matching engine** — it parses incoming URLs, matches them to registered routes, and extracts parameters. But to actually **receive** deep links in your app, you need native configuration:
+
+**Custom URL Scheme (`myapp://`):**
+- **iOS:** Register your URL scheme in Xcode → Info → URL Types
+- **Android:** Add intent filters for your scheme in `AndroidManifest.xml`
+
+**Universal Links / App Links (`https://yourdomain.com/...`):**
+- **iOS:** Add Associated Domains capability (`applinks:yourdomain.com`) and host an `apple-app-site-association` file on your domain
+- **Android:** Host a `.well-known/assetlinks.json` file on your domain + add intent filters
+
+**React Native integration:**
+```typescript
+import { Linking } from "react-native";
+import { DeepLinkRouter } from "@rajeev02/deeplink";
+
+// Feed incoming URLs to the router
+Linking.addEventListener("url", ({ url }) => router.handle(url));
+
+// Handle cold start
+const initialUrl = await Linking.getInitialURL();
+if (initialUrl) router.handle(initialUrl);
+```
+
 ## Platform Support
 
 | Platform   | Engine     | Status |

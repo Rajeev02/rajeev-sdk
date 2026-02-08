@@ -16,6 +16,23 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **MFA support** — TOTP (Google Authenticator), SMS OTP, biometric as second factor
 - **Pure TypeScript** — No native dependencies. Plug in your own backend endpoints.
 
+## ⚠️ Important: Backend Required
+
+**This library does NOT send OTPs, generate tokens, or communicate with SMS providers directly.** It is a **client-side orchestrator** that manages auth flows (state machine, cooldowns, rate limiting, token refresh, session persistence).
+
+**You must provide your own backend** that handles the actual work:
+
+| What the library does (client-side)         | What YOU must build (backend)                      |
+| ------------------------------------------- | -------------------------------------------------- |
+| OTP state machine (sending → waiting → verified) | API endpoint that sends SMS/WhatsApp via Twilio, MSG91, etc. |
+| Resend cooldown timer (30s default)          | OTP code generation & storage                      |
+| Max attempts & lockout tracking              | OTP verification & token issuance                  |
+| JWT token storage & auto-refresh             | Token generation (JWT signing)                     |
+| Session expiry detection                     | Refresh token endpoint                             |
+| OAuth flow orchestration                     | OAuth client credentials & callback handling       |
+
+**Recommended OTP/SMS providers for India:** [MSG91](https://msg91.com), [Twilio](https://twilio.com), [Firebase Auth](https://firebase.google.com/docs/auth), [AWS SNS](https://aws.amazon.com/sns/)
+
 ## Platform Support
 
 | Platform   | Engine     | Status |
@@ -39,6 +56,8 @@ npm install @rajeev02/auth
 ## Quick Start
 
 ### Session Management
+
+> **Note:** `onRefreshToken`, `onPersistTokens`, and `onLoadTokens` are callbacks to **your backend/storage**. The library calls them at the right time — you implement the actual logic.
 
 ```typescript
 import { SessionManager } from "@rajeev02/auth";
@@ -69,6 +88,8 @@ const token = await session.getAccessToken();
 ```
 
 ### Phone OTP Login
+
+> **Note:** `onSendOtp` and `onVerifyOtp` call **your backend API**, which must integrate with an SMS provider (Twilio, MSG91, etc.). The library does NOT send SMS — it manages the OTP flow around your endpoints.
 
 ```typescript
 import { OtpManager } from "@rajeev02/auth";
@@ -139,8 +160,8 @@ const url = providers.getAuthorizationUrl("google");
 
 | Method                         | Returns                 | Description                         |
 | ------------------------------ | ----------------------- | ----------------------------------- |
-| `sendOtp(destination, method)` | `Promise<OtpResponse>`  | Send OTP via SMS/WhatsApp           |
-| `verifyOtp(code)`              | `Promise<VerifyResult>` | Verify entered OTP                  |
+| `sendOtp(destination, method)` | `Promise<OtpResponse>`  | Triggers your `onSendOtp` callback + starts cooldown |
+| `verifyOtp(code)`              | `Promise<VerifyResult>` | Triggers your `onVerifyOtp` callback + tracks attempts |
 | `canResend()`                  | `boolean`               | Check if resend cooldown has passed |
 | `getRemainingCooldown()`       | `number`                | Seconds until resend is allowed     |
 

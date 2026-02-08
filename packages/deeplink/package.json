@@ -1,6 +1,6 @@
 {
   "name": "@rajeev02/deeplink",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Universal deep linking — app links, universal links, deferred deep links, route matching, attribution",
   "main": "lib/index.js",
   "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",

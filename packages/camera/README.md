@@ -17,6 +17,24 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **HDR & zoom** — Hardware HDR, digital zoom up to 10x, front/back camera switching
 - **Event-driven** — Subscribe to capture events, recording progress, focus changes
 
+## ⚠️ Important: Native Camera Library Required
+
+This package provides the **camera state management, filter presets, and photo editing pipeline**. It does **NOT** directly access camera hardware or render a camera preview.
+
+You need a native camera library to pair with:
+
+| Environment | Recommended library |
+| ----------- | ------------------- |
+| Expo | [`expo-camera`](https://docs.expo.dev/versions/latest/sdk/camera/) |
+| Bare React Native | [`react-native-vision-camera`](https://github.com/mrousavy/react-native-vision-camera) |
+| Web | [MediaDevices API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) |
+
+**Permissions required:**
+- **iOS:** Add `NSCameraUsageDescription` and `NSMicrophoneUsageDescription` to `Info.plist`
+- **Android:** Add `CAMERA` and `RECORD_AUDIO` permissions to `AndroidManifest.xml`
+
+**What this library provides:** Camera settings state machine, 24 photo filter presets, photo editor (crop/adjust/text/stickers/blur/frames), and edit history (undo/redo). Your native camera library handles the actual hardware interaction — this library manages everything around it.
+
 ## Platform Support
 
 | Platform   | Engine     | Status |

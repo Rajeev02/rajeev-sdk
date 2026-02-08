@@ -16,6 +16,19 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **Namespaces + expiry** — Organize keys by context, auto-expire tokens after TTL
 - **Truly cross-platform** — Same API on iOS, Android, Web (WASM), watchOS, and Wear OS
 
+## ⚠️ Native Module Required
+
+This package includes a **native Rust module** compiled via UniFFI (iOS/Android) and WASM (Web). It will NOT work in **Expo Go** or any JS-only environment.
+
+| Platform | Setup required |
+| -------- | -------------- |
+| **iOS** | Run `cd ios && pod install` after `npm install` |
+| **Android** | Rebuild your app (`npx react-native run-android` or `./gradlew assembleDebug`) |
+| **Web** | Import from `@rajeev02/vault/web` (WASM bundle auto-loaded) |
+| **Expo** | Must use a development build (`npx expo prebuild`) — Expo Go is not supported |
+
+The encrypted storage, crypto operations, and SQLite persistence all run in **native Rust** — not JavaScript. This means the native binary must be linked to your app.
+
 ## Platform Support
 
 | Platform     | Engine            | Status |

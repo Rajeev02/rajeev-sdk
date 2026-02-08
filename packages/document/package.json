@@ -1,6 +1,6 @@
 {
   "name": "@rajeev02/document",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Document picker, PDF viewer/editor, annotation, digital signature, form filling, document scanner",
   "main": "lib/index.js",
   "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",

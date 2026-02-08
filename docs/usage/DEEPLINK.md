@@ -13,6 +13,23 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This library provides the URL routing and matching engine.** It parses incoming URLs, matches them to routes, and extracts parameters. But to actually RECEIVE deep links, you need native configuration.
+
+Before using `@rajeev02/deeplink`, you need:
+
+1. **Custom URL Scheme (`myapp://`):**
+   - iOS: Register in Xcode → Info → URL Types
+   - Android: Add intent filters in `AndroidManifest.xml`
+2. **Universal Links / App Links (`https://yourdomain.com/...`):**
+   - iOS: Add Associated Domains capability (`applinks:yourdomain.com`) + host `apple-app-site-association` on your domain
+   - Android: Host `.well-known/assetlinks.json` on your domain + add intent filters
+3. **React Native link handling:**
+   - Use `Linking.addEventListener('url', ...)` or React Navigation's linking config to feed incoming URLs to `router.handle(url)`
+
+---
+
 ## Installation
 
 ```bash

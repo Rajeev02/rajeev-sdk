@@ -17,6 +17,23 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 - **Indian-optimized** — INR formatting, GST calculation, UPI 2.0 collect, merchant category codes
 - **Pure TypeScript** — No payment gateway SDK dependency. Bring your own backend.
 
+## ⚠️ Important: Payment Gateway Required
+
+This library provides **client-side payment utilities** — it does **NOT** process payments, charge cards, or communicate with payment gateways directly.
+
+| What the library does (client-side) | What YOU must build (backend) |
+| ----------------------------------- | ----------------------------- |
+| Generate UPI intent URIs (`upi://pay?...`) | Merchant VPA registration with your bank |
+| Validate card numbers (Luhn algorithm) | Card tokenization via Razorpay/Stripe/Juspay |
+| Detect card network (Visa/MC/RuPay/Amex) | PCI-compliant card processing |
+| Generate wallet checkout payloads | Paytm/PhonePe merchant integration + callback server |
+| Manage subscription state | Recurring billing via payment gateway |
+| Calculate GST and format INR amounts | Tax reporting and invoicing |
+
+**UPI:** The generated `upi://pay?...` URI only works when a UPI app (GPay, PhonePe, Paytm, BHIM) is installed on the user's device. On web, UPI intent links are not supported.
+
+**Recommended payment gateways for India:** [Razorpay](https://razorpay.com), [Cashfree](https://cashfree.com), [Juspay](https://juspay.in), [PayU](https://payu.in), [Stripe India](https://stripe.com/in)
+
 ## Platform Support
 
 | Platform   | Engine     | Status |

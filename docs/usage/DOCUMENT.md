@@ -13,6 +13,25 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This library provides document editing state management.** It does NOT render PDFs or display a file picker. It manages annotation tracking, signature placement, form field values, page navigation, and undo/redo history.
+
+Before using `@rajeev02/document`, you need:
+
+1. **A file picker library:**
+   - Expo: [`expo-document-picker`](https://docs.expo.dev/versions/latest/sdk/document-picker/)
+   - Bare RN: [`react-native-document-picker`](https://github.com/rnmods/react-native-document-picker)
+2. **A PDF rendering library:**
+   - React Native: [`react-native-pdf`](https://github.com/wonday/react-native-pdf)
+   - Web: [`pdf.js`](https://mozilla.github.io/pdf.js/)
+3. **A canvas/drawing component** (for signature capture — the library stores/places signatures but doesn't capture drawn strokes)
+4. **File permissions:**
+   - iOS: `NSPhotoLibraryUsageDescription` in `Info.plist`
+   - Android: `READ_EXTERNAL_STORAGE` / `READ_MEDIA_IMAGES` permissions
+
+---
+
 ## Installation
 
 ```bash

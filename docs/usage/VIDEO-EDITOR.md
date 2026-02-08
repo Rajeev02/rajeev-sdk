@@ -13,6 +13,23 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This library provides the timeline data model, editing state management, and export configuration.** It does NOT render video, apply GPU filters, or encode output files.
+
+Before using `@rajeev02/video-editor`, you need a **native video processing engine:**
+
+| Platform | Recommended engine |
+| -------- | ------------------ |
+| iOS | AVFoundation / AVComposition |
+| Android | MediaCodec / ExoPlayer |
+| Cross-platform | [`ffmpeg-kit`](https://github.com/arthenica/ffmpeg-kit) (FFmpeg for React Native) |
+| Web | [FFmpeg.wasm](https://ffmpegwasm.netlify.app/) |
+
+This library manages the editing state (clips, transitions, effects, text) as a data model. Your rendering engine reads this state to produce the actual video output.
+
+---
+
 ## Installation
 
 ```bash

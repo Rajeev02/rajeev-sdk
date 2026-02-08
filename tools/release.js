@@ -66,19 +66,25 @@ function parseArgs() {
     switch (args[i]) {
       case "--help":
       case "-h":
-        console.log(fs.readFileSync(__filename, "utf8").match(/\/\*\*([\s\S]*?)\*\//)[0]);
+        console.log(
+          fs.readFileSync(__filename, "utf8").match(/\/\*\*([\s\S]*?)\*\//)[0],
+        );
         process.exit(0);
       case "--bump":
         opts.bump = args[++i];
         if (!["patch", "minor", "major"].includes(opts.bump)) {
-          console.error(`Error: --bump must be patch, minor, or major (got "${opts.bump}")`);
+          console.error(
+            `Error: --bump must be patch, minor, or major (got "${opts.bump}")`,
+          );
           process.exit(1);
         }
         break;
       case "--version":
         opts.version = args[++i];
         if (!/^\d+\.\d+\.\d+(-[\w.]+)?$/.test(opts.version)) {
-          console.error(`Error: --version must be valid semver (got "${opts.version}")`);
+          console.error(
+            `Error: --version must be valid semver (got "${opts.version}")`,
+          );
           process.exit(1);
         }
         break;
@@ -91,7 +97,7 @@ function parseArgs() {
         for (const p of opts.packages) {
           if (!ALL_PACKAGES[p]) {
             console.error(
-              `Error: Unknown package "${p}". Available: ${Object.keys(ALL_PACKAGES).join(", ")}`
+              `Error: Unknown package "${p}". Available: ${Object.keys(ALL_PACKAGES).join(", ")}`,
             );
             process.exit(1);
           }
@@ -174,7 +180,9 @@ async function main() {
   const currentVersion = firstPkg.version;
   const newVersion = opts.version || bumpVersion(currentVersion, opts.bump);
 
-  console.log(`📦 Packages:  ${selectedNames.map((n) => `@rajeev02/${n}`).join(", ")}`);
+  console.log(
+    `📦 Packages:  ${selectedNames.map((n) => `@rajeev02/${n}`).join(", ")}`,
+  );
   console.log(`📌 Current:   v${currentVersion}`);
   console.log(`🚀 New:       v${newVersion}`);
   console.log(`📝 Bump type: ${opts.version ? "exact" : opts.bump}`);
@@ -275,7 +283,11 @@ async function main() {
 
       if (opts.dryRun) {
         console.log(`  [dry-run] Would publish ${pkg.name}@${newVersion}`);
-        results.push({ name: pkg.name, version: newVersion, status: "🔍 dry-run" });
+        results.push({
+          name: pkg.name,
+          version: newVersion,
+          status: "🔍 dry-run",
+        });
       } else {
         try {
           console.log(`  Publishing ${pkg.name}@${newVersion}...`);
@@ -283,15 +295,29 @@ async function main() {
             ? `npm publish --access public --otp=${opts.otp}`
             : "npm publish --access public";
           execSync(publishCmd, { cwd: pkgDir, stdio: "pipe" });
-          results.push({ name: pkg.name, version: newVersion, status: "✅ published" });
+          results.push({
+            name: pkg.name,
+            version: newVersion,
+            status: "✅ published",
+          });
           console.log(`  ✅ ${pkg.name}@${newVersion} published`);
         } catch (e) {
           const errMsg = e.stderr?.toString() || e.message;
           if (errMsg.includes("previously published")) {
-            results.push({ name: pkg.name, version: newVersion, status: "⏭️  already published" });
-            console.log(`  ⏭️  ${pkg.name}@${newVersion} already exists on npm`);
+            results.push({
+              name: pkg.name,
+              version: newVersion,
+              status: "⏭️  already published",
+            });
+            console.log(
+              `  ⏭️  ${pkg.name}@${newVersion} already exists on npm`,
+            );
           } else {
-            results.push({ name: pkg.name, version: newVersion, status: "❌ failed" });
+            results.push({
+              name: pkg.name,
+              version: newVersion,
+              status: "❌ failed",
+            });
             console.error(`  ❌ ${pkg.name} failed: ${errMsg}`);
           }
         }
@@ -300,20 +326,32 @@ async function main() {
 
     // ── Summary ────────────────────────────────────────────────────────
     console.log("\n── Step 5/5: Summary ───────────────────────────────\n");
-    console.log("┌──────────────────────────────┬──────────┬────────────────────┐");
-    console.log("│ Package                      │ Version  │ Status             │");
-    console.log("├──────────────────────────────┼──────────┼────────────────────┤");
+    console.log(
+      "┌──────────────────────────────┬──────────┬────────────────────┐",
+    );
+    console.log(
+      "│ Package                      │ Version  │ Status             │",
+    );
+    console.log(
+      "├──────────────────────────────┼──────────┼────────────────────┤",
+    );
     for (const r of results) {
       const name = r.name.padEnd(28);
       const ver = r.version.padEnd(8);
       const status = r.status.padEnd(18);
       console.log(`│ ${name} │ ${ver} │ ${status} │`);
     }
-    console.log("└──────────────────────────────┴──────────┴────────────────────┘");
+    console.log(
+      "└──────────────────────────────┴──────────┴────────────────────┘",
+    );
 
-    const published = results.filter((r) => r.status.includes("published")).length;
+    const published = results.filter((r) =>
+      r.status.includes("published"),
+    ).length;
     const failed = results.filter((r) => r.status.includes("failed")).length;
-    console.log(`\n  ${published} published, ${results.length - published - failed} skipped, ${failed} failed`);
+    console.log(
+      `\n  ${published} published, ${results.length - published - failed} skipped, ${failed} failed`,
+    );
 
     if (failed > 0) {
       process.exit(1);

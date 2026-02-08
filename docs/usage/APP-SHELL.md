@@ -13,6 +13,24 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This is a client-side orchestration layer.** It manages state, caching, and offline queues but requires your own backend services for several modules.
+
+| Module | Backend required? | What you need |
+| ------ | ----------------- | ------------- |
+| `ApiClient` | **Yes** | Your REST API server (set as `baseUrl`) |
+| `ChatEngine` | **Yes** | WebSocket or real-time server ([Firebase](https://firebase.google.com), [Ably](https://ably.com), [Socket.io](https://socket.io)) |
+| `AnalyticsEngine` | **Yes** | Analytics endpoint or service ([Mixpanel](https://mixpanel.com), [Amplitude](https://amplitude.com), [PostHog](https://posthog.com)) |
+| `FeatureFlagManager` | **Yes** | Feature flag service ([LaunchDarkly](https://launchdarkly.com), [Unleash](https://www.getunleash.io/), or custom API) |
+| `FormEngine` | **Yes** | Form submission endpoint (`onSubmit` callback) |
+| `CartManager` | **No** | Client-side state only |
+| `OnboardingManager` | **No** | Client-side state only |
+
+Modules accept configuration callbacks (`onRefreshToken`, `onFlush`, `onSubmit`) that call your backend endpoints. The library manages retry, caching, and offline queuing around them.
+
+---
+
 ## Installation
 
 ```bash
