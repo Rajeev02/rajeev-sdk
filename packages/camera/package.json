@@ -1,6 +1,6 @@
 {
   "name": "@rajeev02/camera",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Advanced camera capture & photo editing — filters, crop, adjust, stickers, text, drawing, beauty mode, HDR, panorama",
   "main": "lib/index.js",
   "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",

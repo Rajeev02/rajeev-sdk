@@ -1,6 +1,6 @@
 {
   "name": "@rajeev02/video-editor",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Video editor — timeline, trim, merge, split, transitions, effects, music, text, stickers, speed, export",
   "main": "lib/index.js",
   "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",

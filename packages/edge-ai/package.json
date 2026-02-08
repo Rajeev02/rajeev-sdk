@@ -1,6 +1,6 @@
 {
   "name": "@rajeev02/edge-ai",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Edge AI / On-Device ML Toolkit — OCR, face detection, voice commands, document scanner, smart crop",
   "main": "lib/index.js",
   "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",
