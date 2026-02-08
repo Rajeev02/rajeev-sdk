@@ -21,6 +21,7 @@
  *   --dry-run                   Show what would be done without executing
  *   --skip-git                  Skip git add, commit, push
  *   --skip-publish              Skip npm publish (just bump, build, commit & push)
+ *   --otp <code>                npm one-time password (2FA)
  *   --no-build                  Skip TypeScript build step
  *   --help                      Show this help message
  */
@@ -58,6 +59,7 @@ function parseArgs() {
     skipGit: false,
     skipPublish: false,
     noBuild: false,
+    otp: null,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -106,6 +108,9 @@ function parseArgs() {
         break;
       case "--no-build":
         opts.noBuild = true;
+        break;
+      case "--otp":
+        opts.otp = args[++i];
         break;
       default:
         console.error(`Unknown option: ${args[i]}. Use --help for usage.`);
@@ -274,7 +279,10 @@ async function main() {
       } else {
         try {
           console.log(`  Publishing ${pkg.name}@${newVersion}...`);
-          execSync("npm publish --access public", { cwd: pkgDir, stdio: "pipe" });
+          const publishCmd = opts.otp
+            ? `npm publish --access public --otp=${opts.otp}`
+            : "npm publish --access public";
+          execSync(publishCmd, { cwd: pkgDir, stdio: "pipe" });
           results.push({ name: pkg.name, version: newVersion, status: "✅ published" });
           console.log(`  ✅ ${pkg.name}@${newVersion} published`);
         } catch (e) {
