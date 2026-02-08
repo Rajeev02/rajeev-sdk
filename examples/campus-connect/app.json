@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "CampusConnect",
+    "slug": "campus-connect",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "scheme": "campusconnect",
+    "splash": {
+      "backgroundColor": "#1a237e"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rajeevsdk.campusconnect",
+      "associatedDomains": ["applinks:campusconnect.rajeev02.dev"]
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1a237e"
+      },
+      "package": "com.rajeevsdk.campusconnect",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            { "scheme": "campusconnect" },
+            { "scheme": "https", "host": "campusconnect.rajeev02.dev" }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router"]
+  }
+}

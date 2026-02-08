@@ -377,6 +377,34 @@ open examples/vanilla-web-demo/index.html
 | `@rajeev02/video-editor` | [VIDEO-EDITOR.md](docs/usage/VIDEO-EDITOR.md) | Trim, transitions, filters, multi-track, export          |
 | `@rajeev02/app-shell`    | [APP-SHELL.md](docs/usage/APP-SHELL.md)       | Bootstrap, feature flags, A/B testing, crash reporting   |
 
+## 🎓 Demo App — CampusConnect
+
+A **real-world College/University app** built with all 15 SDK libraries, available on **6 platforms**:
+
+| Platform | Directory | Tech Stack |
+|----------|-----------|------------|
+| Expo (React Native) | `examples/campus-connect/` | Expo SDK 54 + React Navigation 7 |
+| React Web | `examples/campus-connect-web/` | Vite + React 19 |
+| iOS Native | `examples/campus-connect-ios/` | SwiftUI |
+| Android Native | `examples/campus-connect-android/` | Jetpack Compose + Material 3 |
+| watchOS | `examples/campus-connect-watchos/` | SwiftUI (Watch) |
+| Vanilla Web | `examples/campus-connect-vanilla/` | HTML + CSS + JS (zero deps) |
+
+**Features:** Timetable sync, UPI fee payments, digital ID card (encrypted), lecture playback, scan notes → OCR → AI quiz, event sharing via deep links, push notifications, Hindi/English toggle, dark mode, feature flags, and more.
+
+```bash
+# Quick start — Expo
+cd examples/campus-connect && npm install && npx expo start
+
+# Quick start — Web
+cd examples/campus-connect-web && npm install && npm run dev
+
+# Quick start — Vanilla (no build)
+open examples/campus-connect-vanilla/index.html
+```
+
+📖 Full documentation: [examples/CAMPUS-CONNECT.md](examples/CAMPUS-CONNECT.md)
+
 ## Release & Publishing
 
 All 12 TypeScript packages are published to npm under the `@rajeev02` scope. The monorepo includes a release script that handles version bumping, building, git tagging, and npm publishing in one step.

@@ -1,0 +1,48 @@
+{
+  "name": "campus-connect",
+  "version": "1.0.0",
+  "description": "CampusConnect — A real-world college app demo using all 15 Rajeev SDK libraries",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "web": "expo start --web",
+    "ios": "expo start --ios",
+    "android": "expo start --android",
+    "build:web": "expo export --platform web"
+  },
+  "dependencies": {
+    "expo": "~54.0.0",
+    "expo-status-bar": "~2.2.0",
+    "expo-linear-gradient": "~14.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.9",
+    "react-native-web": "~0.19.13",
+    "react-native-safe-area-context": "~5.4.0",
+    "react-native-screens": "~4.10.0",
+    "@react-navigation/native": "^7.0.0",
+    "@react-navigation/bottom-tabs": "^7.0.0",
+    "@react-navigation/native-stack": "^7.0.0",
+    "@rajeev02/vault": "^0.2.0",
+    "@rajeev02/network": "^0.2.0",
+    "@rajeev02/sync": "^0.2.0",
+    "@rajeev02/locale": "^0.2.0",
+    "@rajeev02/notify": "^0.2.0",
+    "@rajeev02/ui": "^0.2.0",
+    "@rajeev02/auth": "^0.2.0",
+    "@rajeev02/payments": "^0.2.0",
+    "@rajeev02/camera": "^0.2.0",
+    "@rajeev02/deeplink": "^0.2.0",
+    "@rajeev02/document": "^0.2.0",
+    "@rajeev02/edge-ai": "^0.2.0",
+    "@rajeev02/media": "^0.2.0",
+    "@rajeev02/video-editor": "^0.2.0",
+    "@rajeev02/app-shell": "^0.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "typescript": "~5.4.0",
+    "@types/react": "~18.3.0"
+  },
+  "private": true
+}
