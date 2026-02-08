@@ -33,7 +33,7 @@ import {
  * });
  * ```
  *
- * @author Rajeev Joshi (https://github.com/Rajeev02)
+ * @author Rajeev Kumar Joshi (https://github.com/Rajeev02)
  */
 export class Vault {
   private initialized = false;

@@ -2,8 +2,9 @@
   "name": "rajeev-sdk",
   "version": "0.1.0",
   "private": true,
-  "description": "Cross-platform infrastructure libraries by Rajeev Joshi",
-  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "description": "Cross-platform infrastructure libraries by Rajeev Kumar Joshi",
+  "homepage": "https://rajeev02.github.io",
+  "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",
   "license": "MIT",
   "workspaces": [
     "packages/vault/ts-wrapper",
@@ -12,6 +13,15 @@
     "packages/locale/ts-wrapper",
     "packages/notify",
     "packages/ui",
+    "packages/app-shell",
+    "packages/auth",
+    "packages/camera",
+    "packages/deeplink",
+    "packages/document",
+    "packages/edge-ai",
+    "packages/media",
+    "packages/payments",
+    "packages/video-editor",
     "examples/*"
   ],
   "scripts": {

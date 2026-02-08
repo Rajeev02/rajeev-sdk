@@ -4,7 +4,7 @@
  * Adaptive UI Component System
  * Device-aware rendering for phone, tablet, watch, TV, auto, IoT
  *
- * @author Rajeev Joshi (https://github.com/Rajeev02)
+ * @author Rajeev Kumar Joshi (https://github.com/Rajeev02)
  * @license MIT
  */
 

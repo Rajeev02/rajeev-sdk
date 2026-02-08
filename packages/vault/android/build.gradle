@@ -13,7 +13,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace "com.rajeevsdk.vault"
+    namespace "io.github.rajeev02.vault"
     compileSdk 35
 
     defaultConfig {

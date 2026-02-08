@@ -1,0 +1,8 @@
+{
+  "name": "@rajeev02/document",
+  "version": "0.1.0",
+  "description": "Document picker, PDF viewer/editor, annotation, digital signature, form filling, document scanner",
+  "main": "src/index.ts",
+  "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",
+  "license": "MIT"
+}
