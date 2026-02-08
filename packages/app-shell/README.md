@@ -21,15 +21,15 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 
 This is a **client-side orchestration layer** — it manages state, caching, and offline queues. Several modules require your own backend services:
 
-| Module | Backend required? | What you need |
-| ------ | ----------------- | ------------- |
-| `ApiClient` | **Yes** | Your REST API server (set as `baseUrl`) |
-| `ChatEngine` | **Yes** | WebSocket or real-time server ([Firebase](https://firebase.google.com), [Ably](https://ably.com), [Socket.io](https://socket.io)) |
-| `AnalyticsEngine` | **Yes** | Analytics endpoint or service ([Mixpanel](https://mixpanel.com), [Amplitude](https://amplitude.com), [PostHog](https://posthog.com), or custom) |
-| `FeatureFlagManager` | **Yes** | Feature flag service ([LaunchDarkly](https://launchdarkly.com), [Unleash](https://www.getunleash.io/), or custom API) |
-| `FormEngine` | **Yes** | Form submission endpoint (`onSubmit` callback) |
-| `CartManager` | **No** | Client-side state only (GST calculation, coupons) |
-| `OnboardingManager` | **No** | Client-side state only (slide progress, completion) |
+| Module               | Backend required? | What you need                                                                                                                                   |
+| -------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ApiClient`          | **Yes**           | Your REST API server (set as `baseUrl`)                                                                                                         |
+| `ChatEngine`         | **Yes**           | WebSocket or real-time server ([Firebase](https://firebase.google.com), [Ably](https://ably.com), [Socket.io](https://socket.io))               |
+| `AnalyticsEngine`    | **Yes**           | Analytics endpoint or service ([Mixpanel](https://mixpanel.com), [Amplitude](https://amplitude.com), [PostHog](https://posthog.com), or custom) |
+| `FeatureFlagManager` | **Yes**           | Feature flag service ([LaunchDarkly](https://launchdarkly.com), [Unleash](https://www.getunleash.io/), or custom API)                           |
+| `FormEngine`         | **Yes**           | Form submission endpoint (`onSubmit` callback)                                                                                                  |
+| `CartManager`        | **No**            | Client-side state only (GST calculation, coupons)                                                                                               |
+| `OnboardingManager`  | **No**            | Client-side state only (slide progress, completion)                                                                                             |
 
 **How callbacks work:** Modules like `ApiClient`, `ChatEngine`, and `AnalyticsEngine` accept configuration callbacks (`onRefreshToken`, `onFlush`, `onSubmit`) that call **your backend endpoints**. The library manages retry, caching, and offline queuing around them.
 

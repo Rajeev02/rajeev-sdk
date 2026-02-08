@@ -21,14 +21,17 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 This library provides the **URL routing and matching engine** — it parses incoming URLs, matches them to registered routes, and extracts parameters. But to actually **receive** deep links in your app, you need native configuration:
 
 **Custom URL Scheme (`myapp://`):**
+
 - **iOS:** Register your URL scheme in Xcode → Info → URL Types
 - **Android:** Add intent filters for your scheme in `AndroidManifest.xml`
 
 **Universal Links / App Links (`https://yourdomain.com/...`):**
+
 - **iOS:** Add Associated Domains capability (`applinks:yourdomain.com`) and host an `apple-app-site-association` file on your domain
 - **Android:** Host a `.well-known/assetlinks.json` file on your domain + add intent filters
 
 **React Native integration:**
+
 ```typescript
 import { Linking } from "react-native";
 import { DeepLinkRouter } from "@rajeev02/deeplink";

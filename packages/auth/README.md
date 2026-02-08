@@ -22,14 +22,14 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 
 **You must provide your own backend** that handles the actual work:
 
-| What the library does (client-side)         | What YOU must build (backend)                      |
-| ------------------------------------------- | -------------------------------------------------- |
+| What the library does (client-side)              | What YOU must build (backend)                                |
+| ------------------------------------------------ | ------------------------------------------------------------ |
 | OTP state machine (sending → waiting → verified) | API endpoint that sends SMS/WhatsApp via Twilio, MSG91, etc. |
-| Resend cooldown timer (30s default)          | OTP code generation & storage                      |
-| Max attempts & lockout tracking              | OTP verification & token issuance                  |
-| JWT token storage & auto-refresh             | Token generation (JWT signing)                     |
-| Session expiry detection                     | Refresh token endpoint                             |
-| OAuth flow orchestration                     | OAuth client credentials & callback handling       |
+| Resend cooldown timer (30s default)              | OTP code generation & storage                                |
+| Max attempts & lockout tracking                  | OTP verification & token issuance                            |
+| JWT token storage & auto-refresh                 | Token generation (JWT signing)                               |
+| Session expiry detection                         | Refresh token endpoint                                       |
+| OAuth flow orchestration                         | OAuth client credentials & callback handling                 |
 
 **Recommended OTP/SMS providers for India:** [MSG91](https://msg91.com), [Twilio](https://twilio.com), [Firebase Auth](https://firebase.google.com/docs/auth), [AWS SNS](https://aws.amazon.com/sns/)
 
@@ -158,12 +158,12 @@ const url = providers.getAuthorizationUrl("google");
 
 ### `OtpManager`
 
-| Method                         | Returns                 | Description                         |
-| ------------------------------ | ----------------------- | ----------------------------------- |
-| `sendOtp(destination, method)` | `Promise<OtpResponse>`  | Triggers your `onSendOtp` callback + starts cooldown |
+| Method                         | Returns                 | Description                                            |
+| ------------------------------ | ----------------------- | ------------------------------------------------------ |
+| `sendOtp(destination, method)` | `Promise<OtpResponse>`  | Triggers your `onSendOtp` callback + starts cooldown   |
 | `verifyOtp(code)`              | `Promise<VerifyResult>` | Triggers your `onVerifyOtp` callback + tracks attempts |
-| `canResend()`                  | `boolean`               | Check if resend cooldown has passed |
-| `getRemainingCooldown()`       | `number`                | Seconds until resend is allowed     |
+| `canResend()`                  | `boolean`               | Check if resend cooldown has passed                    |
+| `getRemainingCooldown()`       | `number`                | Seconds until resend is allowed                        |
 
 ### `AuthProviderRegistry`
 

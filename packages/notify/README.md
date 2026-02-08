@@ -29,12 +29,12 @@ The `PlatformOverrides` (iOS sound/badge, Android channel/icon) are **configurat
 
 **You need a notification delivery library to actually show notifications:**
 
-| Use case | Recommended library |
-| -------- | ------------------- |
-| Expo apps | [`expo-notifications`](https://docs.expo.dev/versions/latest/sdk/notifications/) |
-| Bare React Native | [`@notifee/react-native`](https://notifee.app/) |
-| Push notifications | [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) |
-| Web | [Web Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) |
+| Use case           | Recommended library                                                              |
+| ------------------ | -------------------------------------------------------------------------------- |
+| Expo apps          | [`expo-notifications`](https://docs.expo.dev/versions/latest/sdk/notifications/) |
+| Bare React Native  | [`@notifee/react-native`](https://notifee.app/)                                  |
+| Push notifications | [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)     |
+| Web                | [Web Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)        |
 
 **Think of this library as the scheduling brain + inbox state manager** — you pair it with a delivery layer that actually displays notifications on device.
 

@@ -20,20 +20,20 @@ Part of [Rajeev SDK](https://github.com/Rajeev02/rajeev-sdk) — cross-platform 
 
 This library provides **ML pipeline management, text parsing utilities, and voice intent matching**. It does **NOT** include ML models, OCR engines, or speech recognition.
 
-| What the library does | What YOU must provide |
-| --------------------- | --------------------- |
-| Parse OCR text to extract PAN/Aadhaar/DL numbers | OCR engine to convert images → text first |
-| Validate Aadhaar (Verhoeff checksum), PAN format | Nothing — works standalone |
-| Model lifecycle management (register/load/unload) | TFLite, CoreML, or ONNX runtime + model files |
-| Rule-based voice intent parsing (11 languages) | Speech-to-text engine to convert audio → text first |
+| What the library does                             | What YOU must provide                               |
+| ------------------------------------------------- | --------------------------------------------------- |
+| Parse OCR text to extract PAN/Aadhaar/DL numbers  | OCR engine to convert images → text first           |
+| Validate Aadhaar (Verhoeff checksum), PAN format  | Nothing — works standalone                          |
+| Model lifecycle management (register/load/unload) | TFLite, CoreML, or ONNX runtime + model files       |
+| Rule-based voice intent parsing (11 languages)    | Speech-to-text engine to convert audio → text first |
 
 **OCR functions** (`extractPanNumber`, `extractAadhaarNumber`, `detectDocumentType`) accept **pre-extracted text strings** — you must first convert images to text using an OCR engine:
 
-| Platform | Recommended OCR engine |
-| -------- | ---------------------- |
-| iOS | [Apple Vision Framework](https://developer.apple.com/documentation/vision) |
-| Android | [Google ML Kit Text Recognition](https://developers.google.com/ml-kit/vision/text-recognition) |
-| Cross-platform | [Tesseract.js](https://tesseract.projectnaptha.com/) (web/WASM) |
+| Platform       | Recommended OCR engine                                                                         |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| iOS            | [Apple Vision Framework](https://developer.apple.com/documentation/vision)                     |
+| Android        | [Google ML Kit Text Recognition](https://developers.google.com/ml-kit/vision/text-recognition) |
+| Cross-platform | [Tesseract.js](https://tesseract.projectnaptha.com/) (web/WASM)                                |
 
 **ML pipeline** manages model state (register → load → ready → unload) but actual inference must be implemented via native ML runtimes on each platform.
 

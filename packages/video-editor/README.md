@@ -23,12 +23,12 @@ This library provides the **timeline data model, editing state management, and e
 
 You need a native video processing engine:
 
-| Platform | Recommended engine |
-| -------- | ------------------ |
-| iOS | AVFoundation / AVComposition |
-| Android | MediaCodec / ExoPlayer |
+| Platform       | Recommended engine                                                              |
+| -------------- | ------------------------------------------------------------------------------- |
+| iOS            | AVFoundation / AVComposition                                                    |
+| Android        | MediaCodec / ExoPlayer                                                          |
 | Cross-platform | [`ffmpeg-kit`](https://github.com/arthenica/ffmpeg-kit) (FFmpeg wrapper for RN) |
-| Web | [FFmpeg.wasm](https://ffmpegwasm.netlify.app/) |
+| Web            | [FFmpeg.wasm](https://ffmpegwasm.netlify.app/)                                  |
 
 **How it works:** This library manages the editing state (timeline clips, transitions, effects, text overlays) as a data model. Your rendering engine reads this state to produce the actual video output.
 

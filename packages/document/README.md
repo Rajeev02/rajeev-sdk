@@ -22,15 +22,16 @@ This library provides **document editing state management** — annotation track
 
 You need to pair it with:
 
-| Feature | Recommended library |
-| ------- | ------------------- |
-| File picker (Expo) | [`expo-document-picker`](https://docs.expo.dev/versions/latest/sdk/document-picker/) |
-| File picker (bare RN) | [`react-native-document-picker`](https://github.com/rnmods/react-native-document-picker) |
-| PDF rendering (RN) | [`react-native-pdf`](https://github.com/wonday/react-native-pdf) |
-| PDF rendering (Web) | [`pdf.js`](https://mozilla.github.io/pdf.js/) |
-| Signature drawing | A canvas component — this library stores/places signatures, but doesn't capture the drawn strokes |
+| Feature               | Recommended library                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------------------- |
+| File picker (Expo)    | [`expo-document-picker`](https://docs.expo.dev/versions/latest/sdk/document-picker/)              |
+| File picker (bare RN) | [`react-native-document-picker`](https://github.com/rnmods/react-native-document-picker)          |
+| PDF rendering (RN)    | [`react-native-pdf`](https://github.com/wonday/react-native-pdf)                                  |
+| PDF rendering (Web)   | [`pdf.js`](https://mozilla.github.io/pdf.js/)                                                     |
+| Signature drawing     | A canvas component — this library stores/places signatures, but doesn't capture the drawn strokes |
 
 **Permissions required:**
+
 - **iOS:** Add `NSPhotoLibraryUsageDescription` to `Info.plist` (for gallery access)
 - **Android:** Add `READ_EXTERNAL_STORAGE` / `READ_MEDIA_IMAGES` permissions
 

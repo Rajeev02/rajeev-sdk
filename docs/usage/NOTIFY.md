@@ -19,14 +19,15 @@
 
 Before using `@rajeev02/notify`, you need a **notification delivery layer** to actually show notifications:
 
-| Use case | Recommended library |
-| -------- | ------------------- |
-| Expo apps | [`expo-notifications`](https://docs.expo.dev/versions/latest/sdk/notifications/) |
-| Bare React Native | [`@notifee/react-native`](https://notifee.app/) |
-| Push notifications | [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) |
-| Web | [Web Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) |
+| Use case           | Recommended library                                                              |
+| ------------------ | -------------------------------------------------------------------------------- |
+| Expo apps          | [`expo-notifications`](https://docs.expo.dev/versions/latest/sdk/notifications/) |
+| Bare React Native  | [`@notifee/react-native`](https://notifee.app/)                                  |
+| Push notifications | [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)     |
+| Web                | [Web Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)        |
 
 **Platform-specific setup:**
+
 - **iOS:** Enable Push Notifications capability in Xcode, configure APNs certificate
 - **Android:** Add `google-services.json` for FCM, configure notification channels
 

@@ -23,13 +23,14 @@ This package provides the **camera state management, filter presets, and photo e
 
 You need a native camera library to pair with:
 
-| Environment | Recommended library |
-| ----------- | ------------------- |
-| Expo | [`expo-camera`](https://docs.expo.dev/versions/latest/sdk/camera/) |
-| Bare React Native | [`react-native-vision-camera`](https://github.com/mrousavy/react-native-vision-camera) |
-| Web | [MediaDevices API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) |
+| Environment       | Recommended library                                                                            |
+| ----------------- | ---------------------------------------------------------------------------------------------- |
+| Expo              | [`expo-camera`](https://docs.expo.dev/versions/latest/sdk/camera/)                             |
+| Bare React Native | [`react-native-vision-camera`](https://github.com/mrousavy/react-native-vision-camera)         |
+| Web               | [MediaDevices API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) |
 
 **Permissions required:**
+
 - **iOS:** Add `NSCameraUsageDescription` and `NSMicrophoneUsageDescription` to `Info.plist`
 - **Android:** Add `CAMERA` and `RECORD_AUDIO` permissions to `AndroidManifest.xml`
 

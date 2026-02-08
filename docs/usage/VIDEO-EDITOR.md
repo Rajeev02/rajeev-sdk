@@ -19,12 +19,12 @@
 
 Before using `@rajeev02/video-editor`, you need a **native video processing engine:**
 
-| Platform | Recommended engine |
-| -------- | ------------------ |
-| iOS | AVFoundation / AVComposition |
-| Android | MediaCodec / ExoPlayer |
+| Platform       | Recommended engine                                                                |
+| -------------- | --------------------------------------------------------------------------------- |
+| iOS            | AVFoundation / AVComposition                                                      |
+| Android        | MediaCodec / ExoPlayer                                                            |
 | Cross-platform | [`ffmpeg-kit`](https://github.com/arthenica/ffmpeg-kit) (FFmpeg for React Native) |
-| Web | [FFmpeg.wasm](https://ffmpegwasm.netlify.app/) |
+| Web            | [FFmpeg.wasm](https://ffmpegwasm.netlify.app/)                                    |
 
 This library manages the editing state (clips, transitions, effects, text) as a data model. Your rendering engine reads this state to produce the actual video output.
 
