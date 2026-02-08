@@ -119,10 +119,10 @@ val fees = listOf(
 )
 
 val events = listOf(
-    CampusEvent(1, "Annual Tech Fest — TechSpark 2025", "Feb 15-17", "Main Auditorium", "Tech", "🚀", 500, 342, 0),
-    CampusEvent(2, "Hackathon: Build for Bharat", "Feb 22-23", "Innovation Lab", "Hackathon", "💻", 100, 78, 200),
-    CampusEvent(3, "Cultural Night — Rang Tarang", "Mar 1", "Open Air Theatre", "Cultural", "🎭", 1000, 650, 0),
-    CampusEvent(4, "Workshop: React Native", "Mar 15", "CS Lab-3", "Workshop", "📱", 60, 38, 150),
+    CampusEvent(1, "Annual Tech Fest — TechSpark 2025", "Feb 15-17", "Main Auditorium", "Tech", "\uD83D\uDE80", 500, 342, 0),
+    CampusEvent(2, "Hackathon: Build for Bharat", "Feb 22-23", "Innovation Lab", "Hackathon", "\uD83D\uDCBB", 100, 78, 200),
+    CampusEvent(3, "Cultural Night — Rang Tarang", "Mar 1", "Open Air Theatre", "Cultural", "\uD83C\uDFAD", 1000, 650, 0),
+    CampusEvent(4, "Workshop: React Native", "Mar 15", "CS Lab-3", "Workshop", "\uD83D\uDCF1", 60, 38, 150),
 )
 
 val notifications = listOf(
@@ -200,7 +200,7 @@ fun LoginScreen(onLogin: () -> Unit) {
                 modifier = Modifier.padding(32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("🎓", fontSize = 48.sp)
+                Text("\uD83C\uDF93", fontSize = 48.sp)
                 Spacer(Modifier.height(8.dp))
                 Text("CampusConnect", fontSize = 24.sp, fontWeight = FontWeight.ExtraBold)
                 Text("Sign in to your college", color = CampusColors.TextSecondary, fontSize = 14.sp)
@@ -209,7 +209,7 @@ fun LoginScreen(onLogin: () -> Unit) {
                 if (!otpSent) {
                     OutlinedTextField(
                         value = phone, onValueChange = { phone = it },
-                        label = { Text("📱 Phone Number") },
+                        label = { Text("\uD83D\uDCF1 Phone Number") },
                         modifier = Modifier.fillMaxWidth()
                     )
                     SdkTag("@rajeev02/auth + vault")
@@ -221,12 +221,12 @@ fun LoginScreen(onLogin: () -> Unit) {
                     Text("or", color = CampusColors.TextLight)
                     Spacer(Modifier.height(12.dp))
                     OutlinedButton(onClick = onLogin, modifier = Modifier.fillMaxWidth()) {
-                        Text("🔐 Google Sign-In")
+                        Text("\uD83D\uDD10 Google Sign-In")
                     }
                 } else {
                     OutlinedTextField(
                         value = otp, onValueChange = { otp = it },
-                        label = { Text("🔑 Enter OTP") },
+                        label = { Text("\uD83D\uDD11 Enter OTP") },
                         modifier = Modifier.fillMaxWidth()
                     )
                     SdkTag("@rajeev02/auth + vault + notify")
@@ -296,7 +296,7 @@ fun DashboardScreen() {
         // Greeting
         item {
             Column {
-                Text("Good Morning 👋", color = CampusColors.TextSecondary, fontSize = 14.sp)
+                Text("Good Morning \uD83D\uDC4B", color = CampusColors.TextSecondary, fontSize = 14.sp)
                 Text(student.name, fontSize = 24.sp, fontWeight = FontWeight.Bold)
             }
         }
@@ -304,14 +304,14 @@ fun DashboardScreen() {
         // Stats Grid
         item {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                StatCard("📚", "${todayClasses.size}", "Classes Today", "sync", Modifier.weight(1f))
-                StatCard("💰", formatINR(pendingFees), "Fees Pending", "payments", Modifier.weight(1f))
+                StatCard("\uD83D\uDCDA", "${todayClasses.size}", "Classes Today", "sync", Modifier.weight(1f))
+                StatCard("\uD83D\uDCB0", formatINR(pendingFees), "Fees Pending", "payments", Modifier.weight(1f))
             }
         }
         item {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                StatCard("🔔", "2", "Unread Alerts", "notify", Modifier.weight(1f))
-                StatCard("📊", "${student.cgpa}", "Current CGPA", "network", Modifier.weight(1f))
+                StatCard("\uD83D\uDD14", "2", "Unread Alerts", "notify", Modifier.weight(1f))
+                StatCard("\uD83D\uDCCA", "${student.cgpa}", "Current CGPA", "network", Modifier.weight(1f))
             }
         }
 
@@ -320,7 +320,7 @@ fun DashboardScreen() {
             Card(shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = CampusColors.Surface)) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("📅 Today's Classes", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        Text("\uD83D\uDCC5 Today's Classes", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                         Spacer(Modifier.weight(1f))
                         SdkTag("@rajeev02/sync")
                     }
@@ -340,15 +340,15 @@ fun DashboardScreen() {
                     Text("⚡ Quick Actions", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                     Spacer(Modifier.height(12.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        QuickActionChip("📝", "Notes", "document", Modifier.weight(1f))
-                        QuickActionChip("💳", "Pay", "payments", Modifier.weight(1f))
-                        QuickActionChip("🪪", "ID", "vault", Modifier.weight(1f))
+                        QuickActionChip("\uD83D\uDCDD", "Notes", "document", Modifier.weight(1f))
+                        QuickActionChip("\uD83D\uDCB3", "Pay", "payments", Modifier.weight(1f))
+                        QuickActionChip("\uD83E\uDEAA", "ID", "vault", Modifier.weight(1f))
                     }
                     Spacer(Modifier.height(8.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        QuickActionChip("🎧", "Lectures", "media", Modifier.weight(1f))
-                        QuickActionChip("🎉", "Events", "deeplink", Modifier.weight(1f))
-                        QuickActionChip("🧠", "AI Quiz", "edge-ai", Modifier.weight(1f))
+                        QuickActionChip("\uD83C\uDFA7", "Lectures", "media", Modifier.weight(1f))
+                        QuickActionChip("\uD83C\uDF89", "Events", "deeplink", Modifier.weight(1f))
+                        QuickActionChip("\uD83E\uDDE0", "AI Quiz", "edge-ai", Modifier.weight(1f))
                     }
                 }
             }
@@ -359,7 +359,7 @@ fun DashboardScreen() {
             Card(shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = CampusColors.Surface)) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("🔔 Notifications", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        Text("\uD83D\uDD14 Notifications", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                         Spacer(Modifier.weight(1f))
                         SdkTag("@rajeev02/notify")
                     }
@@ -406,7 +406,7 @@ fun TimetableScreen() {
                         modifier = Modifier.fillMaxWidth().padding(48.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text("😴", fontSize = 48.sp)
+                        Text("\uD83D\uDE34", fontSize = 48.sp)
                         Text("No classes!", color = CampusColors.TextSecondary)
                     }
                 }
@@ -510,7 +510,7 @@ fun CampusScreen() {
                         .padding(20.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("👨‍🎓", fontSize = 36.sp)
+                        Text("\uD83D\uDC68\u200D\uD83C\uDF93", fontSize = 36.sp)
                         Spacer(Modifier.width(16.dp))
                         Column(modifier = Modifier.weight(1f)) {
                             Text("Digital ID Card", color = Color.White, fontWeight = FontWeight.Bold)
@@ -537,7 +537,7 @@ fun CampusScreen() {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text("RAJEEV NATIONAL UNIVERSITY", color = Color.White.copy(alpha = 0.7f), fontSize = 10.sp, letterSpacing = 2.sp)
                             Spacer(Modifier.height(12.dp))
-                            Text("👨‍🎓", fontSize = 48.sp)
+                            Text("\uD83D\uDC68\u200D\uD83C\uDF93", fontSize = 48.sp)
                             Text(student.name, color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
                             Text(student.department, color = Color.White.copy(alpha = 0.8f), fontSize = 14.sp)
                             Spacer(Modifier.height(12.dp))
@@ -566,7 +566,7 @@ fun CampusScreen() {
         // Events Header
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("🎉 Campus Events", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Text("\uD83C\uDF89 Campus Events", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 Spacer(Modifier.weight(1f))
                 SdkTag("@rajeev02/deeplink")
             }
@@ -581,7 +581,7 @@ fun CampusScreen() {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(event.title, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         Spacer(Modifier.height(4.dp))
-                        Text("📅 ${event.date} · 📍 ${event.venue}", fontSize = 12.sp, color = CampusColors.TextSecondary)
+                        Text("\uD83D\uDCC5 ${event.date} · \uD83D\uDCCD ${event.venue}", fontSize = 12.sp, color = CampusColors.TextSecondary)
                         Spacer(Modifier.height(6.dp))
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Badge(event.type, CampusColors.PrimaryBg, CampusColors.Primary)
@@ -600,7 +600,7 @@ fun CampusScreen() {
                             OutlinedButton(
                                 onClick = {},
                                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
-                            ) { Text("🔗 Share", fontSize = 12.sp) }
+                            ) { Text("\uD83D\uDD17 Share", fontSize = 12.sp) }
                         }
                     }
                 }
@@ -628,7 +628,7 @@ fun ProfileScreen(onLogout: () -> Unit) {
                     modifier = Modifier.fillMaxWidth().padding(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("👨‍🎓", fontSize = 48.sp)
+                    Text("\uD83D\uDC68\u200D\uD83C\uDF93", fontSize = 48.sp)
                     Text(student.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
                     Text(student.email, color = CampusColors.TextSecondary, fontSize = 13.sp)
                     Spacer(Modifier.height(12.dp))
@@ -646,9 +646,9 @@ fun ProfileScreen(onLogout: () -> Unit) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text("⚙️ Preferences", fontWeight = FontWeight.Bold)
                     Spacer(Modifier.height(12.dp))
-                    SettingToggle("🌐", "Language: ${if (hindi) "हिंदी" else "English"}", "@rajeev02/locale", hindi) { hindi = it }
-                    SettingToggle("🌙", "Dark Mode", "@rajeev02/ui", darkMode) { darkMode = it }
-                    SettingToggle("🔐", "Biometric Lock", "@rajeev02/auth", biometric) { biometric = it }
+                    SettingToggle("\uD83C\uDF10", "Language: ${if (hindi) "हिंदी" else "English"}", "@rajeev02/locale", hindi) { hindi = it }
+                    SettingToggle("\uD83C\uDF19", "Dark Mode", "@rajeev02/ui", darkMode) { darkMode = it }
+                    SettingToggle("\uD83D\uDD10", "Biometric Lock", "@rajeev02/auth", biometric) { biometric = it }
                 }
             }
         }
@@ -658,7 +658,7 @@ fun ProfileScreen(onLogout: () -> Unit) {
             Card(shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = CampusColors.Surface)) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("🚩 Feature Flags", fontWeight = FontWeight.Bold)
+                        Text("\uD83D\uDEA9 Feature Flags", fontWeight = FontWeight.Bold)
                         Spacer(Modifier.weight(1f))
                         SdkTag("@rajeev02/app-shell")
                     }
@@ -681,7 +681,7 @@ fun ProfileScreen(onLogout: () -> Unit) {
             Card(shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = CampusColors.Surface)) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("📦 Rajeev SDK", fontWeight = FontWeight.Bold)
+                        Text("\uD83D\uDCE6 Rajeev SDK", fontWeight = FontWeight.Bold)
                         Spacer(Modifier.weight(1f))
                         Badge("v0.2.1", Color(0xFFE8F5E9), CampusColors.Success)
                     }
@@ -706,7 +706,7 @@ fun ProfileScreen(onLogout: () -> Unit) {
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("🚪 Logout", fontWeight = FontWeight.SemiBold)
+                Text("\uD83D\uDEAA Logout", fontWeight = FontWeight.SemiBold)
             }
             SdkTag("@rajeev02/auth + vault")
         }
@@ -764,7 +764,7 @@ fun NotifRow(notif: NotificationItem) {
             .padding(12.dp),
         verticalAlignment = Alignment.Top
     ) {
-        val icon = when (notif.type) { "deadline" -> "⏰"; "payment" -> "💰"; "class" -> "📚"; "event" -> "🎉"; else -> "📢" }
+        val icon = when (notif.type) { "deadline" -> "⏰"; "payment" -> "\uD83D\uDCB0"; "class" -> "\uD83D\uDCDA"; "event" -> "\uD83C\uDF89"; else -> "\uD83D\uDCE2" }
         Text(icon, fontSize = 20.sp)
         Spacer(Modifier.width(12.dp))
         Column(modifier = Modifier.weight(1f)) {

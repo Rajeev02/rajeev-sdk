@@ -259,12 +259,18 @@ rajeev-sdk/
 │   ├── notify/              # Push/local notifications, inbox (TS)
 │   └── ui/                  # Design tokens, device detection, hooks (TS)
 ├── examples/
-│   ├── expo-demo/           # Expo SDK 54 — 15 demo screens (iOS/Android/Web)
-│   ├── react-web-demo/      # React 19 + Vite 6 — 15 library demos
-│   ├── ios-native-demo/     # SwiftUI (iOS 16+) — 15 native demo views
-│   ├── android-native-demo/ # Jetpack Compose + Material 3 — 15 demos
-│   ├── watchos-demo/        # watchOS 9+ SwiftUI — 8 watch-relevant demos
-│   └── vanilla-web-demo/    # Single HTML file — zero dependencies
+│   ├── expo-demo/              # Expo SDK 54 — 15 API demo screens
+│   ├── react-web-demo/         # React 19 + Vite — 15 API demos
+│   ├── ios-native-demo/        # SwiftUI (iOS 16+) — 15 native demos
+│   ├── android-native-demo/    # Jetpack Compose + Material 3 — 15 demos
+│   ├── watchos-demo/           # watchOS 9+ SwiftUI — 8 watch demos
+│   ├── vanilla-web-demo/       # Single HTML — zero dependencies
+│   ├── campus-connect/         # 🎓 CampusConnect Expo (12 screens)
+│   ├── campus-connect-web/     # 🎓 CampusConnect React Web (9 pages)
+│   ├── campus-connect-android/ # 🎓 CampusConnect Android (6 screens)
+│   ├── campus-connect-ios/     # 🎓 CampusConnect iOS SwiftUI (6 views)
+│   ├── campus-connect-watchos/ # 🎓 CampusConnect watchOS (4 views)
+│   └── campus-connect-vanilla/ # 🎓 CampusConnect Vanilla Web (8 tabs)
 ├── tools/
 │   └── rust-build/          # Cross-compilation scripts (iOS, Android, WASM)
 ├── docs/
@@ -349,6 +355,21 @@ All 15 libraries in a single HTML file — zero dependencies, zero build step.
 open examples/vanilla-web-demo/index.html
 ```
 
+### 🎓 CampusConnect — Real-World Sample App
+
+A full-featured **College/University app** demonstrating all 15 Rajeev SDK libraries in a real-world scenario. Each platform version is a self-contained, independently runnable project.
+
+| Platform         | Directory                 | Tech Stack               | Screens |
+| ---------------- | ------------------------- | ------------------------ | ------- |
+| Expo (RN)        | `campus-connect/`         | Expo SDK 54 + RN 7       | 12      |
+| React Web        | `campus-connect-web/`     | Vite + React 19          | 9       |
+| Android Native   | `campus-connect-android/` | Jetpack Compose + M3     | 6       |
+| iOS Native       | `campus-connect-ios/`     | SwiftUI (XcodeGen)       | 6       |
+| watchOS          | `campus-connect-watchos/` | SwiftUI Watch (XcodeGen) | 4       |
+| Vanilla Web      | `campus-connect-vanilla/` | HTML + CSS + JS          | 8       |
+
+Features: timetable sync, UPI fee payments, digital ID cards, lecture playback, note scanning with AI, event sharing, and more. See [CAMPUS-CONNECT.md](examples/CAMPUS-CONNECT.md) for full details.
+
 ## Documentation
 
 ### Guides
@@ -381,14 +402,14 @@ open examples/vanilla-web-demo/index.html
 
 A **real-world College/University app** built with all 15 SDK libraries, available on **6 platforms**:
 
-| Platform | Directory | Tech Stack |
-|----------|-----------|------------|
-| Expo (React Native) | `examples/campus-connect/` | Expo SDK 54 + React Navigation 7 |
-| React Web | `examples/campus-connect-web/` | Vite + React 19 |
-| iOS Native | `examples/campus-connect-ios/` | SwiftUI |
-| Android Native | `examples/campus-connect-android/` | Jetpack Compose + Material 3 |
-| watchOS | `examples/campus-connect-watchos/` | SwiftUI (Watch) |
-| Vanilla Web | `examples/campus-connect-vanilla/` | HTML + CSS + JS (zero deps) |
+| Platform            | Directory                          | Tech Stack                       |
+| ------------------- | ---------------------------------- | -------------------------------- |
+| Expo (React Native) | `examples/campus-connect/`         | Expo SDK 54 + React Navigation 7 |
+| React Web           | `examples/campus-connect-web/`     | Vite + React 19                  |
+| iOS Native          | `examples/campus-connect-ios/`     | SwiftUI                          |
+| Android Native      | `examples/campus-connect-android/` | Jetpack Compose + Material 3     |
+| watchOS             | `examples/campus-connect-watchos/` | SwiftUI (Watch)                  |
+| Vanilla Web         | `examples/campus-connect-vanilla/` | HTML + CSS + JS (zero deps)      |
 
 **Features:** Timetable sync, UPI fee payments, digital ID card (encrypted), lecture playback, scan notes → OCR → AI quiz, event sharing via deep links, push notifications, Hindi/English toggle, dark mode, feature flags, and more.
 

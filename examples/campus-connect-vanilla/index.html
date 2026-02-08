@@ -1,460 +1,1096 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CampusConnect — Vanilla Web Demo</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
-  <style>
-    :root {
-      --primary: #1a237e; --primary-light: #534bae; --primary-bg: #e8eaf6;
-      --secondary: #ff6f00; --success: #2e7d32; --error: #c62828; --warning: #f57f17;
-      --bg: #f5f5f5; --surface: #fff; --text: #1a1a2e; --text-sec: #666; --border: #e0e0e0;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); }
-    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusConnect — Vanilla Web Demo</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>"
+    />
+    <style>
+      :root {
+        --primary: #1a237e;
+        --primary-light: #534bae;
+        --primary-bg: #e8eaf6;
+        --secondary: #ff6f00;
+        --success: #2e7d32;
+        --error: #c62828;
+        --warning: #f57f17;
+        --bg: #f5f5f5;
+        --surface: #fff;
+        --text: #1a1a2e;
+        --text-sec: #666;
+        --border: #e0e0e0;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
 
-    /* Header */
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: #fff; padding: 32px 0; text-align: center; margin-bottom: 24px; border-radius: 16px;
-    }
-    header h1 { font-size: 28px; margin-bottom: 4px; }
-    header p { opacity: 0.8; font-size: 14px; }
+      /* Header */
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        color: #fff;
+        padding: 32px 0;
+        text-align: center;
+        margin-bottom: 24px;
+        border-radius: 16px;
+      }
+      header h1 {
+        font-size: 28px;
+        margin-bottom: 4px;
+      }
+      header p {
+        opacity: 0.8;
+        font-size: 14px;
+      }
 
-    /* Tabs */
-    .tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
-    .tab {
-      padding: 8px 16px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.15s;
-    }
-    .tab:hover { background: var(--primary-bg); }
-    .tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+      /* Tabs */
+      .tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .tab {
+        padding: 8px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.15s;
+      }
+      .tab:hover {
+        background: var(--primary-bg);
+      }
+      .tab.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
 
-    /* Cards */
-    .card { background: var(--surface); border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .sdk { font-size: 9px; font-family: monospace; color: var(--primary); background: var(--primary-bg); padding: 2px 8px; border-radius: 4px; }
+      /* Cards */
+      .card {
+        background: var(--surface);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+        border: 1px solid var(--border);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+      .card-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .sdk {
+        font-size: 9px;
+        font-family: monospace;
+        color: var(--primary);
+        background: var(--primary-bg);
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
 
-    /* Stats */
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
-    .stat { background: var(--surface); border-radius: 12px; padding: 16px; border: 1px solid var(--border); }
-    .stat-icon { font-size: 24px; }
-    .stat-value { font-size: 28px; font-weight: 800; margin: 4px 0; }
-    .stat-label { font-size: 12px; color: var(--text-sec); }
-    .stat-sdk { font-size: 9px; color: #999; font-family: monospace; margin-top: 6px; }
+      /* Stats */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .stat {
+        background: var(--surface);
+        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid var(--border);
+      }
+      .stat-icon {
+        font-size: 24px;
+      }
+      .stat-value {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 4px 0;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--text-sec);
+      }
+      .stat-sdk {
+        font-size: 9px;
+        color: #999;
+        font-family: monospace;
+        margin-top: 6px;
+      }
 
-    /* Table */
-    table { width: 100%; border-collapse: collapse; }
-    th { text-align: left; padding: 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #999; border-bottom: 2px solid var(--border); }
-    td { padding: 10px; font-size: 14px; border-bottom: 1px solid var(--border); }
-    tr:hover td { background: #fafafa; }
+      /* Table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        text-align: left;
+        padding: 10px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #999;
+        border-bottom: 2px solid var(--border);
+      }
+      td {
+        padding: 10px;
+        font-size: 14px;
+        border-bottom: 1px solid var(--border);
+      }
+      tr:hover td {
+        background: #fafafa;
+      }
 
-    /* Badge */
-    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-    .badge-primary { background: var(--primary-bg); color: var(--primary); }
-    .badge-success { background: #e8f5e9; color: var(--success); }
-    .badge-warning { background: #fff3e0; color: var(--warning); }
-    .badge-error { background: #ffebee; color: var(--error); }
+      /* Badge */
+      .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .badge-primary {
+        background: var(--primary-bg);
+        color: var(--primary);
+      }
+      .badge-success {
+        background: #e8f5e9;
+        color: var(--success);
+      }
+      .badge-warning {
+        background: #fff3e0;
+        color: var(--warning);
+      }
+      .badge-error {
+        background: #ffebee;
+        color: var(--error);
+      }
 
-    /* Buttons */
-    .btn { padding: 8px 16px; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-secondary { background: var(--primary-bg); color: var(--primary); }
-    .btn-sm { padding: 5px 12px; font-size: 11px; }
+      /* Buttons */
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+      .btn-secondary {
+        background: var(--primary-bg);
+        color: var(--primary);
+      }
+      .btn-sm {
+        padding: 5px 12px;
+        font-size: 11px;
+      }
 
-    /* Grid */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      /* Grid */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
 
-    /* Page sections */
-    .page { display: none; }
-    .page.active { display: block; }
+      /* Page sections */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
 
-    /* ID Card */
-    .id-card {
-      max-width: 360px; margin: 20px auto; border-radius: 16px; overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 2px solid var(--primary);
-    }
-    .id-front {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: #fff; text-align: center; padding: 24px;
-    }
+      /* ID Card */
+      .id-card {
+        max-width: 360px;
+        margin: 20px auto;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        border: 2px solid var(--primary);
+      }
+      .id-front {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        color: #fff;
+        text-align: center;
+        padding: 24px;
+      }
 
-    /* Event Card */
-    .event { display: flex; gap: 12px; padding: 12px; border-bottom: 1px solid var(--border); }
-    .event-emoji { font-size: 32px; }
-    .event-title { font-weight: 600; font-size: 14px; }
-    .event-meta { font-size: 12px; color: var(--text-sec); margin-top: 2px; }
+      /* Event Card */
+      .event {
+        display: flex;
+        gap: 12px;
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .event-emoji {
+        font-size: 32px;
+      }
+      .event-title {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .event-meta {
+        font-size: 12px;
+        color: var(--text-sec);
+        margin-top: 2px;
+      }
 
-    /* Notif */
-    .notif { display: flex; gap: 10px; padding: 12px; border-bottom: 1px solid var(--border); }
-    .notif.unread { background: var(--primary-bg); border-radius: 8px; }
-    .notif-icon { font-size: 20px; }
-    .notif-title { font-weight: 600; font-size: 13px; }
-    .notif-body { font-size: 12px; color: var(--text-sec); }
-    .notif-time { font-size: 10px; color: #999; margin-top: 2px; }
+      /* Notif */
+      .notif {
+        display: flex;
+        gap: 10px;
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .notif.unread {
+        background: var(--primary-bg);
+        border-radius: 8px;
+      }
+      .notif-icon {
+        font-size: 20px;
+      }
+      .notif-title {
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .notif-body {
+        font-size: 12px;
+        color: var(--text-sec);
+      }
+      .notif-time {
+        font-size: 10px;
+        color: #999;
+        margin-top: 2px;
+      }
 
-    /* Setting */
-    .setting { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); gap: 12px; }
-    .setting-icon { font-size: 20px; }
-    .setting-label { font-weight: 600; font-size: 14px; }
-    .setting-desc { font-size: 11px; color: var(--text-sec); }
+      /* Setting */
+      .setting {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+        gap: 12px;
+      }
+      .setting-icon {
+        font-size: 20px;
+      }
+      .setting-label {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .setting-desc {
+        font-size: 11px;
+        color: var(--text-sec);
+      }
 
-    /* Footer */
-    .footer { text-align: center; padding: 24px; font-size: 11px; color: #999; margin-top: 24px; }
-    .lib-list { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 8px; }
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 24px;
+        font-size: 11px;
+        color: #999;
+        margin-top: 24px;
+      }
+      .lib-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        margin-top: 8px;
+      }
 
-    @media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, 1fr); } }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Header -->
-    <header>
-      <div style="font-size:48px; margin-bottom:8px;">🎓</div>
-      <h1>CampusConnect</h1>
-      <p>Vanilla Web Demo — All 15 @rajeev02/* Libraries</p>
-      <p style="margin-top:8px; font-size:11px; opacity:0.6;">No frameworks. No build tools. Just HTML + CSS + JS.</p>
-    </header>
+      @media (max-width: 640px) {
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header>
+        <div style="font-size: 48px; margin-bottom: 8px">🎓</div>
+        <h1>CampusConnect</h1>
+        <p>Vanilla Web Demo — All 15 @rajeev02/* Libraries</p>
+        <p style="margin-top: 8px; font-size: 11px; opacity: 0.6">
+          No frameworks. No build tools. Just HTML + CSS + JS.
+        </p>
+      </header>
 
-    <!-- Navigation Tabs -->
-    <div class="tabs" id="tabs">
-      <div class="tab active" data-page="dashboard">🏠 Dashboard</div>
-      <div class="tab" data-page="timetable">📅 Timetable</div>
-      <div class="tab" data-page="notes">📝 Notes</div>
-      <div class="tab" data-page="fees">💳 Fees</div>
-      <div class="tab" data-page="events">🎉 Events</div>
-      <div class="tab" data-page="notifications">🔔 Notifications</div>
-      <div class="tab" data-page="idcard">🪪 ID Card</div>
-      <div class="tab" data-page="profile">⚙️ Profile</div>
-    </div>
+      <!-- Navigation Tabs -->
+      <div class="tabs" id="tabs">
+        <div class="tab active" data-page="dashboard">🏠 Dashboard</div>
+        <div class="tab" data-page="timetable">📅 Timetable</div>
+        <div class="tab" data-page="notes">📝 Notes</div>
+        <div class="tab" data-page="fees">💳 Fees</div>
+        <div class="tab" data-page="events">🎉 Events</div>
+        <div class="tab" data-page="notifications">🔔 Notifications</div>
+        <div class="tab" data-page="idcard">🪪 ID Card</div>
+        <div class="tab" data-page="profile">⚙️ Profile</div>
+      </div>
 
-    <!-- ═══ Dashboard ═══ -->
-    <div class="page active" id="page-dashboard">
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-icon">📚</div>
-          <div class="stat-value">3</div>
-          <div class="stat-label">Classes Today</div>
-          <div class="stat-sdk">@rajeev02/sync</div>
+      <!-- ═══ Dashboard ═══ -->
+      <div class="page active" id="page-dashboard">
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-icon">📚</div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">Classes Today</div>
+            <div class="stat-sdk">@rajeev02/sync</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon">💰</div>
+            <div class="stat-value">₹47,000</div>
+            <div class="stat-label">Fees Pending</div>
+            <div class="stat-sdk">@rajeev02/payments</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon">🔔</div>
+            <div class="stat-value">2</div>
+            <div class="stat-label">Unread Alerts</div>
+            <div class="stat-sdk">@rajeev02/notify</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon">📊</div>
+            <div class="stat-value">8.7</div>
+            <div class="stat-label">Current CGPA</div>
+            <div class="stat-sdk">@rajeev02/network</div>
+          </div>
         </div>
-        <div class="stat">
-          <div class="stat-icon">💰</div>
-          <div class="stat-value">₹47,000</div>
-          <div class="stat-label">Fees Pending</div>
-          <div class="stat-sdk">@rajeev02/payments</div>
-        </div>
-        <div class="stat">
-          <div class="stat-icon">🔔</div>
-          <div class="stat-value">2</div>
-          <div class="stat-label">Unread Alerts</div>
-          <div class="stat-sdk">@rajeev02/notify</div>
-        </div>
-        <div class="stat">
-          <div class="stat-icon">📊</div>
-          <div class="stat-value">8.7</div>
-          <div class="stat-label">Current CGPA</div>
-          <div class="stat-sdk">@rajeev02/network</div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">
+              📅 Today's Schedule <span class="sdk">@rajeev02/sync</span>
+            </div>
+            <table>
+              <tr>
+                <td><b>09:00 AM</b></td>
+                <td>DSA</td>
+                <td>LH-201</td>
+                <td><span class="badge badge-primary">Lecture</span></td>
+              </tr>
+              <tr>
+                <td><b>11:00 AM</b></td>
+                <td>OS Lab</td>
+                <td>Lab-3</td>
+                <td><span class="badge badge-warning">Lab</span></td>
+              </tr>
+              <tr>
+                <td><b>02:00 PM</b></td>
+                <td>DBMS</td>
+                <td>LH-105</td>
+                <td><span class="badge badge-primary">Lecture</span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="card">
+            <div class="card-title">⚡ Quick Actions</div>
+            <div class="grid-3">
+              <div
+                style="
+                  text-align: center;
+                  padding: 12px;
+                  background: #f5f5f5;
+                  border-radius: 8px;
+                  cursor: pointer;
+                "
+              >
+                <div style="font-size: 24px">📝</div>
+                <div style="font-size: 11px; font-weight: 600; margin-top: 4px">
+                  Scan Notes
+                </div>
+                <div class="stat-sdk">camera + document</div>
+              </div>
+              <div
+                style="
+                  text-align: center;
+                  padding: 12px;
+                  background: #f5f5f5;
+                  border-radius: 8px;
+                  cursor: pointer;
+                "
+              >
+                <div style="font-size: 24px">💳</div>
+                <div style="font-size: 11px; font-weight: 600; margin-top: 4px">
+                  Pay Fees
+                </div>
+                <div class="stat-sdk">payments</div>
+              </div>
+              <div
+                style="
+                  text-align: center;
+                  padding: 12px;
+                  background: #f5f5f5;
+                  border-radius: 8px;
+                  cursor: pointer;
+                "
+              >
+                <div style="font-size: 24px">🪪</div>
+                <div style="font-size: 11px; font-weight: 600; margin-top: 4px">
+                  ID Card
+                </div>
+                <div class="stat-sdk">vault</div>
+              </div>
+              <div
+                style="
+                  text-align: center;
+                  padding: 12px;
+                  background: #f5f5f5;
+                  border-radius: 8px;
+                  cursor: pointer;
+                "
+              >
+                <div style="font-size: 24px">🎧</div>
+                <div style="font-size: 11px; font-weight: 600; margin-top: 4px">
+                  Lectures
+                </div>
+                <div class="stat-sdk">media</div>
+              </div>
+              <div
+                style="
+                  text-align: center;
+                  padding: 12px;
+                  background: #f5f5f5;
+                  border-radius: 8px;
+                  cursor: pointer;
+                "
+              >
+                <div style="font-size: 24px">🎉</div>
+                <div style="font-size: 11px; font-weight: 600; margin-top: 4px">
+                  Events
+                </div>
+                <div class="stat-sdk">deeplink</div>
+              </div>
+              <div
+                style="
+                  text-align: center;
+                  padding: 12px;
+                  background: #f5f5f5;
+                  border-radius: 8px;
+                  cursor: pointer;
+                "
+              >
+                <div style="font-size: 24px">🧠</div>
+                <div style="font-size: 11px; font-weight: 600; margin-top: 4px">
+                  AI Quiz
+                </div>
+                <div class="stat-sdk">edge-ai</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="grid-2">
+      <!-- ═══ Timetable ═══ -->
+      <div class="page" id="page-timetable">
+        <div class="tabs" id="day-tabs">
+          <div class="tab active" data-day="Mon">Mon</div>
+          <div class="tab" data-day="Tue">Tue</div>
+          <div class="tab" data-day="Wed">Wed</div>
+          <div class="tab" data-day="Thu">Thu</div>
+          <div class="tab" data-day="Fri">Fri</div>
+        </div>
         <div class="card">
-          <div class="card-title">📅 Today's Schedule <span class="sdk">@rajeev02/sync</span></div>
+          <div class="card-title">
+            📅 Schedule <span class="badge badge-success">✅ Synced</span>
+            <span class="sdk">@rajeev02/sync</span>
+          </div>
           <table>
-            <tr><td><b>09:00 AM</b></td><td>DSA</td><td>LH-201</td><td><span class="badge badge-primary">Lecture</span></td></tr>
-            <tr><td><b>11:00 AM</b></td><td>OS Lab</td><td>Lab-3</td><td><span class="badge badge-warning">Lab</span></td></tr>
-            <tr><td><b>02:00 PM</b></td><td>DBMS</td><td>LH-105</td><td><span class="badge badge-primary">Lecture</span></td></tr>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Code</th>
+                <th>Subject</th>
+                <th>Professor</th>
+                <th>Room</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="timetable-body"></tbody>
           </table>
         </div>
-        <div class="card">
-          <div class="card-title">⚡ Quick Actions</div>
-          <div class="grid-3">
-            <div style="text-align:center; padding:12px; background:#f5f5f5; border-radius:8px; cursor:pointer;">
-              <div style="font-size:24px;">📝</div><div style="font-size:11px; font-weight:600; margin-top:4px;">Scan Notes</div>
-              <div class="stat-sdk">camera + document</div>
-            </div>
-            <div style="text-align:center; padding:12px; background:#f5f5f5; border-radius:8px; cursor:pointer;">
-              <div style="font-size:24px;">💳</div><div style="font-size:11px; font-weight:600; margin-top:4px;">Pay Fees</div>
-              <div class="stat-sdk">payments</div>
-            </div>
-            <div style="text-align:center; padding:12px; background:#f5f5f5; border-radius:8px; cursor:pointer;">
-              <div style="font-size:24px;">🪪</div><div style="font-size:11px; font-weight:600; margin-top:4px;">ID Card</div>
-              <div class="stat-sdk">vault</div>
-            </div>
-            <div style="text-align:center; padding:12px; background:#f5f5f5; border-radius:8px; cursor:pointer;">
-              <div style="font-size:24px;">🎧</div><div style="font-size:11px; font-weight:600; margin-top:4px;">Lectures</div>
-              <div class="stat-sdk">media</div>
-            </div>
-            <div style="text-align:center; padding:12px; background:#f5f5f5; border-radius:8px; cursor:pointer;">
-              <div style="font-size:24px;">🎉</div><div style="font-size:11px; font-weight:600; margin-top:4px;">Events</div>
-              <div class="stat-sdk">deeplink</div>
-            </div>
-            <div style="text-align:center; padding:12px; background:#f5f5f5; border-radius:8px; cursor:pointer;">
-              <div style="font-size:24px;">🧠</div><div style="font-size:11px; font-weight:600; margin-top:4px;">AI Quiz</div>
-              <div class="stat-sdk">edge-ai</div>
-            </div>
-          </div>
+      </div>
+
+      <!-- ═══ Notes ═══ -->
+      <div class="page" id="page-notes">
+        <div style="margin-bottom: 16px">
+          <button class="btn btn-primary">📸 Scan New Note</button>
+          <button class="btn btn-secondary" style="margin-left: 8px">
+            🧠 Generate AI Quiz
+          </button>
         </div>
-      </div>
-    </div>
-
-    <!-- ═══ Timetable ═══ -->
-    <div class="page" id="page-timetable">
-      <div class="tabs" id="day-tabs">
-        <div class="tab active" data-day="Mon">Mon</div>
-        <div class="tab" data-day="Tue">Tue</div>
-        <div class="tab" data-day="Wed">Wed</div>
-        <div class="tab" data-day="Thu">Thu</div>
-        <div class="tab" data-day="Fri">Fri</div>
-      </div>
-      <div class="card">
-        <div class="card-title">📅 Schedule <span class="badge badge-success">✅ Synced</span> <span class="sdk">@rajeev02/sync</span></div>
-        <table>
-          <thead><tr><th>Time</th><th>Code</th><th>Subject</th><th>Professor</th><th>Room</th><th>Type</th></tr></thead>
-          <tbody id="timetable-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══ Notes ═══ -->
-    <div class="page" id="page-notes">
-      <div style="margin-bottom:16px;">
-        <button class="btn btn-primary">📸 Scan New Note</button>
-        <button class="btn btn-secondary" style="margin-left:8px;">🧠 Generate AI Quiz</button>
-      </div>
-      <div class="grid-3" id="notes-grid"></div>
-      <div style="margin-top:12px;">
-        <span class="sdk">@rajeev02/camera</span> <span class="sdk">@rajeev02/document</span>
-        <span class="sdk">@rajeev02/edge-ai</span> <span class="sdk">@rajeev02/sync</span>
-      </div>
-    </div>
-
-    <!-- ═══ Fees ═══ -->
-    <div class="page" id="page-fees">
-      <div class="card" style="background:linear-gradient(135deg, var(--primary), var(--primary-light)); color:#fff; text-align:center;">
-        <div style="font-size:14px; opacity:0.8;">Total Pending</div>
-        <div style="font-size:32px; font-weight:800; margin:8px 0;">₹47,000</div>
-        <span class="sdk" style="background:rgba(255,255,255,0.2); color:#fff;">@rajeev02/payments + locale</span>
-      </div>
-      <div class="card">
-        <div class="card-title">💳 Fee Breakdown</div>
-        <table>
-          <thead><tr><th>Item</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
-          <tbody id="fees-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ═══ Events ═══ -->
-    <div class="page" id="page-events">
-      <div class="card" id="events-list"></div>
-      <div style="margin-top:12px;">
-        <span class="sdk">@rajeev02/deeplink</span> <span class="sdk">@rajeev02/notify</span>
-        <span class="sdk">@rajeev02/payments</span>
-      </div>
-    </div>
-
-    <!-- ═══ Notifications ═══ -->
-    <div class="page" id="page-notifications">
-      <div class="card">
-        <div class="card-title">📬 Inbox <span class="sdk">@rajeev02/notify</span></div>
-        <div id="notif-list"></div>
-      </div>
-    </div>
-
-    <!-- ═══ ID Card ═══ -->
-    <div class="page" id="page-idcard">
-      <div style="text-align:center; margin-bottom:16px;">
-        <button class="btn btn-secondary" onclick="flipCard()">🔄 Flip Card</button>
-      </div>
-      <div class="id-card">
-        <div class="id-front" id="id-front">
-          <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase;">Rajeev National University</div>
-          <div style="font-size:56px; margin:12px 0;">👨‍🎓</div>
-          <div style="font-size:22px; font-weight:800;">Rajeev Joshi</div>
-          <div style="font-size:14px; opacity:0.8;">Computer Science</div>
-          <div style="display:flex; justify-content:center; gap:24px; margin:16px 0; font-size:13px;">
-            <div><strong>Roll No</strong><br/>CS-2024-042</div>
-            <div><strong>Semester</strong><br/>6</div>
-            <div><strong>Year</strong><br/>3rd Year</div>
-          </div>
-          <div style="font-family:monospace; font-size:16px; letter-spacing:3px;">||||| STU-2024-001 |||||</div>
-        </div>
-        <div id="id-back" style="display:none; padding:24px;">
-          <h3 style="font-size:14px; margin-bottom:12px;">Emergency Information</h3>
-          <div style="font-size:13px; line-height:2;">
-            <div><strong>Blood Group:</strong> O+</div>
-            <div><strong>Emergency:</strong> +91 99887 76655</div>
-            <div><strong>Email:</strong> rajeev@university.edu</div>
-            <div><strong>Phone:</strong> +91 98765 43210</div>
-          </div>
-          <div style="margin-top:16px; padding:12px; background:#e8f5e9; border-radius:8px; font-size:11px; color:var(--success);">
-            🔒 Secured with AES-256 encryption via @rajeev02/vault
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center; margin-top:16px;">
-        <span class="sdk">@rajeev02/vault</span> <span class="sdk">@rajeev02/auth</span>
-        <span class="sdk">@rajeev02/camera</span> <span class="sdk">@rajeev02/ui</span>
-      </div>
-    </div>
-
-    <!-- ═══ Profile ═══ -->
-    <div class="page" id="page-profile">
-      <div class="card" style="text-align:center;">
-        <div style="font-size:56px;">👨‍🎓</div>
-        <div style="font-size:20px; font-weight:700; margin-top:8px;">Rajeev Joshi</div>
-        <div style="font-size:13px; color:var(--text-sec);">rajeev@university.edu</div>
-        <div style="display:flex; gap:8px; justify-content:center; margin-top:12px;">
-          <span class="badge badge-primary">Computer Science</span>
-          <span class="badge badge-success">Roll: CS-2024-042</span>
-          <span class="badge badge-warning">Sem 6</span>
+        <div class="grid-3" id="notes-grid"></div>
+        <div style="margin-top: 12px">
+          <span class="sdk">@rajeev02/camera</span>
+          <span class="sdk">@rajeev02/document</span>
+          <span class="sdk">@rajeev02/edge-ai</span>
+          <span class="sdk">@rajeev02/sync</span>
         </div>
       </div>
 
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">⚙️ Preferences</div>
-          <div class="setting">
-            <span class="setting-icon">🌐</span>
-            <div style="flex:1;">
-              <div class="setting-label">Language</div>
-              <div class="setting-desc">@rajeev02/locale</div>
-            </div>
-            <select style="padding:4px 8px; border-radius:6px; border:1px solid var(--border);">
-              <option>English</option><option>हिंदी</option>
-            </select>
+      <!-- ═══ Fees ═══ -->
+      <div class="page" id="page-fees">
+        <div
+          class="card"
+          style="
+            background: linear-gradient(
+              135deg,
+              var(--primary),
+              var(--primary-light)
+            );
+            color: #fff;
+            text-align: center;
+          "
+        >
+          <div style="font-size: 14px; opacity: 0.8">Total Pending</div>
+          <div style="font-size: 32px; font-weight: 800; margin: 8px 0">
+            ₹47,000
           </div>
-          <div class="setting">
-            <span class="setting-icon">🌙</span>
-            <div style="flex:1;">
-              <div class="setting-label">Dark Mode</div>
-              <div class="setting-desc">@rajeev02/ui</div>
-            </div>
-            <input type="checkbox" />
-          </div>
-          <div class="setting">
-            <span class="setting-icon">🔐</span>
-            <div style="flex:1;">
-              <div class="setting-label">Biometric Lock</div>
-              <div class="setting-desc">@rajeev02/auth</div>
-            </div>
-            <input type="checkbox" checked />
-          </div>
+          <span
+            class="sdk"
+            style="background: rgba(255, 255, 255, 0.2); color: #fff"
+            >@rajeev02/payments + locale</span
+          >
         </div>
         <div class="card">
-          <div class="card-title">🚩 Feature Flags <span class="sdk">@rajeev02/app-shell</span></div>
-          <div class="setting"><code>ai_study_assistant</code><div style="flex:1;"></div><span class="badge badge-success">ON</span></div>
-          <div class="setting"><code>video_notes</code><div style="flex:1;"></div><span class="badge badge-success">ON</span></div>
-          <div class="setting"><code>campus_map_3d</code><div style="flex:1;"></div><span class="badge badge-error">OFF</span></div>
-          <div class="setting"><code>peer_tutoring</code><div style="flex:1;"></div><span class="badge badge-error">OFF</span></div>
+          <div class="card-title">💳 Fee Breakdown</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="fees-body"></tbody>
+          </table>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-title">📦 Rajeev SDK Libraries <span class="badge badge-success">v0.2.1</span></div>
-        <div style="display:flex; flex-wrap:wrap; gap:6px;" id="sdk-list"></div>
+      <!-- ═══ Events ═══ -->
+      <div class="page" id="page-events">
+        <div class="card" id="events-list"></div>
+        <div style="margin-top: 12px">
+          <span class="sdk">@rajeev02/deeplink</span>
+          <span class="sdk">@rajeev02/notify</span>
+          <span class="sdk">@rajeev02/payments</span>
+        </div>
+      </div>
+
+      <!-- ═══ Notifications ═══ -->
+      <div class="page" id="page-notifications">
+        <div class="card">
+          <div class="card-title">
+            📬 Inbox <span class="sdk">@rajeev02/notify</span>
+          </div>
+          <div id="notif-list"></div>
+        </div>
+      </div>
+
+      <!-- ═══ ID Card ═══ -->
+      <div class="page" id="page-idcard">
+        <div style="text-align: center; margin-bottom: 16px">
+          <button class="btn btn-secondary" onclick="flipCard()">
+            🔄 Flip Card
+          </button>
+        </div>
+        <div class="id-card">
+          <div class="id-front" id="id-front">
+            <div
+              style="
+                font-size: 11px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+              "
+            >
+              Rajeev National University
+            </div>
+            <div style="font-size: 56px; margin: 12px 0">👨‍🎓</div>
+            <div style="font-size: 22px; font-weight: 800">Rajeev Joshi</div>
+            <div style="font-size: 14px; opacity: 0.8">Computer Science</div>
+            <div
+              style="
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+                margin: 16px 0;
+                font-size: 13px;
+              "
+            >
+              <div><strong>Roll No</strong><br />CS-2024-042</div>
+              <div><strong>Semester</strong><br />6</div>
+              <div><strong>Year</strong><br />3rd Year</div>
+            </div>
+            <div
+              style="
+                font-family: monospace;
+                font-size: 16px;
+                letter-spacing: 3px;
+              "
+            >
+              ||||| STU-2024-001 |||||
+            </div>
+          </div>
+          <div id="id-back" style="display: none; padding: 24px">
+            <h3 style="font-size: 14px; margin-bottom: 12px">
+              Emergency Information
+            </h3>
+            <div style="font-size: 13px; line-height: 2">
+              <div><strong>Blood Group:</strong> O+</div>
+              <div><strong>Emergency:</strong> +91 99887 76655</div>
+              <div><strong>Email:</strong> rajeev@university.edu</div>
+              <div><strong>Phone:</strong> +91 98765 43210</div>
+            </div>
+            <div
+              style="
+                margin-top: 16px;
+                padding: 12px;
+                background: #e8f5e9;
+                border-radius: 8px;
+                font-size: 11px;
+                color: var(--success);
+              "
+            >
+              🔒 Secured with AES-256 encryption via @rajeev02/vault
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 16px">
+          <span class="sdk">@rajeev02/vault</span>
+          <span class="sdk">@rajeev02/auth</span>
+          <span class="sdk">@rajeev02/camera</span>
+          <span class="sdk">@rajeev02/ui</span>
+        </div>
+      </div>
+
+      <!-- ═══ Profile ═══ -->
+      <div class="page" id="page-profile">
+        <div class="card" style="text-align: center">
+          <div style="font-size: 56px">👨‍🎓</div>
+          <div style="font-size: 20px; font-weight: 700; margin-top: 8px">
+            Rajeev Joshi
+          </div>
+          <div style="font-size: 13px; color: var(--text-sec)">
+            rajeev@university.edu
+          </div>
+          <div
+            style="
+              display: flex;
+              gap: 8px;
+              justify-content: center;
+              margin-top: 12px;
+            "
+          >
+            <span class="badge badge-primary">Computer Science</span>
+            <span class="badge badge-success">Roll: CS-2024-042</span>
+            <span class="badge badge-warning">Sem 6</span>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">⚙️ Preferences</div>
+            <div class="setting">
+              <span class="setting-icon">🌐</span>
+              <div style="flex: 1">
+                <div class="setting-label">Language</div>
+                <div class="setting-desc">@rajeev02/locale</div>
+              </div>
+              <select
+                style="
+                  padding: 4px 8px;
+                  border-radius: 6px;
+                  border: 1px solid var(--border);
+                "
+              >
+                <option>English</option>
+                <option>हिंदी</option>
+              </select>
+            </div>
+            <div class="setting">
+              <span class="setting-icon">🌙</span>
+              <div style="flex: 1">
+                <div class="setting-label">Dark Mode</div>
+                <div class="setting-desc">@rajeev02/ui</div>
+              </div>
+              <input type="checkbox" />
+            </div>
+            <div class="setting">
+              <span class="setting-icon">🔐</span>
+              <div style="flex: 1">
+                <div class="setting-label">Biometric Lock</div>
+                <div class="setting-desc">@rajeev02/auth</div>
+              </div>
+              <input type="checkbox" checked />
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              🚩 Feature Flags <span class="sdk">@rajeev02/app-shell</span>
+            </div>
+            <div class="setting">
+              <code>ai_study_assistant</code>
+              <div style="flex: 1"></div>
+              <span class="badge badge-success">ON</span>
+            </div>
+            <div class="setting">
+              <code>video_notes</code>
+              <div style="flex: 1"></div>
+              <span class="badge badge-success">ON</span>
+            </div>
+            <div class="setting">
+              <code>campus_map_3d</code>
+              <div style="flex: 1"></div>
+              <span class="badge badge-error">OFF</span>
+            </div>
+            <div class="setting">
+              <code>peer_tutoring</code>
+              <div style="flex: 1"></div>
+              <span class="badge badge-error">OFF</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            📦 Rajeev SDK Libraries
+            <span class="badge badge-success">v0.2.1</span>
+          </div>
+          <div
+            style="display: flex; flex-wrap: wrap; gap: 6px"
+            id="sdk-list"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <strong>CampusConnect</strong> — Vanilla Web Demo<br />
+        Powered by all 15 Rajeev SDK libraries · No frameworks · Zero
+        dependencies
+        <div class="lib-list" id="footer-libs"></div>
       </div>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      <strong>CampusConnect</strong> — Vanilla Web Demo<br/>
-      Powered by all 15 Rajeev SDK libraries · No frameworks · Zero dependencies
-      <div class="lib-list" id="footer-libs"></div>
-    </div>
-  </div>
+    <script>
+      // ─── Data ──────────────────────────────────────────────
+      const timetableData = [
+        {
+          day: "Mon",
+          time: "09:00 AM",
+          code: "CS301",
+          subject: "Data Structures & Algorithms",
+          prof: "Dr. Sharma",
+          room: "LH-201",
+          type: "Lecture",
+        },
+        {
+          day: "Mon",
+          time: "11:00 AM",
+          code: "CS302L",
+          subject: "Operating Systems Lab",
+          prof: "Prof. Patel",
+          room: "Lab-3",
+          type: "Lab",
+        },
+        {
+          day: "Mon",
+          time: "02:00 PM",
+          code: "CS303",
+          subject: "Database Management",
+          prof: "Dr. Gupta",
+          room: "LH-105",
+          type: "Lecture",
+        },
+        {
+          day: "Tue",
+          time: "09:00 AM",
+          code: "CS304",
+          subject: "Computer Networks",
+          prof: "Dr. Kumar",
+          room: "LH-301",
+          type: "Lecture",
+        },
+        {
+          day: "Tue",
+          time: "11:00 AM",
+          code: "CS305",
+          subject: "Software Engineering",
+          prof: "Prof. Singh",
+          room: "LH-202",
+          type: "Lecture",
+        },
+        {
+          day: "Wed",
+          time: "02:00 PM",
+          code: "CS301L",
+          subject: "DSA Lab",
+          prof: "Dr. Sharma",
+          room: "Lab-1",
+          type: "Lab",
+        },
+        {
+          day: "Thu",
+          time: "09:00 AM",
+          code: "MA301",
+          subject: "Mathematics III",
+          prof: "Dr. Verma",
+          room: "LH-101",
+          type: "Lecture",
+        },
+        {
+          day: "Fri",
+          time: "02:00 PM",
+          code: "CS390",
+          subject: "Elective: AI/ML Basics",
+          prof: "Dr. Iyer",
+          room: "LH-401",
+          type: "Elective",
+        },
+      ];
 
-  <script>
-    // ─── Data ──────────────────────────────────────────────
-    const timetableData = [
-      { day:'Mon', time:'09:00 AM', code:'CS301', subject:'Data Structures & Algorithms', prof:'Dr. Sharma', room:'LH-201', type:'Lecture' },
-      { day:'Mon', time:'11:00 AM', code:'CS302L', subject:'Operating Systems Lab', prof:'Prof. Patel', room:'Lab-3', type:'Lab' },
-      { day:'Mon', time:'02:00 PM', code:'CS303', subject:'Database Management', prof:'Dr. Gupta', room:'LH-105', type:'Lecture' },
-      { day:'Tue', time:'09:00 AM', code:'CS304', subject:'Computer Networks', prof:'Dr. Kumar', room:'LH-301', type:'Lecture' },
-      { day:'Tue', time:'11:00 AM', code:'CS305', subject:'Software Engineering', prof:'Prof. Singh', room:'LH-202', type:'Lecture' },
-      { day:'Wed', time:'02:00 PM', code:'CS301L', subject:'DSA Lab', prof:'Dr. Sharma', room:'Lab-1', type:'Lab' },
-      { day:'Thu', time:'09:00 AM', code:'MA301', subject:'Mathematics III', prof:'Dr. Verma', room:'LH-101', type:'Lecture' },
-      { day:'Fri', time:'02:00 PM', code:'CS390', subject:'Elective: AI/ML Basics', prof:'Dr. Iyer', room:'LH-401', type:'Elective' },
-    ];
+      const notesData = [
+        {
+          title: "Binary Trees & BST",
+          subject: "DSA",
+          date: "Jan 15",
+          pages: 8,
+          synced: true,
+        },
+        {
+          title: "SQL Joins & Subqueries",
+          subject: "DBMS",
+          date: "Jan 14",
+          pages: 5,
+          synced: true,
+        },
+        {
+          title: "TCP/IP Protocol Stack",
+          subject: "Networks",
+          date: "Jan 13",
+          pages: 12,
+          synced: false,
+        },
+        {
+          title: "Process Scheduling",
+          subject: "OS",
+          date: "Jan 12",
+          pages: 6,
+          synced: true,
+        },
+        {
+          title: "Graph Algorithms",
+          subject: "DSA",
+          date: "Jan 10",
+          pages: 10,
+          synced: true,
+        },
+      ];
 
-    const notesData = [
-      { title:'Binary Trees & BST', subject:'DSA', date:'Jan 15', pages:8, synced:true },
-      { title:'SQL Joins & Subqueries', subject:'DBMS', date:'Jan 14', pages:5, synced:true },
-      { title:'TCP/IP Protocol Stack', subject:'Networks', date:'Jan 13', pages:12, synced:false },
-      { title:'Process Scheduling', subject:'OS', date:'Jan 12', pages:6, synced:true },
-      { title:'Graph Algorithms', subject:'DSA', date:'Jan 10', pages:10, synced:true },
-    ];
+      const feesData = [
+        { label: "Tuition Fee", amount: 35000, status: "paid" },
+        { label: "Lab Fee", amount: 5000, status: "paid" },
+        { label: "Library Fee", amount: 2000, status: "pending" },
+        { label: "Hostel Fee", amount: 45000, status: "pending" },
+        { label: "Exam Fee", amount: 3000, status: "upcoming" },
+      ];
 
-    const feesData = [
-      { label:'Tuition Fee', amount:35000, status:'paid' },
-      { label:'Lab Fee', amount:5000, status:'paid' },
-      { label:'Library Fee', amount:2000, status:'pending' },
-      { label:'Hostel Fee', amount:45000, status:'pending' },
-      { label:'Exam Fee', amount:3000, status:'upcoming' },
-    ];
+      const eventsData = [
+        {
+          title: "Annual Tech Fest — TechSpark 2025",
+          date: "Feb 15-17",
+          venue: "Main Auditorium",
+          type: "Tech",
+          emoji: "🚀",
+          spots: 500,
+          reg: 342,
+          fee: 0,
+        },
+        {
+          title: "Hackathon: Build for Bharat",
+          date: "Feb 22-23",
+          venue: "Innovation Lab",
+          type: "Hackathon",
+          emoji: "💻",
+          spots: 100,
+          reg: 78,
+          fee: 200,
+        },
+        {
+          title: "Cultural Night — Rang Tarang",
+          date: "Mar 1",
+          venue: "Open Air Theatre",
+          type: "Cultural",
+          emoji: "🎭",
+          spots: 1000,
+          reg: 650,
+          fee: 0,
+        },
+        {
+          title: "Workshop: React Native & Expo",
+          date: "Mar 15",
+          venue: "CS Lab-3",
+          type: "Workshop",
+          emoji: "📱",
+          spots: 60,
+          reg: 38,
+          fee: 150,
+        },
+      ];
 
-    const eventsData = [
-      { title:'Annual Tech Fest — TechSpark 2025', date:'Feb 15-17', venue:'Main Auditorium', type:'Tech', emoji:'🚀', spots:500, reg:342, fee:0 },
-      { title:'Hackathon: Build for Bharat', date:'Feb 22-23', venue:'Innovation Lab', type:'Hackathon', emoji:'💻', spots:100, reg:78, fee:200 },
-      { title:'Cultural Night — Rang Tarang', date:'Mar 1', venue:'Open Air Theatre', type:'Cultural', emoji:'🎭', spots:1000, reg:650, fee:0 },
-      { title:'Workshop: React Native & Expo', date:'Mar 15', venue:'CS Lab-3', type:'Workshop', emoji:'📱', spots:60, reg:38, fee:150 },
-    ];
+      const notifsData = [
+        {
+          title: "DSA Assignment Due Tomorrow",
+          body: "Submit linked list implementation by 11:59 PM",
+          type: "deadline",
+          time: "2h ago",
+          read: false,
+        },
+        {
+          title: "Fee Payment Reminder",
+          body: "Semester 6 fees of ₹45,000 due by Jan 31",
+          type: "payment",
+          time: "5h ago",
+          read: false,
+        },
+        {
+          title: "Class Cancelled: OS Lab",
+          body: "Prof. Patel on leave. Rescheduled to Friday",
+          type: "class",
+          time: "Yesterday",
+          read: true,
+        },
+        {
+          title: "TechSpark Registration Open",
+          body: "Register for 10+ events. Early bird until Feb 1",
+          type: "event",
+          time: "Yesterday",
+          read: true,
+        },
+      ];
 
-    const notifsData = [
-      { title:'DSA Assignment Due Tomorrow', body:'Submit linked list implementation by 11:59 PM', type:'deadline', time:'2h ago', read:false },
-      { title:'Fee Payment Reminder', body:'Semester 6 fees of ₹45,000 due by Jan 31', type:'payment', time:'5h ago', read:false },
-      { title:'Class Cancelled: OS Lab', body:'Prof. Patel on leave. Rescheduled to Friday', type:'class', time:'Yesterday', read:true },
-      { title:'TechSpark Registration Open', body:'Register for 10+ events. Early bird until Feb 1', type:'event', time:'Yesterday', read:true },
-    ];
+      const sdkLibs = [
+        "vault",
+        "network",
+        "sync",
+        "locale",
+        "notify",
+        "ui",
+        "auth",
+        "payments",
+        "camera",
+        "deeplink",
+        "document",
+        "edge-ai",
+        "media",
+        "video-editor",
+        "app-shell",
+      ];
 
-    const sdkLibs = ['vault','network','sync','locale','notify','ui','auth','payments','camera','deeplink','document','edge-ai','media','video-editor','app-shell'];
+      // ─── Tab Navigation ────────────────────────────────────
+      document.getElementById("tabs").addEventListener("click", (e) => {
+        const tab = e.target.closest(".tab");
+        if (!tab) return;
+        document
+          .querySelectorAll("#tabs .tab")
+          .forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .getElementById("page-" + tab.dataset.page)
+          .classList.add("active");
+      });
 
-    // ─── Tab Navigation ────────────────────────────────────
-    document.getElementById('tabs').addEventListener('click', (e) => {
-      const tab = e.target.closest('.tab');
-      if (!tab) return;
-      document.querySelectorAll('#tabs .tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page-' + tab.dataset.page).classList.add('active');
-    });
-
-    // ─── Timetable ─────────────────────────────────────────
-    let currentDay = 'Mon';
-    function renderTimetable(day) {
-      currentDay = day;
-      const body = document.getElementById('timetable-body');
-      const filtered = timetableData.filter(c => c.day === day);
-      body.innerHTML = filtered.length ? filtered.map(c => `
+      // ─── Timetable ─────────────────────────────────────────
+      let currentDay = "Mon";
+      function renderTimetable(day) {
+        currentDay = day;
+        const body = document.getElementById("timetable-body");
+        const filtered = timetableData.filter((c) => c.day === day);
+        body.innerHTML = filtered.length
+          ? filtered
+              .map(
+                (c) => `
         <tr>
           <td><b>${c.time}</b></td>
           <td><span class="badge badge-primary">${c.code}</span></td>
           <td>${c.subject}</td>
           <td>${c.prof}</td>
           <td>${c.room}</td>
-          <td><span class="badge ${c.type==='Lab'?'badge-warning':c.type==='Elective'?'badge-success':'badge-primary'}">${c.type}</span></td>
-        </tr>`).join('') : '<tr><td colspan="6" style="text-align:center; padding:32px; color:#999;">😴 No classes</td></tr>';
+          <td><span class="badge ${c.type === "Lab" ? "badge-warning" : c.type === "Elective" ? "badge-success" : "badge-primary"}">${c.type}</span></td>
+        </tr>`,
+              )
+              .join("")
+          : '<tr><td colspan="6" style="text-align:center; padding:32px; color:#999;">😴 No classes</td></tr>';
 
-      document.querySelectorAll('#day-tabs .tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.day === day);
+        document.querySelectorAll("#day-tabs .tab").forEach((t) => {
+          t.classList.toggle("active", t.dataset.day === day);
+        });
+      }
+      document.getElementById("day-tabs").addEventListener("click", (e) => {
+        const tab = e.target.closest(".tab");
+        if (tab && tab.dataset.day) renderTimetable(tab.dataset.day);
       });
-    }
-    document.getElementById('day-tabs').addEventListener('click', (e) => {
-      const tab = e.target.closest('.tab');
-      if (tab && tab.dataset.day) renderTimetable(tab.dataset.day);
-    });
-    renderTimetable('Mon');
+      renderTimetable("Mon");
 
-    // ─── Notes ─────────────────────────────────────────────
-    document.getElementById('notes-grid').innerHTML = notesData.map(n => `
+      // ─── Notes ─────────────────────────────────────────────
+      document.getElementById("notes-grid").innerHTML = notesData
+        .map(
+          (n) => `
       <div class="card">
         <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
           <span class="badge badge-primary">${n.subject}</span>
-          <span class="badge ${n.synced?'badge-success':'badge-warning'}">${n.synced?'✅ Synced':'🔄 Pending'}</span>
+          <span class="badge ${n.synced ? "badge-success" : "badge-warning"}">${n.synced ? "✅ Synced" : "🔄 Pending"}</span>
         </div>
         <div style="font-weight:700; font-size:14px; margin-bottom:4px;">${n.title}</div>
         <div style="font-size:11px; color:#999;">${n.pages} pages · ${n.date}</div>
@@ -462,20 +1098,30 @@
           <button class="btn btn-secondary btn-sm">📄 View</button>
           <button class="btn btn-secondary btn-sm" style="margin-left:4px;">🧠 Quiz</button>
         </div>
-      </div>`).join('');
+      </div>`,
+        )
+        .join("");
 
-    // ─── Fees ──────────────────────────────────────────────
-    document.getElementById('fees-body').innerHTML = feesData.map(f => `
+      // ─── Fees ──────────────────────────────────────────────
+      document.getElementById("fees-body").innerHTML = feesData
+        .map(
+          (f) => `
       <tr>
         <td><b>${f.label}</b></td>
-        <td>₹${f.amount.toLocaleString('en-IN')}</td>
-        <td><span class="badge ${f.status==='paid'?'badge-success':f.status==='pending'?'badge-warning':'badge-error'}">
-          ${f.status==='paid'?'✅ Paid':f.status==='pending'?'⏳ Pending':'🔜 Upcoming'}</span></td>
-        <td>${f.status!=='paid'?'<button class="btn btn-primary btn-sm" onclick="alert(\'Pay ₹'+f.amount.toLocaleString('en-IN')+' via UPI\\n\\n@rajeev02/payments\\n@rajeev02/vault\')">Pay Now</button>':''}</td>
-      </tr>`).join('');
+        <td>₹${f.amount.toLocaleString("en-IN")}</td>
+        <td><span class="badge ${f.status === "paid" ? "badge-success" : f.status === "pending" ? "badge-warning" : "badge-error"}">
+          ${f.status === "paid" ? "✅ Paid" : f.status === "pending" ? "⏳ Pending" : "🔜 Upcoming"}</span></td>
+        <td>${f.status !== "paid" ? '<button class="btn btn-primary btn-sm" onclick="alert(\'Pay ₹' + f.amount.toLocaleString("en-IN") + " via UPI\\n\\n@rajeev02/payments\\n@rajeev02/vault')\">Pay Now</button>" : ""}</td>
+      </tr>`,
+        )
+        .join("");
 
-    // ─── Events ────────────────────────────────────────────
-    document.getElementById('events-list').innerHTML = '<div class="card-title">🎉 Campus Events</div>' + eventsData.map(e => `
+      // ─── Events ────────────────────────────────────────────
+      document.getElementById("events-list").innerHTML =
+        '<div class="card-title">🎉 Campus Events</div>' +
+        eventsData
+          .map(
+            (e) => `
       <div class="event">
         <span class="event-emoji">${e.emoji}</span>
         <div style="flex:1;">
@@ -483,40 +1129,63 @@
           <div class="event-meta">📅 ${e.date} · 📍 ${e.venue}</div>
           <div style="margin-top:6px;">
             <span class="badge badge-primary">${e.type}</span>
-            ${e.fee ? '<span class="badge badge-warning" style="margin-left:4px;">₹'+e.fee+'</span>' : ''}
+            ${e.fee ? '<span class="badge badge-warning" style="margin-left:4px;">₹' + e.fee + "</span>" : ""}
             <span style="font-size:11px; color:#999; margin-left:8px;">${e.reg}/${e.spots}</span>
           </div>
           <div style="margin-top:8px;">
-            <button class="btn btn-primary btn-sm" ${e.reg>=e.spots?'disabled':''}>${e.reg>=e.spots?'Full':'Register'}</button>
+            <button class="btn btn-primary btn-sm" ${e.reg >= e.spots ? "disabled" : ""}>${e.reg >= e.spots ? "Full" : "Register"}</button>
             <button class="btn btn-secondary btn-sm" style="margin-left:4px;" onclick="alert('campusconnect://event/${e.emoji}\\n\\n@rajeev02/deeplink')">🔗 Share</button>
           </div>
         </div>
-      </div>`).join('');
+      </div>`,
+          )
+          .join("");
 
-    // ─── Notifications ─────────────────────────────────────
-    const typeIcons = { deadline:'⏰', payment:'💰', class:'📚', event:'🎉', general:'📢' };
-    document.getElementById('notif-list').innerHTML = notifsData.map(n => `
-      <div class="notif ${n.read?'':'unread'}">
-        <span class="notif-icon">${typeIcons[n.type]||'📢'}</span>
+      // ─── Notifications ─────────────────────────────────────
+      const typeIcons = {
+        deadline: "⏰",
+        payment: "💰",
+        class: "📚",
+        event: "🎉",
+        general: "📢",
+      };
+      document.getElementById("notif-list").innerHTML = notifsData
+        .map(
+          (n) => `
+      <div class="notif ${n.read ? "" : "unread"}">
+        <span class="notif-icon">${typeIcons[n.type] || "📢"}</span>
         <div style="flex:1;">
           <div class="notif-title">${n.title}</div>
           <div class="notif-body">${n.body}</div>
           <div class="notif-time">${n.time}</div>
         </div>
-        ${n.read?'':'<span class="badge badge-primary">New</span>'}
-      </div>`).join('');
+        ${n.read ? "" : '<span class="badge badge-primary">New</span>'}
+      </div>`,
+        )
+        .join("");
 
-    // ─── SDK List ──────────────────────────────────────────
-    document.getElementById('sdk-list').innerHTML = sdkLibs.map(l => `<span class="badge badge-primary" style="font-size:11px; padding:5px 12px;">@rajeev02/${l}</span>`).join('');
-    document.getElementById('footer-libs').innerHTML = sdkLibs.map(l => `<span class="sdk">@rajeev02/${l}</span>`).join('');
+      // ─── SDK List ──────────────────────────────────────────
+      document.getElementById("sdk-list").innerHTML = sdkLibs
+        .map(
+          (l) =>
+            `<span class="badge badge-primary" style="font-size:11px; padding:5px 12px;">@rajeev02/${l}</span>`,
+        )
+        .join("");
+      document.getElementById("footer-libs").innerHTML = sdkLibs
+        .map((l) => `<span class="sdk">@rajeev02/${l}</span>`)
+        .join("");
 
-    // ─── ID Card Flip ──────────────────────────────────────
-    let cardFlipped = false;
-    function flipCard() {
-      cardFlipped = !cardFlipped;
-      document.getElementById('id-front').style.display = cardFlipped ? 'none' : 'block';
-      document.getElementById('id-back').style.display = cardFlipped ? 'block' : 'none';
-    }
-  </script>
-</body>
+      // ─── ID Card Flip ──────────────────────────────────────
+      let cardFlipped = false;
+      function flipCard() {
+        cardFlipped = !cardFlipped;
+        document.getElementById("id-front").style.display = cardFlipped
+          ? "none"
+          : "block";
+        document.getElementById("id-back").style.display = cardFlipped
+          ? "block"
+          : "none";
+      }
+    </script>
+  </body>
 </html>
