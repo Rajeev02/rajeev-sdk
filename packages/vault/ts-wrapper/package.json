@@ -8,7 +8,7 @@
     "build": "tsc",
     "clean": "rm -rf lib",
     "test": "jest",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "react-native",
@@ -24,7 +24,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Rajeev02/rajeev-sdk",
-    "directory": "packages/vault"
+    "directory": "packages/vault/ts-wrapper"
   },
   "peerDependencies": {
     "react": ">=18.3.0",
@@ -44,10 +44,7 @@
   },
   "files": [
     "lib/",
-    "android/",
-    "ios/",
-    "rust-core/",
-    "rajeev-vault.podspec",
+    "src/",
     "README.md"
   ],
   "publishConfig": {

@@ -34,7 +34,12 @@
     "test:rust": "cargo test --workspace",
     "test:ts": "yarn workspaces foreach run test",
     "clean": "cargo clean && yarn workspaces foreach run clean",
-    "publish:all": "node tools/publish-all.js"
+    "publish:all": "node tools/publish-all.js",
+    "release": "node tools/release.js",
+    "release:patch": "node tools/release.js --bump patch",
+    "release:minor": "node tools/release.js --bump minor",
+    "release:major": "node tools/release.js --bump major",
+    "release:dry": "node tools/release.js --dry-run"
   },
   "devDependencies": {
     "turbo": "^2.0.0",
