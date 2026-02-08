@@ -3,7 +3,7 @@
  * Advanced Camera & Photo Editor
  * Capture, filters, crop, adjust, draw, text, stickers, blur, frames, beauty mode
  *
- * @author Rajeev Joshi
+ * @author Rajeev Kumar Joshi
  * @license MIT
  */
 

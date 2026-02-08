@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary      = "Universal secure storage for React Native — Rust-powered AES-256-GCM encryption"
   s.homepage     = "https://github.com/Rajeev02/rajeev-sdk"
   s.license      = { :type => "MIT", :file => "../../LICENSE" }
-  s.author       = { "Rajeev Joshi" => "rajeev02@github.com" }
+  s.author       = { "Rajeev Kumar Joshi" => "rajeevjoshi91@gmail.com" }
   s.source       = { :git => "https://github.com/Rajeev02/rajeev-sdk.git", :tag => s.version }
 
   s.ios.deployment_target = "16.0"

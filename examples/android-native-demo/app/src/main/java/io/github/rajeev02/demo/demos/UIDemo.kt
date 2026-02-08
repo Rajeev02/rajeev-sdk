@@ -1,4 +1,4 @@
-package com.rajeevsdk.demo.demos
+package io.github.rajeev02.demo.demos
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

@@ -1,6 +1,6 @@
 name: RajeevWatchDemo
 options:
-  bundleIdPrefix: com.rajeevsdk
+  bundleIdPrefix: io.github.rajeev02
   deploymentTarget:
     watchOS: "9.0"
   xcodeVersion: "16.0"
@@ -14,7 +14,7 @@ targets:
       - RajeevWatchDemo
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.rajeevsdk.watchdemo
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.rajeev02.watchdemo
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
         INFOPLIST_GENERATION_MODE: GeneratedFile

@@ -3,7 +3,7 @@
  * Universal Auth & Identity SDK
  * OTP, biometric, Aadhaar/DigiLocker, session management, social login
  *
- * @author Rajeev Joshi
+ * @author Rajeev Kumar Joshi
  * @license MIT
  */
 export { SessionManager } from "./session";

@@ -3,7 +3,7 @@
  * Edge AI / On-Device ML Toolkit
  * OCR, face detection, voice commands, document scanning
  *
- * @author Rajeev Joshi
+ * @author Rajeev Kumar Joshi
  * @license MIT
  */
 export { ModelManager } from "./pipeline";

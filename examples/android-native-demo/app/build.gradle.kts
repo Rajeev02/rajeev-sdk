@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rajeevsdk.demo"
+    namespace = "io.github.rajeev02.demo"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.rajeevsdk.demo"
+        applicationId = "io.github.rajeev02.demo"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

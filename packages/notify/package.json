@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "Unified notification & messaging layer for React Native — local, push, in-app inbox, cross-device sync",
   "main": "src/index.ts",
-  "author": "Rajeev Joshi (https://github.com/Rajeev02)",
+  "author": "Rajeev Kumar Joshi <rajeevjoshi91@gmail.com> (https://rajeev02.github.io)",
   "license": "MIT"
 }

@@ -3,7 +3,7 @@
  * Feature-Slice App Architecture
  * API client, onboarding, chat, forms/KYC, cart/checkout, analytics, feature flags
  *
- * @author Rajeev Joshi
+ * @author Rajeev Kumar Joshi
  * @license MIT
  */
 

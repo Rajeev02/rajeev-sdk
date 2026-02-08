@@ -10,7 +10,7 @@ members = [
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
-authors = ["Rajeev Joshi <rajeev02@github.com>"]
+authors = ["Rajeev Kumar Joshi <rajeevjoshi91@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/Rajeev02/rajeev-sdk"
 

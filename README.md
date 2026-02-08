@@ -2,7 +2,7 @@
 
 **Cross-platform infrastructure libraries for building apps that work everywhere — from ₹5000 Android phones in villages to Apple Watch on city wrists.**
 
-Built by [Rajeev Joshi](https://github.com/Rajeev02)
+Built by [Rajeev Kumar Joshi](https://rajeev02.github.io) · [GitHub](https://github.com/Rajeev02) · [LinkedIn](https://www.linkedin.com/in/rajeev-joshi/)
 
 ---
 
@@ -328,4 +328,4 @@ open examples/vanilla-web-demo/index.html
 
 ## License
 
-MIT © 2026 Rajeev Joshi
+MIT © 2026 Rajeev Kumar Joshi

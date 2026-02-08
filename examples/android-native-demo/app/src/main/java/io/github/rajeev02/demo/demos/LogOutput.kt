@@ -1,4 +1,4 @@
-package com.rajeevsdk.demo.demos
+package io.github.rajeev02.demo.demos
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

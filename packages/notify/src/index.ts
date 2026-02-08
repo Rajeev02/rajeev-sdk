@@ -4,7 +4,7 @@
  * Unified Notification & Messaging Layer
  * Cross-platform: Android, iOS, Web, Watch, Auto
  *
- * @author Rajeev Joshi (https://github.com/Rajeev02)
+ * @author Rajeev Kumar Joshi (https://github.com/Rajeev02)
  * @license MIT
  */
 

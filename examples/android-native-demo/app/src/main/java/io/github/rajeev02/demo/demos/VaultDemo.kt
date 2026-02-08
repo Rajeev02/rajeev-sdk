@@ -1,4 +1,4 @@
-package com.rajeevsdk.demo.demos
+package io.github.rajeev02.demo.demos
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -40,7 +40,7 @@ fun VaultDemo() {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
                 log("[Vault] Created vault: config=AES_256_GCM, namespace=\"demo\"")
-                log("[Vault] Storage path: /data/data/com.rajeevsdk.demo/vault.db")
+                log("[Vault] Storage path: /data/data/io.github.rajeev02.demo/vault.db")
             }) { Text("Create Vault") }
 
             Button(onClick = {

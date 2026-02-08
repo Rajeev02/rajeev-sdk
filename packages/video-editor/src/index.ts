@@ -3,7 +3,7 @@
  * Video Editor — timeline, effects, transitions, export
  * Trim, merge, split, reorder, speed, filters, text, stickers, music, green screen
  *
- * @author Rajeev Joshi
+ * @author Rajeev Kumar Joshi
  * @license MIT
  */
 

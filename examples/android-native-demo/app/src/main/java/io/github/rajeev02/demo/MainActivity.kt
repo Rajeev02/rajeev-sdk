@@ -1,4 +1,4 @@
-package com.rajeevsdk.demo
+package io.github.rajeev02.demo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -1,4 +1,4 @@
-package com.rajeevsdk.vault
+package io.github.rajeev02.vault
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

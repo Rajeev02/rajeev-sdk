@@ -3,7 +3,7 @@
  * Document Picker, Editor & Signature
  * File picker, PDF annotation, stamps, form filling, digital signatures
  *
- * @author Rajeev Joshi
+ * @author Rajeev Kumar Joshi
  * @license MIT
  */
 

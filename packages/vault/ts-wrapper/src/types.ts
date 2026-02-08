@@ -2,7 +2,7 @@
  * @rajeev02/vault - Type Definitions
  *
  * Universal secure storage for React Native, Web, Watch, Auto, IoT
- * Built by Rajeev Joshi (https://github.com/Rajeev02)
+ * Built by Rajeev Kumar Joshi (https://github.com/Rajeev02)
  */
 
 /** Configuration for creating a vault instance */

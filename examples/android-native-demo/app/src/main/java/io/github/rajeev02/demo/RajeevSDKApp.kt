@@ -1,4 +1,4 @@
-package com.rajeevsdk.demo
+package io.github.rajeev02.demo
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,7 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.rajeevsdk.demo.demos.*
+import io.github.rajeev02.demo.demos.*
 
 data class LibraryItem(
     val name: String,

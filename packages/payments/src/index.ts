@@ -3,7 +3,7 @@
  * Payments Abstraction SDK — India focused
  * UPI, wallets, cards, subscriptions
  *
- * @author Rajeev Joshi
+ * @author Rajeev Kumar Joshi
  * @license MIT
  */
 export {

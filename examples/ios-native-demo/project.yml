@@ -1,6 +1,6 @@
 name: RajeevSDKDemo
 options:
-  bundleIdPrefix: com.rajeevsdk
+  bundleIdPrefix: io.github.rajeev02
   deploymentTarget:
     iOS: "16.0"
   xcodeVersion: "16.0"
@@ -14,7 +14,7 @@ targets:
       - RajeevSDKDemo
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.rajeevsdk.demo
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.rajeev02.demo
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
         INFOPLIST_GENERATION_MODE: GeneratedFile

@@ -3,7 +3,7 @@
  * Universal Deep Linking
  * App links, universal links, deferred deep links, route matching, attribution
  *
- * @author Rajeev Joshi
+ * @author Rajeev Kumar Joshi
  * @license MIT
  */
 export { DeepLinkRouter, getCommonRoutes } from "./router";
