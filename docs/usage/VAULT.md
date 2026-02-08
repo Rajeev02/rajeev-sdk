@@ -13,6 +13,21 @@
 
 ---
 
+## Prerequisites
+
+> **⚠️ This package includes a native Rust module** compiled via UniFFI (iOS/Android) and WASM (Web). It will NOT work in Expo Go or any JS-only environment.
+
+| Platform | Setup required |
+| -------- | -------------- |
+| **iOS** | Run `cd ios && pod install` after `npm install` |
+| **Android** | Rebuild your app (`npx react-native run-android` or `./gradlew assembleDebug`) |
+| **Web** | Import from `@rajeev02/vault/web` (WASM bundle auto-loaded) |
+| **Expo** | Must use a development build (`npx expo prebuild`) — Expo Go is not supported |
+
+The encrypted storage, crypto operations, and SQLite persistence all run in **native Rust** — not JavaScript. The native binary must be linked to your app at build time.
+
+---
+
 ## Installation
 
 ```bash

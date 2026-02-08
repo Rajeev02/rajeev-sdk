@@ -35,6 +35,57 @@ Built by [Rajeev Kumar Joshi](https://rajeev02.github.io) · [GitHub](https://gi
 
 > **115 Rust tests passing** across all 4 core crates. All 11 TypeScript packages compile clean under `--strict`.
 
+## Setup Requirements Per Package
+
+Each package is published to npm under the `@rajeev02` scope. Some packages are **ready to use out of the box**, while others need **external services or native libraries**. This table shows what each package requires:
+
+| Package | Type | Additional Setup Required |
+| ------- | ---- | ------------------------- |
+| **vault** | Rust native module | Native build required — `pod install` (iOS), rebuild (Android), WASM (Web). **Not compatible with Expo Go.** |
+| **network** | Rust native module | Same native setup as vault |
+| **sync** | Rust native module | Same native setup as vault |
+| **locale** | Rust native module | Same native setup as vault |
+| **ui** | Pure TypeScript | **None** — works immediately after `npm install` |
+| **notify** | Pure TypeScript | Needs a **notification delivery layer** (expo-notifications, @notifee/react-native, or FCM) to actually display notifications. Library manages scheduling state only. |
+| **auth** | Pure TypeScript | Needs a **backend server** with OTP sending (via Twilio/MSG91/Firebase Auth), token generation, and refresh endpoints. OAuth needs client IDs. |
+| **payments** | Pure TypeScript | Needs a **payment gateway** (Razorpay/Cashfree/Juspay) backend. Library generates UPI intents and validates cards — doesn't process payments. |
+| **camera** | Pure TypeScript | Needs a **native camera library** (expo-camera or react-native-vision-camera). Library manages state/filters/editing — doesn't access hardware. |
+| **deeplink** | Pure TypeScript | Needs **native URL scheme config** (iOS: Associated Domains, Android: intent filters). Library parses/routes URLs — doesn't receive them. |
+| **document** | Pure TypeScript | Needs a **PDF renderer** (react-native-pdf / pdf.js) and **file picker** (expo-document-picker). Library manages editing state. |
+| **edge-ai** | Pure TypeScript | Needs **OCR engine** (Google ML Kit / Apple Vision) for text extraction, **ML runtime** for model inference. Library parses pre-extracted text. |
+| **media** | Pure TypeScript | Needs a **native media player** (expo-av / react-native-video). DRM needs a license server. Library manages playback state. |
+| **video-editor** | Pure TypeScript | Needs a **video processing engine** (FFmpeg / AVFoundation / MediaCodec). Library manages timeline/editing state. |
+| **app-shell** | Pure TypeScript | Some modules need a **backend** (ApiClient, ChatEngine, AnalyticsEngine, FeatureFlagManager). CartManager and OnboardingManager work standalone. |
+
+> **📖 Each package README on npm has a detailed "⚠️ Important" section** explaining exactly what external services or libraries are needed, with links to recommended providers.
+
+## npm Packages
+
+All 12 packages are published on npm under the `@rajeev02` scope:
+
+```bash
+# Install any package
+npm install @rajeev02/vault
+npm install @rajeev02/auth
+npm install @rajeev02/payments
+# ... etc
+```
+
+| Package | npm |
+| ------- | --- |
+| `@rajeev02/vault` | [![npm](https://img.shields.io/npm/v/@rajeev02/vault.svg)](https://www.npmjs.com/package/@rajeev02/vault) |
+| `@rajeev02/notify` | [![npm](https://img.shields.io/npm/v/@rajeev02/notify.svg)](https://www.npmjs.com/package/@rajeev02/notify) |
+| `@rajeev02/ui` | [![npm](https://img.shields.io/npm/v/@rajeev02/ui.svg)](https://www.npmjs.com/package/@rajeev02/ui) |
+| `@rajeev02/auth` | [![npm](https://img.shields.io/npm/v/@rajeev02/auth.svg)](https://www.npmjs.com/package/@rajeev02/auth) |
+| `@rajeev02/payments` | [![npm](https://img.shields.io/npm/v/@rajeev02/payments.svg)](https://www.npmjs.com/package/@rajeev02/payments) |
+| `@rajeev02/camera` | [![npm](https://img.shields.io/npm/v/@rajeev02/camera.svg)](https://www.npmjs.com/package/@rajeev02/camera) |
+| `@rajeev02/deeplink` | [![npm](https://img.shields.io/npm/v/@rajeev02/deeplink.svg)](https://www.npmjs.com/package/@rajeev02/deeplink) |
+| `@rajeev02/document` | [![npm](https://img.shields.io/npm/v/@rajeev02/document.svg)](https://www.npmjs.com/package/@rajeev02/document) |
+| `@rajeev02/edge-ai` | [![npm](https://img.shields.io/npm/v/@rajeev02/edge-ai.svg)](https://www.npmjs.com/package/@rajeev02/edge-ai) |
+| `@rajeev02/media` | [![npm](https://img.shields.io/npm/v/@rajeev02/media.svg)](https://www.npmjs.com/package/@rajeev02/media) |
+| `@rajeev02/video-editor` | [![npm](https://img.shields.io/npm/v/@rajeev02/video-editor.svg)](https://www.npmjs.com/package/@rajeev02/video-editor) |
+| `@rajeev02/app-shell` | [![npm](https://img.shields.io/npm/v/@rajeev02/app-shell.svg)](https://www.npmjs.com/package/@rajeev02/app-shell) |
+
 ## Architecture
 
 ```
@@ -325,6 +376,105 @@ open examples/vanilla-web-demo/index.html
 | `@rajeev02/media`        | [MEDIA.md](docs/usage/MEDIA.md)               | Audio/video player, streaming, PiP, playlists            |
 | `@rajeev02/video-editor` | [VIDEO-EDITOR.md](docs/usage/VIDEO-EDITOR.md) | Trim, transitions, filters, multi-track, export          |
 | `@rajeev02/app-shell`    | [APP-SHELL.md](docs/usage/APP-SHELL.md)       | Bootstrap, feature flags, A/B testing, crash reporting   |
+
+## Release & Publishing
+
+All 12 TypeScript packages are published to npm under the `@rajeev02` scope. The monorepo includes a release script that handles version bumping, building, git tagging, and npm publishing in one step.
+
+### Quick Publish Commands
+
+```bash
+# Patch release (0.2.1 → 0.2.2) — all packages
+npm run release:patch
+
+# Minor release (0.2.x → 0.3.0) — all packages
+npm run release:minor
+
+# Major release (0.x.x → 1.0.0) — all packages
+npm run release:major
+
+# Dry run — see what would happen without publishing
+npm run release:dry
+```
+
+### Release Script (Advanced)
+
+The release script at `tools/release.js` supports fine-grained control:
+
+```bash
+# Publish specific packages only
+node tools/release.js --bump patch --packages vault notify auth
+
+# Set an exact version
+node tools/release.js --version 1.0.0
+
+# Pass OTP for npm 2FA
+node tools/release.js --bump patch --otp 123456
+
+# Skip git commit/push (useful for CI)
+node tools/release.js --bump patch --skip-git
+
+# Skip npm publish (version bump + build only)
+node tools/release.js --bump patch --skip-publish
+
+# Skip build step (if already built)
+node tools/release.js --bump patch --no-build
+```
+
+### Manual Step-by-Step Publish
+
+If you prefer to publish manually:
+
+```bash
+# 1. Bump versions across all packages
+node tools/bump-version.js patch   # or: minor, major, or exact like 1.0.0
+
+# 2. Build all TypeScript packages
+node tools/build-all-ts.js
+
+# 3. Commit & push
+git add -A
+git commit -m "chore: bump to vX.Y.Z"
+git push origin main
+
+# 4. Publish to npm (requires npm login + 2FA)
+node tools/publish-all.js
+
+# Or publish a single package
+cd packages/vault/ts-wrapper && npm publish --access public
+cd packages/notify && npm publish --access public
+```
+
+### npm Authentication
+
+Publishing requires authentication with the npm registry:
+
+```bash
+# Login (interactive — opens browser for 2FA)
+npm login
+
+# Or use an automation token (for CI/CD)
+npm config set //registry.npmjs.org/:_authToken=YOUR_TOKEN
+```
+
+> **Tip:** Create a Granular Access Token at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens) with **Read and write** permission scoped to `@rajeev02` packages for CI/CD pipelines.
+
+### Package Paths
+
+| Package | Source | Publishable Directory |
+| ------- | ------ | --------------------- |
+| vault | `packages/vault/ts-wrapper/` | `packages/vault/ts-wrapper/` |
+| notify | `packages/notify/` | `packages/notify/` |
+| ui | `packages/ui/` | `packages/ui/` |
+| auth | `packages/auth/` | `packages/auth/` |
+| payments | `packages/payments/` | `packages/payments/` |
+| camera | `packages/camera/` | `packages/camera/` |
+| deeplink | `packages/deeplink/` | `packages/deeplink/` |
+| document | `packages/document/` | `packages/document/` |
+| edge-ai | `packages/edge-ai/` | `packages/edge-ai/` |
+| media | `packages/media/` | `packages/media/` |
+| video-editor | `packages/video-editor/` | `packages/video-editor/` |
+| app-shell | `packages/app-shell/` | `packages/app-shell/` |
 
 ## License
 
