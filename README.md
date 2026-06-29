@@ -1,69 +1,71 @@
 # rajeev-sdk
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+> Cross-platform infrastructure libraries by Rajeev Kumar Joshi.
 
-Cross-platform infrastructure libraries and core components, designed for sharing high-performance logic across web, mobile, and edge environments.
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)]()
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## Overview
 
-The `rajeev-sdk` is a monorepo providing foundational building blocks for application development. It solves the problem of duplicating core business and infrastructure logic across multiple platforms by implementing critical components (like networking, secure storage, synchronization, and localization) in Rust. These components are then exposed to consumer applications via language-specific wrappers using UniFFI.
+`rajeev-sdk` is a modular, cross-platform infrastructure monorepo designed to eliminate business logic duplication across mobile, web, and edge environments. It centralizes critical operations—such as secure storage, network requests, data synchronization, and localization—into a high-performance, memory-safe Rust core.
 
-It is intended for developers building cross-platform applications who require consistent behavior, high performance, and memory safety at the infrastructure layer.
+These core components are exposed to native platforms and JavaScript runtimes via automatically generated type-safe bindings (using UniFFI and WebAssembly). The SDK also provides a comprehensive suite of front-end TypeScript packages for building robust application shells.
 
 ## Features
 
-* **Write Once, Run Anywhere** — Core infrastructure is implemented in Rust and compiled for iOS, Android, WebAssembly, and Node.js.
-* **Type-Safe Bindings** — Uses UniFFI to automatically generate native interfaces and TypeScript definitions from Rust code.
-* **Modular Architecture** — Packages are independently versioned and published, allowing consumers to include only necessary dependencies.
-* **Monorepo Tooling** — Leverages Turborepo and Yarn workspaces for fast, cached, and deterministic builds.
+* **Unified Rust Core**: Critical paths (cryptography in `vault`, offline-first synchronization in `sync`) are written once in Rust, ensuring deterministic behavior and memory safety across all platforms.
+* **Type-Safe FFI Boundaries**: Uses Mozilla's UniFFI and `wasm-bindgen` to emit idiomatic Swift, Kotlin, and TypeScript interfaces automatically.
+* **Pluggable Architecture**: Components are strictly isolated in a monorepo setup (managed by Turborepo and Cargo), allowing consumers to adopt packages incrementally.
+* **Zero-Knowledge Secure Storage**: The `vault` package utilizes AES-GCM and PBKDF2 for robust, cross-platform local encrypted storage (backed by SQLite/Rusqlite).
 
 ## Architecture
 
-The project follows a "hub and spoke" architectural model:
+The project employs a hub-and-spoke FFI architecture:
 
-1. **Rust Core (`rust-core`)**: The source of truth for business and infrastructure logic.
-2. **UniFFI Interface**: Defines the contract between the Rust core and foreign languages.
-3. **Language Wrappers (`ts-wrapper`)**: Idiomatic bindings generated for specific ecosystems.
+1. **Rust Core (`packages/<module>/rust-core`)**: The central implementation of all logic, state management, and side-effects.
+2. **FFI Layer**: UniFFI generates C-ABI bindings and native scaffolds. For the web, `wasm-bindgen` emits WebAssembly modules.
+3. **Language Wrappers (`packages/<module>/ts-wrapper`)**: Idiomatic TypeScript APIs that internally call the Rust Core.
 
 ## Technology Stack
 
-| Category       | Technology |
-| -------------- | ---------- |
-| Language       | Rust, TypeScript |
-| Build System   | Turborepo, Cargo, Yarn Workspaces |
-| FFI Generator  | UniFFI (Mozilla) |
-| Runtime        | Node.js (>=18.0.0) |
+| Category | Technology |
+| :--- | :--- |
+| **Languages** | Rust (Edition 2024), TypeScript (5.9) |
+| **Build Systems** | Turborepo, Cargo, Yarn 1.x |
+| **FFI & Bindings** | UniFFI, `wasm-bindgen` |
+| **Core Libraries** | `serde`, `thiserror`, `aes-gcm`, `rusqlite`, `tokio` |
+| **Runtimes** | Node.js (>=18.0.0), WebAssembly, iOS Native, Android Native |
 
 ## Project Structure
 
 ```text
 rajeev-sdk/
 ├── packages/
-│   ├── vault/           # Secure storage (Rust core + TS wrappers)
-│   ├── network/         # Networking layer (Rust core + TS wrappers)
-│   ├── sync/            # Data synchronization (Rust core + TS wrappers)
-│   ├── locale/          # i18n & l10n (Rust core + TS wrappers)
-│   ├── ui/              # Shared UI components
-│   ├── auth/            # Authentication workflows
-│   ├── media/           # Media processing utilities
-│   └── ...              # Other functional modules
-├── examples/            # Example applications consuming the SDK
-├── tools/               # Build scripts and release automation
-├── Cargo.toml           # Rust workspace configuration
-└── package.json         # Node workspace & Turborepo configuration
+│   ├── vault/           # Secure storage (AES-GCM, SQLite)
+│   ├── network/         # Networking layer
+│   ├── sync/            # Offline-first data synchronization
+│   ├── locale/          # Internationalization & l10n
+│   ├── ui/              # Shared TS UI components
+│   ├── app-shell/       # Core application scaffolding
+│   ├── edge-ai/         # On-device AI processing utilities
+│   ├── media/           # Media and camera abstractions
+│   └── ...              # Other TS abstractions (auth, payments, etc.)
+├── examples/            # Reference integrations
+│   ├── campus-connect/  # Multi-platform demonstration apps (Web, iOS, Android, WatchOS)
+│   └── ...
+├── tools/               # Release automation and platform-specific build scripts
+├── Cargo.toml           # Root Cargo workspace manifest
+└── package.json         # Root Node/Yarn workspace and Turborepo configuration
 ```
 
 ## Prerequisites
 
-To build and run the SDK locally, you must have the following installed:
+* **Node.js** `>= 18.0.0`
+* **Yarn** `1.x` (Classic)
+* **Rust Toolchain** (latest stable via `rustup`)
+* Platform-specific build chains (Xcode for iOS, Android Studio/NDK for Android)
 
-* Node.js `>= 18.0.0`
-* Yarn `1.x` (Classic)
-* Rust toolchain (via `rustup`)
-* Platform-specific build tools for iOS/Android (if building mobile targets)
-
-## Installation
+## Installation & Setup
 
 1. **Clone the repository:**
    ```bash
@@ -76,62 +78,56 @@ To build and run the SDK locally, you must have the following installed:
    yarn install
    ```
 
-3. **Build the Rust core libraries:**
+3. **Build the Rust Core (Wasm/Native):**
    ```bash
    npm run build:rust
    ```
 
-4. **Build the TypeScript wrappers:**
+4. **Build the TypeScript Wrappers:**
    ```bash
    npm run build:ts
    ```
 
-## Development Workflow
+## Development & Build Commands
 
-The repository includes several npm scripts to streamline local development:
+The repository leverages Turborepo for task orchestration. Common commands include:
 
 | Command | Description |
-| ------- | ----------- |
-| `npm run build` | Builds both Rust and TS packages (via Turborepo). |
-| `npm run build:vault:ios` | Builds the vault module specifically for iOS. |
-| `npm run build:vault:android` | Builds the vault module specifically for Android. |
-| `npm run build:vault:wasm` | Builds the vault module for WebAssembly. |
-| `npm run test:rust` | Runs the Cargo test suite across all Rust workspaces. |
-| `npm run test:ts` | Runs the test suite for all TypeScript packages. |
-| `npm run clean` | Cleans Cargo build artifacts and Yarn `dist` folders. |
+| :--- | :--- |
+| `npm run build` | Full workspace build (Rust + TypeScript). |
+| `npm run build:vault:ios` | Builds the vault module specifically for iOS targets. |
+| `npm run build:vault:android`| Builds the vault module specifically for Android (JNI). |
+| `npm run build:vault:wasm` | Compiles the vault module to WebAssembly. |
+| `npm run clean` | Cleans Cargo targets and removes `dist`/`node_modules` across the tree. |
 
 ## Testing
 
-The project maintains separate testing pipelines for Rust and TypeScript.
+Testing is split across the Rust backend and the TypeScript frontend.
 
-**Run Rust tests:**
+**Run Rust Unit & Integration Tests:**
 ```bash
-cargo test --workspace
+npm run test:rust
+# or directly: cargo test --workspace
 ```
-*Alternatively: `npm run test:rust`*
 
-**Run TypeScript tests:**
+**Run TypeScript Tests:**
 ```bash
-yarn workspaces foreach run test
+npm run test:ts
+# or directly: yarn workspaces foreach run test
 ```
-*Alternatively: `npm run test:ts`*
 
-## Deployment / Publishing
+## Deployment & Publishing
 
-Package publishing is automated via custom scripts located in the `tools/` directory.
+The `tools/` directory contains custom automation for semantic versioning and package registry publishing.
 
-To release a new version across all packages:
-
-1. **Dry Run (Verify changes):**
+1. **Verify Release (Dry Run):**
    ```bash
    npm run release:dry
    ```
-
-2. **Bump Versions:**
+2. **Bump Versions (Patch/Minor/Major):**
    ```bash
-   npm run release:patch  # Or minor/major
+   npm run release:patch
    ```
-
 3. **Publish to Registry:**
    ```bash
    npm run publish:all
@@ -139,10 +135,10 @@ To release a new version across all packages:
 
 ## Contributing
 
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/your-feature-name`).
-3. Ensure all tests pass (`npm run test:rust` and `npm run test:ts`).
-4. Submit a Pull Request targeting the `main` branch.
+1. Fork the repository and branch from `main`.
+2. Implement your feature or bug fix within the appropriate `rust-core` or TS package.
+3. Verify that `npm run test:rust` and `npm run test:ts` pass.
+4. Submit a Pull Request. Ensure that API changes in Rust are reflected in UniFFI definitions.
 
 ## License
 
