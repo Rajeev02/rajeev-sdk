@@ -1,8 +1,7 @@
 # rajeev-sdk
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)]()
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Build](https://github.com/Rajeev02/rajeev-sdk/actions/workflows/build.yml/badge.svg)]()
 
 Cross-platform infrastructure libraries and core components, designed for sharing high-performance logic across web, mobile, and edge environments.
 
